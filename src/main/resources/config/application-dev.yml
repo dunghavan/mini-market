@@ -45,7 +45,7 @@ spring:
         type: com.zaxxer.hikari.HikariDataSource
         url: jdbc:mysql://localhost:3306/mini_market?useUnicode=true&characterEncoding=utf8&useSSL=false
         username: root
-        password:
+        password: root
         hikari:
             auto-commit: false
             data-source-properties:
@@ -90,7 +90,7 @@ spring:
                 enabled: true
 
 server:
-    port: 8080
+    port: 8081
 
 # ===================================================================
 # JHipster specific properties

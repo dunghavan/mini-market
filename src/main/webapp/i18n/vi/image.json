@@ -1,0 +1,26 @@
+
+{
+    "miniMarketApp": {
+        "image" : {
+            "home": {
+                "title": "Images",
+                "createLabel": "Thêm mới một Image",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Image",
+                "search": "Tìm Image"
+            },
+            "created": "Một Image mới được tạo với định danh {{ param }}",
+            "updated": "Một Image cập nhật với định danh {{ param }}",
+            "deleted": "Một Image đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Image {{ id }}?"
+            },
+            "detail": {
+                "title": "Image"
+            },
+            "name": "Name",
+            "desc": "Desc",
+            "content": "Content",
+            "item": "Item"
+        }
+    }
+}

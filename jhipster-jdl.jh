@@ -1,0 +1,25 @@
+
+entity Item {
+	name String,
+    desc String,
+    price Integer,
+    status String,
+    note String
+}
+
+entity Image {
+	name String,
+	desc String,
+	content String
+}
+
+relationship ManyToOne {
+	Image{item(name)} to Item
+}
+
+// Set pagination options
+//paginate JobHistory, Employee with infinite-scroll
+paginate all with pagination
+
+service all with serviceImpl
+

@@ -52,8 +52,8 @@ public class ImageResourceIntTest {
     private static final String DEFAULT_DESC = "AAAAAAAAAA";
     private static final String UPDATED_DESC = "BBBBBBBBBB";
 
-    private static final String DEFAULT_CONTENT = "AAAAAAAAAA";
-    private static final String UPDATED_CONTENT = "BBBBBBBBBB";
+    private static final byte[] DEFAULT_CONTENT = "AAAAAAAAAA".getBytes();
+    private static final byte[] UPDATED_CONTENT = "BBBBBBBBBB".getBytes();
 
     @Autowired
     private ImageRepository imageRepository;

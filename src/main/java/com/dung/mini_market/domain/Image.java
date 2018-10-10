@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -29,7 +30,7 @@ public class Image implements Serializable {
     private String desc;
 
     @Column(name = "content")
-    private String content;
+    private byte[] content;
 
     @ManyToOne
     @JsonIgnoreProperties("")
@@ -70,16 +71,16 @@ public class Image implements Serializable {
         this.desc = desc;
     }
 
-    public String getContent() {
+    public byte[] getContent() {
         return content;
     }
 
-    public Image content(String content) {
+    public Image content(byte[] content) {
         this.content = content;
         return this;
     }
 
-    public void setContent(String content) {
+    public void setContent(byte[] content) {
         this.content = content;
     }
 
@@ -123,7 +124,7 @@ public class Image implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", desc='" + getDesc() + "'" +
-            ", content='" + getContent() + "'" +
+            ", content='" + Arrays.toString(getContent()) + "'" +
             "}";
     }
 }

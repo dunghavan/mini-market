@@ -11,7 +11,7 @@ import { ItemService } from 'app/entities/item';
 
 @Component({
     selector: 'jhi-image-update',
-    templateUrl: './image-update.component.html'
+    templateUrl: './image-update.component.html',
 })
 export class ImageUpdateComponent implements OnInit {
     private _image: IImage;

@@ -11,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -34,6 +33,25 @@ public class ImageServiceImpl implements ImageService {
         this.imageSearchRepository = imageSearchRepository;
     }
 
+//    public void testSaveImage() {
+//        File file = new File("content/images/hipster.png");
+//        byte[] bFile = new byte[(int) file.length()];
+//
+//        try {
+//            FileInputStream fileInputStream = new FileInputStream(file);
+//            fileInputStream.read(bFile);
+//            fileInputStream.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        Image image = new Image();
+//        image.setName("Ext JS 4 First Look");
+//        image.setContent(bFile);
+//
+//        Image result = imageRepository.save(image);
+//        int a = 0;
+//    }
     /**
      * Save a image.
      *

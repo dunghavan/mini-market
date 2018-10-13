@@ -33,6 +33,16 @@ public class Image implements Serializable {
     @JsonIgnoreProperties("")
     private Item item;
 
+    public Image() {
+
+    }
+    public Image(String name, String desc, String content, long itemId) {
+        this.name = name;
+        this.desc = desc;
+        this.content = content;
+        this.item = new Item(itemId);
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;

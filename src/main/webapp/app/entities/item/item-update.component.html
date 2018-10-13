@@ -37,21 +37,22 @@
                                        (change)="handleFileInput($event.target.files)">
                                 <label class="form-control-label">Images should be 160x160 pixels</label>
                             </div>
-                            <div class="btn-toolbar">
-                                <div class="mr-2 mt-2">
-                                    <button type="button" [disabled]="files === undefined || files.length == 0" class="btn btn-primary" (click)="upLoadFiles()">
-                                        <span class="fa fa-tags"></span>&nbsp;<span>Upload</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <!--<div class="mt-2">-->
-                            <!--<ngb-alert *ngIf="uploadMessageError" type="danger">{{ uploadMessageError }}</ngb-alert>-->
-                            <!--<ngb-alert *ngIf="uploadMessageSuccess" type="success">{{ uploadMessageSuccess }}</ngb-alert>-->
+                            <!--<div class="btn-toolbar">-->
+                                <!--<div class="mr-2 mt-2">-->
+                                    <!--<button type="button" [disabled]="files === undefined || files.length == 0" class="btn btn-primary" (click)="upLoadFiles()">-->
+                                        <!--<span class="fa fa-tags"></span>&nbsp;<span>Upload</span>-->
+                                    <!--</button>-->
+                                <!--</div>-->
                             <!--</div>-->
+                            <div class="mt-2">
+                                <p *ngIf="errorMessage.isShow" style="color: red;">{{ errorMessage.msg }}</p>
+                                <p *ngIf="successMessage.isShow" style="color: green;">{{ successMessage.msg }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <img src="http://localhost:8888/{{myImage}}" width="200px" height="200px">
+                <!--<div *ngIf=""></div>-->
+                <!--<img src="http://localhost:8888/{{myImage}}" width="200px" height="200px">-->
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="miniMarketApp.item.status" for="field_status">Status</label>
                     <input type="text" class="form-control" name="status" id="field_status"

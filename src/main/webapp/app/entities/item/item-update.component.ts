@@ -6,18 +6,29 @@ import { Observable } from 'rxjs';
 import { IItem } from 'app/shared/model/item.model';
 import { ItemService } from './item.service';
 
+
+interface ModalMessage {
+    isShow: boolean,
+    msg: string
+}
+
 @Component({
     selector: 'jhi-item-update',
     templateUrl: './item-update.component.html'
 })
+
 export class ItemUpdateComponent implements OnInit {
     private _item: IItem;
     isSaving: boolean;
     files: FileList;
+    errorMessage: ModalMessage;
+    successMessage: ModalMessage;
 
     constructor(private itemService: ItemService, private activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
+        this.errorMessage = {isShow: false, msg: ''};
+        this.successMessage = {isShow: false, msg: ''};
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ item }) => {
             this.item = item;
@@ -32,24 +43,29 @@ export class ItemUpdateComponent implements OnInit {
         this.files = files;
     }
 
-    upLoadFiles() {
+    upLoadFiles(itemId: number) {
         const formData = new FormData();
         console.log('this.files: ', this.files);
         for (let i = 0; i < this.files.length; i++) {
             formData.append('file', this.files.item(i), this.files.item(i).name);
         }
+        formData.set('itemId', String(itemId));
         console.log('begin upload...: ');
         this.itemService.uploadFiles(formData).subscribe(
-            (data) => {
-                //this.myImage = data.body['name'];
-                console.log('upload done with imageName: ', data.body);
-            },
-            (err: HttpErrorResponse) => {
-                console.log('upload error: ', err);
-                // this.uploadMessageError = err.message;
-                // this.timer = setTimeout(() => this.uploadMessageError = null, 3000);
-            }
+            (res) => this.onUploadSuccess(res.body),
+            (err: HttpErrorResponse) => this.onUploadError(err.message)
         );
+    }
+
+    private onUploadSuccess(result: any) {
+        this.isSaving = false;
+        console.log('upload done: ', result);
+        this.showSuccessMsg('upload images success');
+    }
+    private onUploadError(msg: string) {
+        this.isSaving = false;
+        console.log('upload error: ', msg);
+        this.showErrorMsg('upload images failed');
     }
 
     save() {
@@ -62,17 +78,32 @@ export class ItemUpdateComponent implements OnInit {
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IItem>>) {
-        result.subscribe((res: HttpResponse<IItem>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+        result.subscribe((res: HttpResponse<IItem>) => this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError(res.message));
     }
 
-    private onSaveSuccess() {
+    private onSaveSuccess(result: IItem) {
         this.isSaving = false;
-        this.previousState();
+        this.upLoadFiles(result.id);
+        this.showSuccessMsg("save item success");
+    }
+    private onSaveError(err: string) {
+        this.isSaving = false;
+        this.showErrorMsg('save item failed');
     }
 
-    private onSaveError() {
-        this.isSaving = false;
+    showSuccessMsg(_msg: string) {
+        this.errorMessage.isShow = false;
+
+        this.successMessage.isShow = true;
+        this.successMessage.msg = _msg;
     }
+    showErrorMsg(_msg: string) {
+        this.successMessage.isShow = false;
+
+        this.errorMessage.isShow = true;
+        this.errorMessage.msg = _msg;
+    }
+
     get item() {
         return this._item;
     }

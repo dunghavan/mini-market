@@ -72,27 +72,32 @@ public class ImageResource {
 
     @PostMapping("/images-upload")
     @Timed
-    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile[] file) throws URISyntaxException {
-        byte[] bytes;
+    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile[] file, @RequestParam("itemId") String[] itemId) {
         String storeFilename = "";
+        if (itemId.length == 0)
+            return null;
+        String itemIdToSave = itemId[0];
         try {
-            log.debug("REST request to save Image : {}", file[0].getName());
-            bytes = file[0].getBytes();
-            String sha1String = DigestUtils.sha1Hex(bytes);
-            storeFilename = sha1String + "." + FilenameUtils.getExtension(file[0].getOriginalFilename());
+            log.debug("REST request to save Image with itemId: {}", itemId[0]);
 
-            Path path = Paths.get("/home/dunghv/image" + "/" + storeFilename);
-            Files.write(path, bytes);
+            byte[] bytes;
+            for (MultipartFile f: file) {
+                bytes = f.getBytes();
+                String sha1String = DigestUtils.sha1Hex(bytes);
+                storeFilename = sha1String + "." + FilenameUtils.getExtension(f.getOriginalFilename());
+
+                Path path = Paths.get("/home/dunghv/image" + "/" + storeFilename);
+                Files.write(path, bytes);
+
+                imageService.save(new Image(storeFilename, "", "", Long.parseLong(itemIdToSave)));
+            }
         } catch (IOException e) {
             e.printStackTrace();
+            throw new BadRequestAlertException("Cannot upload image", ENTITY_NAME, "idexists");
         }
-//        if (image.getId() != null) {
-//            throw new BadRequestAlertException("A new image cannot already have an ID", ENTITY_NAME, "idexists");
-//        }
-        //Image result = imageService.save(image);
-        return ResponseEntity.created(new URI("/api/images/"))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, "id"))
-            .body("{ \"name\": \"" + storeFilename + "\"}");
+
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, itemIdToSave)).build();
     }
 
     /**

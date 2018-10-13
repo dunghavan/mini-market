@@ -13,12 +13,6 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
-eureka:
-    client:
-        enabled: false
-    instance:
-        appname: mini_market
-        instanceId: mini_market:${spring.application.instance-id:${random.value}}
 
 spring:
     application:
@@ -48,11 +42,6 @@ spring:
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: true
             hibernate.hbm2ddl.auto: validate
-    data:
-        elasticsearch:
-            properties:
-                path:
-                    home: target/elasticsearch
     liquibase:
         contexts: test
     mail:
@@ -99,7 +88,7 @@ jhipster:
         authentication:
             jwt:
                 # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
-                base64-secret: ZTdjYzdiOGM1N2JiZWE2ZTMyYzNlNDU1NTZmYjVkY2EwNDBlODlmNWVmYzkyZjhhZjg4OWRlNzQzYjU0NWIxYmRmOWNhYTFmZWNmYzU5NDY3ZWRmYmViNGUwZDMyZjY4MGMxMTdmNmZmZmJmNDI5NzkyNjkwOTRiMzM0YjAyZDk=
+                base64-secret: YjgzM2Q3YTA1ODM5OTM3OTc3NzQ5ODI1OTkzZmFiZGM0MDE1MjFhMjdmYWQ5ZWIzYjRkYWM5ZmQyMmZlYmE3MGQ1NzZmNTNmNzk0ZDk4ODE3NTM5M2VmY2M5MjRmYzA3NDAwMmZlMmQwODJlYzViODc2MmQzODg2YmQwY2JhNmQ=
                 # Token is valid 24 hours
                 token-validity-in-seconds: 86400
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration

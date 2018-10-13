@@ -18,6 +18,8 @@ export class ImageUpdateComponent implements OnInit {
     isSaving: boolean;
 
     items: IItem[];
+    public files: FileList;
+    private myImage: any;
 
     constructor(
         private jhiAlertService: JhiAlertService,
@@ -27,6 +29,7 @@ export class ImageUpdateComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        console.log('run image-update.component');
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ image }) => {
             this.image = image;

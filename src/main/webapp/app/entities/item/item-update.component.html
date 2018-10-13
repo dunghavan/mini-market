@@ -24,6 +24,34 @@
                     <input type="number" class="form-control" name="price" id="field_price"
                         [(ngModel)]="item.price" />
                 </div>
+                <div class="radius-border mt-5">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <h3><label class="form-control-label">Upload images</label></h3>
+                            </div>
+                            <div>
+                                <input type="file"
+                                       id="file"
+                                       multiple
+                                       (change)="handleFileInput($event.target.files)">
+                                <label class="form-control-label">Images should be 160x160 pixels</label>
+                            </div>
+                            <div class="btn-toolbar">
+                                <div class="mr-2 mt-2">
+                                    <button type="button" [disabled]="files === undefined || files.length == 0" class="btn btn-primary" (click)="upLoadFiles()">
+                                        <span class="fa fa-tags"></span>&nbsp;<span>Upload</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <!--<div class="mt-2">-->
+                            <!--<ngb-alert *ngIf="uploadMessageError" type="danger">{{ uploadMessageError }}</ngb-alert>-->
+                            <!--<ngb-alert *ngIf="uploadMessageSuccess" type="success">{{ uploadMessageSuccess }}</ngb-alert>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+                <img src="http://localhost:8888/{{myImage}}" width="200px" height="200px">
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="miniMarketApp.item.status" for="field_status">Status</label>
                     <input type="text" class="form-control" name="status" id="field_status"

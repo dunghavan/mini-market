@@ -7,6 +7,8 @@ import com.dung.mini_market.web.rest.errors.BadRequestAlertException;
 import com.dung.mini_market.web.rest.util.HeaderUtil;
 import com.dung.mini_market.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -15,10 +17,19 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,6 +68,31 @@ public class ImageResource {
         return ResponseEntity.created(new URI("/api/images/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
+    }
+
+    @PostMapping("/images-upload")
+    @Timed
+    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile[] file) throws URISyntaxException {
+        byte[] bytes;
+        String storeFilename = "";
+        try {
+            log.debug("REST request to save Image : {}", file[0].getName());
+            bytes = file[0].getBytes();
+            String sha1String = DigestUtils.sha1Hex(bytes);
+            storeFilename = sha1String + "." + FilenameUtils.getExtension(file[0].getOriginalFilename());
+
+            Path path = Paths.get("/home/dunghv/image" + "/" + storeFilename);
+            Files.write(path, bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        if (image.getId() != null) {
+//            throw new BadRequestAlertException("A new image cannot already have an ID", ENTITY_NAME, "idexists");
+//        }
+        //Image result = imageService.save(image);
+        return ResponseEntity.created(new URI("/api/images/"))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, "id"))
+            .body("{ \"name\": \"" + storeFilename + "\"}");
     }
 
     /**

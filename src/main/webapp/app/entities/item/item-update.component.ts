@@ -13,6 +13,7 @@ import { ItemService } from './item.service';
 export class ItemUpdateComponent implements OnInit {
     private _item: IItem;
     isSaving: boolean;
+    files: FileList;
 
     constructor(private itemService: ItemService, private activatedRoute: ActivatedRoute) {}
 
@@ -25,6 +26,30 @@ export class ItemUpdateComponent implements OnInit {
 
     previousState() {
         window.history.back();
+    }
+
+    handleFileInput(files: FileList) {
+        this.files = files;
+    }
+
+    upLoadFiles() {
+        const formData = new FormData();
+        console.log('this.files: ', this.files);
+        for (let i = 0; i < this.files.length; i++) {
+            formData.append('file', this.files.item(i), this.files.item(i).name);
+        }
+        console.log('begin upload...: ');
+        this.itemService.uploadFiles(formData).subscribe(
+            (data) => {
+                //this.myImage = data.body['name'];
+                console.log('upload done with imageName: ', data.body);
+            },
+            (err: HttpErrorResponse) => {
+                console.log('upload error: ', err);
+                // this.uploadMessageError = err.message;
+                // this.timer = setTimeout(() => this.uploadMessageError = null, 3000);
+            }
+        );
     }
 
     save() {

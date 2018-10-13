@@ -19,6 +19,12 @@ export class ItemService {
         return this.http.post<IItem>(this.resourceUrl, item, { observe: 'response' });
     }
 
+    uploadFiles(fd: FormData): Observable<HttpResponse<[Uint16Array]>> {
+        const url = SERVER_API_URL + 'api/images-upload';
+        console.log('post form data: ', fd.get('file'));
+        return this.http.post<any>(url, fd, {observe: 'response'});
+    }
+
     update(item: IItem): Observable<EntityResponseType> {
         return this.http.put<IItem>(this.resourceUrl, item, { observe: 'response' });
     }

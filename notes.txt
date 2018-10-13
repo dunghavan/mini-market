@@ -1,0 +1,5 @@
+1. Add fields of Item:
+- Ngay dang
+- Tinh trang
+
+2. Xem NGINX

@@ -27,6 +27,11 @@ export class ImageService {
         return this.http.get<IImage>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
+    findByItemId(itemId: number, req?: any): Observable<EntityArrayResponseType> {
+        const options = createRequestOption(req);
+        return this.http.get<IImage[]>(this.resourceUrl + '/get-by-item-id/' + itemId, { params: options, observe: 'response' });
+    }
+
     query(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http.get<IImage[]>(this.resourceUrl, { params: options, observe: 'response' });

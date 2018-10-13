@@ -28,7 +28,7 @@ public interface ImageService {
      */
     Page<Image> findAll(Pageable pageable);
 
-
+    Page<Image> findAllByItemId(Pageable pageable, Long itemId);
     /**
      * Get the "id" image.
      *

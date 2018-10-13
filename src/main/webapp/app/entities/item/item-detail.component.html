@@ -4,6 +4,12 @@
             <h2><span jhiTranslate="miniMarketApp.item.detail.title">Item</span> {{item.id}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
+
+            <div *ngIf="images" class="row form-group">
+                <div class="col-3 mr-1" *ngFor="let image of images; trackBy: trackByFn">
+                    <img src="http://localhost:8888/{{image.name}}" width="200px" height="160px">
+                </div>
+            </div>
             <dl class="row-md jh-entity-details">
                 <dt><span jhiTranslate="miniMarketApp.item.name">Name</span></dt>
                 <dd>

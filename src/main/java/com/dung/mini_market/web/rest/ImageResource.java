@@ -137,6 +137,14 @@ public class ImageResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    @GetMapping("/images/get-by-item-id/{itemId}")
+    @Timed
+    public ResponseEntity<List<Image>> getImagesByItemId(Pageable pageable, @PathVariable Long itemId) {
+        log.debug("REST request to get Images by Item id = {}", itemId);
+        Page<Image> page = imageService.findAllByItemId(pageable, itemId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/images");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
     /**
      * GET  /images/:id : get the "id" image.
      *

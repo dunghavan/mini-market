@@ -53,6 +53,12 @@ public class ImageServiceImpl implements ImageService {
         return imageRepository.findAll(pageable);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Image> findAllByItemId(Pageable pageable, Long itemId) {
+        log.debug("Request to get Images item id");
+        return imageRepository.findAllByItemId(pageable, itemId);
+    }
 
     /**
      * Get one image by id.

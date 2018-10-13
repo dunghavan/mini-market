@@ -8,8 +8,8 @@ import { ItemService } from './item.service';
 
 
 interface ModalMessage {
-    isShow: boolean,
-    msg: string
+    isShow: boolean;
+    msg: string;
 }
 
 @Component({
@@ -44,13 +44,14 @@ export class ItemUpdateComponent implements OnInit {
 
         // preview image before upload
         if (event.target.files && event.target.files.length !== 0) {
-            for(let i = 0; i < this.files.length; i++) {
+            for (let i = 0; i < this.files.length; i++) {
                 const reader = new FileReader();
 
                 reader.readAsDataURL(this.files[i]); // read file as data url
                 reader.onload = (_event) => { // called once readAsDataURL is completed
+                    // @ts-ignore
                     this.files[i]['tempUrl'] = _event.target.result;
-                }
+                };
             }
         }
     }
@@ -73,6 +74,7 @@ export class ItemUpdateComponent implements OnInit {
         this.isSaving = false;
         console.log('upload done: ', result);
         this.showSuccessMsg('upload images success');
+        this.previousState();
     }
     private onUploadError(msg: string) {
         this.isSaving = false;
@@ -96,7 +98,7 @@ export class ItemUpdateComponent implements OnInit {
     private onSaveSuccess(result: IItem) {
         this.isSaving = false;
         this.upLoadFiles(result.id);
-        this.showSuccessMsg("save item success");
+        this.showSuccessMsg('save item success');
     }
     private onSaveError(err: string) {
         this.isSaving = false;

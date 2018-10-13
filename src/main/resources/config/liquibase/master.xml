@@ -12,5 +12,7 @@
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 
     <include file="config/liquibase/changelog/01_update_column_content_in_Image.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/02_add_foreign_key_Item_to_User.xml" relativeToChangelogFile="false"/>
+
 
 </databaseChangeLog>

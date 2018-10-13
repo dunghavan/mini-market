@@ -1,6 +1,8 @@
 package com.dung.mini_market.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 import java.io.Serializable;
@@ -33,6 +35,18 @@ public class Item implements Serializable {
 
     @Column(name = "note")
     private String note;
+
+    @ManyToOne
+    @JsonIgnoreProperties("")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {

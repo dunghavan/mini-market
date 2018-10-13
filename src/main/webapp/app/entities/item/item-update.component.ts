@@ -39,8 +39,20 @@ export class ItemUpdateComponent implements OnInit {
         window.history.back();
     }
 
-    handleFileInput(files: FileList) {
-        this.files = files;
+    handleFileInput(event: any) {
+        this.files = event.target.files;
+
+        // preview image before upload
+        if (event.target.files && event.target.files.length !== 0) {
+            for(let i = 0; i < this.files.length; i++) {
+                const reader = new FileReader();
+
+                reader.readAsDataURL(this.files[i]); // read file as data url
+                reader.onload = (_event) => { // called once readAsDataURL is completed
+                    this.files[i]['tempUrl'] = _event.target.result;
+                }
+            }
+        }
     }
 
     upLoadFiles(itemId: number) {
@@ -102,6 +114,10 @@ export class ItemUpdateComponent implements OnInit {
 
         this.errorMessage.isShow = true;
         this.errorMessage.msg = _msg;
+    }
+
+    trackByFn(item: any) {
+        return item.id;
     }
 
     get item() {

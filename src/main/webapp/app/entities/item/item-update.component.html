@@ -34,8 +34,14 @@
                                 <input type="file"
                                        id="file"
                                        multiple
-                                       (change)="handleFileInput($event.target.files)">
-                                <label class="form-control-label">Images should be 160x160 pixels</label>
+                                       (change)="handleFileInput($event)">
+                            </div>
+                            <div *ngIf="files && files.length !== 0">
+                                <div class="row mt-2">
+                                    <div class="col-3 mr-1" *ngFor="let file of files; trackBy: trackByFn">
+                                        <img src="{{file.tempUrl}}" width="200px" height="160px">
+                                    </div>
+                                </div>
                             </div>
                             <!--<div class="btn-toolbar">-->
                                 <!--<div class="mr-2 mt-2">-->

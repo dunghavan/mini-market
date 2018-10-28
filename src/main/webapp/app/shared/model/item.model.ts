@@ -5,6 +5,8 @@ export interface IItem {
     price?: number;
     status?: string;
     note?: string;
+    deliveryWay?: string;
+    address?: string;
     createdDate?: Date;
     lastModifiedDate?: Date;
 }
@@ -17,6 +19,8 @@ export class Item implements IItem {
         public price?: number,
         public status?: string,
         public note?: string,
+        public deliveryWay?: string,
+        public address?: string,
         public createdDate?: Date,
         public lastModifiedDate?: Date
     ) {}

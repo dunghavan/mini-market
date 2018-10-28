@@ -43,7 +43,7 @@ export class ItemUpdateComponent implements OnInit {
         this.files = event.target.files;
 
         // preview image before upload
-        if (event.target.files && event.target.files.length !== 0) {
+        if (this.files !== undefined && this.files.length !== 0) {
             for (let i = 0; i < this.files.length; i++) {
                 const reader = new FileReader();
 
@@ -59,6 +59,9 @@ export class ItemUpdateComponent implements OnInit {
     upLoadFiles(itemId: number) {
         const formData = new FormData();
         console.log('this.files: ', this.files);
+        if (this.files === undefined || this.files.length === 0) {
+            return;
+        }
         for (let i = 0; i < this.files.length; i++) {
             formData.append('file', this.files.item(i), this.files.item(i).name);
         }
@@ -83,6 +86,7 @@ export class ItemUpdateComponent implements OnInit {
     }
 
     save() {
+        console.log('save');
         this.isSaving = true;
         if (this.item.id !== undefined) {
             this.subscribeToSaveResponse(this.itemService.update(this.item));

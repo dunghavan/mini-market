@@ -34,6 +34,12 @@ public class Item implements Serializable {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "delivery_way")
+    private String deliveryWay;
+
+    @Column(name = "address")
+    private String address;
+
     @Column(name = "note")
     private String note;
 
@@ -132,6 +138,22 @@ public class Item implements Serializable {
         return this;
     }
 
+    public String getDeliveryWay() {
+        return deliveryWay;
+    }
+
+    public void setDeliveryWay(String deliveryWay) {
+        this.deliveryWay = deliveryWay;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public void setNote(String note) {
         this.note = note;
     }
@@ -177,12 +199,17 @@ public class Item implements Serializable {
     @Override
     public String toString() {
         return "Item{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", desc='" + getDesc() + "'" +
-            ", price=" + getPrice() +
-            ", status='" + getStatus() + "'" +
-            ", note='" + getNote() + "'" +
-            "}";
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", desc='" + desc + '\'' +
+            ", price=" + price +
+            ", status='" + status + '\'' +
+            ", deliveryWay='" + deliveryWay + '\'' +
+            ", address='" + address + '\'' +
+            ", note='" + note + '\'' +
+            ", createdDate=" + createdDate +
+            ", lastModifiedDate=" + lastModifiedDate +
+            ", user=" + user +
+            '}';
     }
 }

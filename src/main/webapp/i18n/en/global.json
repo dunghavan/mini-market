@@ -9,6 +9,7 @@
                 "main": "Entities",
                 "item": "Item",
                 "image": "Image",
+                "type": "Type",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

@@ -53,12 +53,24 @@ public class Item implements Serializable {
     @JsonIgnoreProperties("")
     private User user;
 
+    @ManyToOne
+    @JsonIgnoreProperties("")
+    private Type type;
+
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -210,6 +222,7 @@ public class Item implements Serializable {
             ", createdDate=" + createdDate +
             ", lastModifiedDate=" + lastModifiedDate +
             ", user=" + user +
+            ", type=" + type +
             '}';
     }
 }

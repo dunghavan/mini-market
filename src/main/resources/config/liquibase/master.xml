@@ -16,6 +16,6 @@
     <include file="config/liquibase/changelog/02_add_foreign_key_Item_to_User.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/03_add_two_column_to_Item.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/04_add_two_column_to_Item.xml" relativeToChangelogFile="false"/>
-
+    <include file="config/liquibase/changelog/05_added_constraints_Item_Type.xml" relativeToChangelogFile="false"/>
 
 </databaseChangeLog>

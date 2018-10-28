@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 
 import { IItem } from 'app/shared/model/item.model';
 import { ItemService } from './item.service';
+import {IType} from 'app/shared/model/type.model';
+import {TypeService} from 'app/entities/type';
 
 
 interface ModalMessage {
@@ -19,12 +21,14 @@ interface ModalMessage {
 
 export class ItemUpdateComponent implements OnInit {
     private _item: IItem;
+    private types: IType[];
     isSaving: boolean;
     files: FileList;
     errorMessage: ModalMessage;
     successMessage: ModalMessage;
 
-    constructor(private itemService: ItemService, private activatedRoute: ActivatedRoute) {}
+    constructor(private itemService: ItemService, private activatedRoute: ActivatedRoute,
+                private typeService: TypeService) {}
 
     ngOnInit() {
         this.errorMessage = {isShow: false, msg: ''};
@@ -33,6 +37,15 @@ export class ItemUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ item }) => {
             this.item = item;
         });
+        this.types = [];
+        this.loadTypes();
+    }
+
+    loadTypes() {
+        this.typeService.query().subscribe(
+            (res: HttpResponse<IType[]>) => this.types = res.body,
+            (res: HttpErrorResponse) => console.log('get types err: ', res)
+        );
     }
 
     previousState() {

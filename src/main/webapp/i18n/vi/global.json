@@ -82,7 +82,7 @@
             }
         },
         "field": {
-            "id": "ID"
+            "id": "Mã mặt hàng"
         },
         "ribbon": {
             "dev":"Phát triển"

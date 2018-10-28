@@ -1,3 +1,5 @@
+import {Type} from "app/shared/model/type.model";
+
 export interface IItem {
     id?: number;
     name?: string;
@@ -9,6 +11,7 @@ export interface IItem {
     address?: string;
     createdDate?: Date;
     lastModifiedDate?: Date;
+    type?: Type;
 }
 
 export class Item implements IItem {
@@ -22,6 +25,7 @@ export class Item implements IItem {
         public deliveryWay?: string,
         public address?: string,
         public createdDate?: Date,
-        public lastModifiedDate?: Date
+        public lastModifiedDate?: Date,
+        public type?: Type,
     ) {}
 }

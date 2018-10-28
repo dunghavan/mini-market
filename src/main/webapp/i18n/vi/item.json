@@ -16,11 +16,11 @@
             "detail": {
                 "title": "Item"
             },
-            "name": "Name",
-            "desc": "Desc",
-            "price": "Price",
-            "status": "Status",
-            "note": "Note"
+            "name": "Tên mặt hàng",
+            "desc": "Mô tả mặt hàng",
+            "price": "Giá bán (vnđ)",
+            "status": "Trạng thái",
+            "note": "Ghi chú"
         }
     }
 }

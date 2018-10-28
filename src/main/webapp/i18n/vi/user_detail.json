@@ -1,0 +1,12 @@
+{
+    "miniMarketApp": {
+        "user" : {
+            "Name": "Ten nguoi ban: ",
+            "Address": "Dia chi: ",
+            "Phone_number": "So dien thoai: ",
+            "Email": "Email: ",
+            "Rating": "Danh gia: ",
+            "Number_rating": "So nguoi danh gia: "
+        }
+    }
+}

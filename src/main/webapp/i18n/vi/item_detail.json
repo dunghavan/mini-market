@@ -1,0 +1,13 @@
+{
+    "miniMarketApp": {
+        "item" : {
+            "Price": "Gia: ",
+            "Up_date": "Ngay dang: ",
+            "Type": "Loai hang: ",
+            "Sell_status": "Tinh trang ban: ",
+            "Current_status": "Tinh trang mat hang: ",
+            "Ship_type": "Hinh thuc ship: ",
+            "Description": "Mo ta mat hang: "
+        }
+    }
+}

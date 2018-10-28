@@ -1,0 +1,129 @@
+.header {
+    background-color: #f1f1f1;
+    color: black;
+    float: left;
+    width: 75%;
+}
+
+.image {
+    background-color: white;
+    float: left;
+    width: 50%;
+    height: 550px;
+}
+
+.split {
+    background-color: #f1f1f1;
+    float: inherit;
+    width: 0.1%;
+    height: 550px;
+}
+
+.item {
+    background-color: white;
+    float: right;
+    width: 49.9%;
+    height: 550px;
+}
+.content {
+    margin-top: 560px;
+    background-color: white;
+}
+
+.left_button {
+    float: left;
+    margin-top: 5%;
+    margin-left: 5%;
+}
+
+.right_button {
+    float: right;
+    margin-top: 5%;
+    margin-right: 5%;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.small_image {
+    margin-left: 15%;
+}
+
+.split_horizontal {
+    background-color: #f1f1f1;
+    float: inherit;
+    height: 2px;
+}
+
+.user {
+    background: white;
+    float: right;
+    width: 24.5%;
+}
+
+.background {
+    background-color: #f1f1f1;
+    color: black;
+    text-align: center;
+    display: inline-block;
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    left: 0;
+}
+
+.screen {
+    text-align: center;
+    background-color: #f1f1f1;
+    color: black;
+    background-size: cover;
+}
+
+a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+}
+
+a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.previous {
+    background-color: #f1f1f1;
+    color: black;
+}
+
+.next {
+    background-color: #f1f1f1;
+    color: black;
+}
+
+.round {
+    border-radius: 50%;
+}
+
+.detail_item {
+    float: left;
+    margin-left: 20px;
+    text-align: left;
+}
+
+.detail_user {
+    float: left;
+    margin-left: 20px;
+    text-align: left;
+}
+
+.description_text {
+    text-align: left;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 20px;
+}

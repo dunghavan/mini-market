@@ -1,0 +1,13 @@
+{
+    "miniMarketApp": {
+        "item" : {
+            "Price": "Price: ",
+            "Up_date": "Up data: ",
+            "Type": "Type: ",
+            "Sell_status": "Sell status: ",
+            "Current_status": "Current status: ",
+            "Ship_type": "Ship type: ",
+            "Description": "Description: "
+        }
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "miniMarketApp": {
+        "user" : {
+            "Name": "User name: ",
+            "Address": "Address: ",
+            "Phone_number": "Phone number: ",
+            "Email": "Email: ",
+            "Rating": "Rating: ",
+            "Number_rating": "Number rating: "
+        }
+    }
+}

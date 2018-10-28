@@ -9,20 +9,25 @@
                     <input type="text" class="form-control" id="id" name="id"
                         [(ngModel)]="item.id" readonly />
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="miniMarketApp.item.name" for="field_name">Name</label>
-                    <input type="text" class="form-control" name="name" id="field_name"
-                        [(ngModel)]="item.name" />
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label class="form-control-label" jhiTranslate="miniMarketApp.item.name" for="field_name">Name</label>
+                        <input type="text" class="form-control" name="name" id="field_name"
+                               [(ngModel)]="item.name" />
+                    </div>
+                    <div class="form-group col-6">
+                        <label class="form-control-label" jhiTranslate="miniMarketApp.item.price" for="field_price">Price</label>
+                        <input type="number" class="form-control" name="price" id="field_price"
+                               [(ngModel)]="item.price" />
+                    </div>
                 </div>
+
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="miniMarketApp.item.desc" for="field_desc">Desc</label>
-                    <input type="text" class="form-control" name="desc" id="field_desc"
-                        [(ngModel)]="item.desc" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="miniMarketApp.item.price" for="field_price">Price</label>
-                    <input type="number" class="form-control" name="price" id="field_price"
-                        [(ngModel)]="item.price" />
+                    <!--<label class="form-control-label" jhiTranslate="miniMarketApp.item.desc" for="field_desc">Desc</label>-->
+                    <!--<input type="text" class="form-control" name="desc" id="field_desc"-->
+                        <!--[(ngModel)]="item.desc" />-->
+                    <textarea rows = "7" cols = "60" name = "description" placeholder="Mo ta mat hang...">
+                     </textarea><br>
                 </div>
                 <div class="radius-border mt-5">
                     <div class="row">
@@ -30,18 +35,18 @@
                             <div class="form-group">
                                 <h3><label class="form-control-label">Upload images</label></h3>
                             </div>
-                            <div>
-                                <input type="file"
-                                       id="file"
-                                       multiple
-                                       (change)="handleFileInput($event)">
-                            </div>
                             <div *ngIf="files && files.length !== 0">
                                 <div class="row mt-2">
                                     <div class="col-3 mr-1" *ngFor="let file of files; trackBy: trackByFn">
                                         <img src="{{file.tempUrl}}" width="200px" height="160px">
                                     </div>
                                 </div>
+                            </div>
+                            <div>
+                                <input type="file"
+                                       id="file"
+                                       multiple
+                                       (change)="handleFileInput($event)">
                             </div>
                             <!--<div class="btn-toolbar">-->
                                 <!--<div class="mr-2 mt-2">-->

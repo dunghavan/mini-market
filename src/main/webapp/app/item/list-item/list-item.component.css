@@ -1,0 +1,60 @@
+.background {
+    background-color: white;
+    display: table;
+    justify-content: center;
+    margin-left: 25%;
+}
+
+.item {
+    display: table-row;
+    vertical-align: middle;
+}
+
+a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+}
+
+a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.previous {
+    background-color: #f1f1f1;
+    color: black;
+    float: left;
+    margin-top: 5px;
+    margin-left: 30%;
+}
+
+.next {
+    background-color: #f1f1f1;
+    color: black;
+    float: left;
+    margin-top: 5px;
+    margin-left: 4%;
+}
+
+.round {
+    border-radius: 50%;
+}
+
+.number {
+    float: left;
+    padding-left: 30px;
+}
+
+.page {
+    text-align: center;
+    display: inline;
+}
+
+.screen {
+    background-color: #f1f1f1;
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    left: 0;
+}

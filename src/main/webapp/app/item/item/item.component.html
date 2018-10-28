@@ -1,0 +1,22 @@
+<div class="background">
+
+  <div class="image">
+    <img src="{{ Item_image_url }}" width="150" height="150">
+  </div>
+
+  <div class="content">
+    <h3>{{ Item_name }}</h3>
+    <div>
+      <p>Price: {{ Item_price }} | Address: {{ Item_address }} | Date time: {{ Item_date_time }}</p>
+    </div>
+    <div>
+      <p>User name: {{ User_name }} | User rating: {{ User_rating }}</p>
+    </div>
+  </div>
+
+  <div class="save">
+    <h1 (click)="save_item()">Save</h1>
+  </div>
+
+
+</div>

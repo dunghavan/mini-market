@@ -31,8 +31,8 @@ public class Item implements Serializable {
     @Column(name = "price")
     private Integer price;
 
-    @Column(name = "status")
-    private String status;
+    @Column(name = "is_available")
+    private Boolean isAvailable;
 
     @Column(name = "delivery_way")
     private String deliveryWay;
@@ -42,6 +42,9 @@ public class Item implements Serializable {
 
     @Column(name = "note")
     private String note;
+
+    @Column(name = "state")
+    private Boolean state;
 
     @Column(name = "created_date")
     private Instant createdDate;
@@ -124,21 +127,34 @@ public class Item implements Serializable {
         return this;
     }
 
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public Item status(String status) {
-        this.status = status;
+    public Item isAvailable(Boolean isAvailable) {
+        this.isAvailable = isAvailable;
         return this;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public Boolean getAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(Boolean available) {
+        isAvailable = available;
+    }
+
+    public Item state(Boolean state) {
+        this.state = state;
+        return this;
+    }
+
+    public Boolean getState() {
+        return state;
+    }
+
+    public void setState(Boolean state) {
+        this.state = state;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
     public String getNote() {
@@ -215,10 +231,11 @@ public class Item implements Serializable {
             ", name='" + name + '\'' +
             ", desc='" + desc + '\'' +
             ", price=" + price +
-            ", status='" + status + '\'' +
+            ", isAvailable=" + isAvailable +
             ", deliveryWay='" + deliveryWay + '\'' +
             ", address='" + address + '\'' +
             ", note='" + note + '\'' +
+            ", state=" + state +
             ", createdDate=" + createdDate +
             ", lastModifiedDate=" + lastModifiedDate +
             ", user=" + user +

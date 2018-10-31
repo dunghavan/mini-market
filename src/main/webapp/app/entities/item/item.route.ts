@@ -12,6 +12,7 @@ import { ItemDetailComponent } from './item-detail.component';
 import { ItemUpdateComponent } from './item-update.component';
 import { ItemDeletePopupComponent } from './item-delete-dialog.component';
 import { IItem } from 'app/shared/model/item.model';
+import {ItemDetailComponent2} from "app/item/item-detail/item-detail.component";
 
 @Injectable({ providedIn: 'root' })
 export class ItemResolve implements Resolve<IItem> {
@@ -42,7 +43,7 @@ export const itemRoute: Routes = [
     },
     {
         path: 'item/:id/view',
-        component: ItemDetailComponent,
+        component: ItemDetailComponent2,
         resolve: {
             item: ItemResolve
         },

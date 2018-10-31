@@ -6,7 +6,7 @@ import { JhiEventManager } from 'ng-jhipster';
     templateUrl: './item-detail.component.html',
     styleUrls: ['./item-detail.component.css']
 })
-export class ItemDetailComponent implements OnInit {
+export class ItemDetailComponent2 implements OnInit {
     current_image_select: number;
     current_image_url: string;
     MAX_IMAGE_DISPLAY = 4;

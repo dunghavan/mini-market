@@ -18,8 +18,9 @@
             <th jhiSortBy="name"><span jhiTranslate="miniMarketApp.item.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="desc"><span jhiTranslate="miniMarketApp.item.desc">Desc</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="price"><span jhiTranslate="miniMarketApp.item.price">Price</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="status"><span jhiTranslate="miniMarketApp.item.status">Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="status"><span>Is Available</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="note"><span jhiTranslate="miniMarketApp.item.note">Note</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="note"><span>State</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -29,8 +30,9 @@
                 <td>{{item.name}}</td>
                 <td>{{item.desc}}</td>
                 <td>{{item.price}}</td>
-                <td>{{item.status}}</td>
+                <td>{{item.isAvailable}}</td>
                 <td>{{item.note}}</td>
+                <td>{{item.state}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

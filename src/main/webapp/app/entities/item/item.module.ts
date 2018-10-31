@@ -11,12 +11,13 @@ import {
     itemRoute,
     itemPopupRoute
 } from './';
+import {ItemDetailComponent2} from "app/item/item-detail/item-detail.component";
 
 const ENTITY_STATES = [...itemRoute, ...itemPopupRoute];
 
 @NgModule({
     imports: [MiniMarketSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [ItemComponent, ItemDetailComponent, ItemUpdateComponent, ItemDeleteDialogComponent, ItemDeletePopupComponent],
+    declarations: [ItemComponent, ItemDetailComponent, ItemUpdateComponent, ItemDeleteDialogComponent, ItemDeletePopupComponent, ItemDetailComponent2],
     entryComponents: [ItemComponent, ItemUpdateComponent, ItemDeleteDialogComponent, ItemDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

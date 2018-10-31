@@ -49,8 +49,8 @@ public class ItemResourceIntTest {
     private static final Integer DEFAULT_PRICE = 1;
     private static final Integer UPDATED_PRICE = 2;
 
-    private static final String DEFAULT_STATUS = "AAAAAAAAAA";
-    private static final String UPDATED_STATUS = "BBBBBBBBBB";
+    private static final Boolean DEFAULT_IS_AVAILABLE = true;
+    private static final Boolean UPDATE_IS_AVAILABLE = true;
 
     private static final String DEFAULT_NOTE = "AAAAAAAAAA";
     private static final String UPDATED_NOTE = "BBBBBBBBBB";
@@ -99,7 +99,7 @@ public class ItemResourceIntTest {
             .name(DEFAULT_NAME)
             .desc(DEFAULT_DESC)
             .price(DEFAULT_PRICE)
-            .status(DEFAULT_STATUS)
+            .isAvailable(DEFAULT_IS_AVAILABLE)
             .note(DEFAULT_NOTE);
         return item;
     }
@@ -127,7 +127,7 @@ public class ItemResourceIntTest {
         assertThat(testItem.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testItem.getDesc()).isEqualTo(DEFAULT_DESC);
         assertThat(testItem.getPrice()).isEqualTo(DEFAULT_PRICE);
-        assertThat(testItem.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testItem.getAvailable()).isEqualTo(DEFAULT_IS_AVAILABLE);
         assertThat(testItem.getNote()).isEqualTo(DEFAULT_NOTE);
     }
 
@@ -164,7 +164,7 @@ public class ItemResourceIntTest {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].desc").value(hasItem(DEFAULT_DESC.toString())))
             .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE)))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].isAvailable").value(hasItem(DEFAULT_IS_AVAILABLE)))
             .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE.toString())));
     }
     
@@ -182,7 +182,7 @@ public class ItemResourceIntTest {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.desc").value(DEFAULT_DESC.toString()))
             .andExpect(jsonPath("$.price").value(DEFAULT_PRICE))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.isAvailable").value(DEFAULT_IS_AVAILABLE))
             .andExpect(jsonPath("$.note").value(DEFAULT_NOTE.toString()));
     }
 
@@ -210,7 +210,7 @@ public class ItemResourceIntTest {
             .name(UPDATED_NAME)
             .desc(UPDATED_DESC)
             .price(UPDATED_PRICE)
-            .status(UPDATED_STATUS)
+            .isAvailable(UPDATE_IS_AVAILABLE)
             .note(UPDATED_NOTE);
 
         restItemMockMvc.perform(put("/api/items")
@@ -225,7 +225,7 @@ public class ItemResourceIntTest {
         assertThat(testItem.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testItem.getDesc()).isEqualTo(UPDATED_DESC);
         assertThat(testItem.getPrice()).isEqualTo(UPDATED_PRICE);
-        assertThat(testItem.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testItem.getAvailable()).isEqualTo(UPDATE_IS_AVAILABLE);
         assertThat(testItem.getNote()).isEqualTo(UPDATED_NOTE);
     }
 

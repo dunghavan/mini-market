@@ -7,6 +7,8 @@ import { IItem } from 'app/shared/model/item.model';
 import { ItemService } from './item.service';
 import {IType} from 'app/shared/model/type.model';
 import {TypeService} from 'app/entities/type';
+import {Status} from "app/shared/model/status.model";
+import {State} from "app/shared/model/state.model";
 
 
 interface ModalMessage {
@@ -26,6 +28,10 @@ export class ItemUpdateComponent implements OnInit {
     files: FileList;
     errorMessage: ModalMessage;
     successMessage: ModalMessage;
+    statuses: Status[];
+    status: Status;
+    states: State[];
+    state: State;
 
     constructor(private itemService: ItemService, private activatedRoute: ActivatedRoute,
                 private typeService: TypeService) {}
@@ -38,6 +44,11 @@ export class ItemUpdateComponent implements OnInit {
             this.item = item;
         });
         this.types = [];
+        console.log('this.item: ', this.item);
+        this.statuses = Status.getStatus();
+        this.status = this.item.isAvailable ? this.statuses[0] : this.statuses[1];
+        this.states = State.getStates();
+        this.state = this.item.state ? this.states[0] : this.states[1];
         this.loadTypes();
     }
 
@@ -99,7 +110,7 @@ export class ItemUpdateComponent implements OnInit {
     }
 
     save() {
-        console.log('save');
+        console.log('save item: ', this.item);
         this.isSaving = true;
         if (this.item.id !== undefined) {
             this.subscribeToSaveResponse(this.itemService.update(this.item));

@@ -1,32 +1,117 @@
 <div class="screen">
   <div class="background">
-      <app-item class="item"></app-item>
-      <app-item class="item"></app-item>
-      <app-item class="item"></app-item>
-      <app-item class="item"></app-item>
-      <app-item class="item"></app-item>
-      <div class="page">
-        <div width="100" height="100" class="left_button">
-            <a href="#" class="previous round" (click)="previous_page()">&#8249;</a>
-        </div>
-        <div class="number">
-          <p>1</p>
-        </div>
-        <div class="number">
-          <p>2</p>
-        </div>
-        <div class="number">
-          <p>3</p>
-        </div>
-        <div class="number">
-          <p>4</p>
-        </div>
-        <div class="number">
-          <p>5</p>
-        </div>
-        <div width="100" height="100" class="right_button" >
-            <a href="#" class="next round" (click)="next_page()" >&#8250; </a>
+
+    <div class="filter">
+
+      <div class="filter_option">
+        <h3>Filter</h3>
+      </div>
+
+      <div class="filter_option">
+        <h3>Price</h3>
+        <div class="filter_place">
+            <input type="checkbox" name="100k" value="100k"> Under 100.000<br>
+            <input type="checkbox" name="100_1000k" value="100_1000k"> 100.000 - 1000.000<br>
+            <input type="checkbox" name="1000_10000k" value="1000_10000k"> 1000.000 - 10.000.000<br>
+            <input type="checkbox" name="10000k" value="10000k"> Over 10.000.000<br>
         </div>
       </div>
+
+      <div class="split_horizontal"></div>
+
+      <div class="filter_option">
+          <h3>Place</h3>
+          <div class="filter_place">
+            <input type="checkbox" name="hochiminh" value="hochiminh">Ho Chi Minh<br>
+            <input type="checkbox" name="hanoi" value="hanoi">Ha Noi<br>
+            <input type="checkbox" name="danang" value="danang">Da Nang<br>
+          </div>
+      </div>
+
+      <div class="split_horizontal"></div>
+
+      <div class="filter_option">
+          <h3>Rating</h3>
+          <div class="filter_place">
+            <input type="checkbox" name="1p" value="1p"> 1 point<br>
+            <input type="checkbox" name="2p" value="2p"> 2 point<br>
+            <input type="checkbox" name="3p" value="3p"> 3 point<br>
+            <input type="checkbox" name="4p" value="4p"> 4 point<br>
+            <input type="checkbox" name="5p" value="5p"> 5 point<br>
+          </div>
+      </div>
+
+    </div>
+
+
+
+    <div class="content">
+        <div class="sort">
+          <div class="priority">
+            <p>Priority: </p>
+          </div>
+          <div class="priority">
+              <p>Name</p>
+          </div>
+          <div class="priority">
+              <p>Date</p>
+          </div>
+          <div class="priority">
+              <p>Rating</p>
+          </div>
+          <div class="priority">
+              <p>Low price</p>
+          </div>
+          <div class="priority">
+              <p>High price</p>
+          </div>
+        </div>
+        <div class="split_horizontal"></div>
+        <app-item></app-item>
+        <div></div>
+        <app-item></app-item>
+        <div></div>
+        <app-item></app-item>
+        <div></div>
+        <app-item></app-item>
+        <div></div>
+        <app-item></app-item>
+        <div></div>
+        <div class="page">
+
+          <div width="100" height="100" class="left_button">
+              <a href="#" class="previous round" (click)="previous_page()">&#8249;</a>
+          </div>
+
+          <div class="number">
+            <p>1</p>
+          </div>
+
+          <div class="number">
+            <p>2</p>
+          </div>
+
+          <div class="number">
+            <p>3</p>
+          </div>
+
+          <div class="number">
+            <p>4</p>
+          </div>
+
+          <div class="number">
+            <p>5</p>
+          </div>
+
+          <div width="100" height="100" class="right_button" >
+              <a href="#" class="next round" (click)="next_page()" >&#8250; </a>
+
+          </div>
+
+        </div>
+
+    </div>
+
   </div>
+
 </div>

@@ -2,27 +2,27 @@
     background-color: #f1f1f1;
     color: black;
     float: left;
-    width: 75%;
+    width: 1101px;
 }
 
 .image {
     background-color: white;
     float: left;
-    width: 50%;
+    width: 550px;
     height: 550px;
 }
 
 .split {
     background-color: #f1f1f1;
     float: inherit;
-    width: 0.1%;
+    width: 1px;
     height: 550px;
 }
 
 .item {
     background-color: white;
     float: right;
-    width: 49.9%;
+    width: 550px;
     height: 550px;
 }
 .content {
@@ -62,8 +62,9 @@
 
 .user {
     background: white;
-    float: right;
-    width: 24.5%;
+    float: left;
+    margin-left: 10px;
+    width: 450px;
 }
 
 .background {
@@ -71,17 +72,24 @@
     color: black;
     text-align: center;
     display: inline-block;
-    position: absolute;
-    top: 0%;
-    right: 0%;
-    left: 0;
+    min-width: 100vh;
+    min-height: 100vh;
+    margin-top: -10px;
+    margin-bottom: -10px;
+    margin-left: -10px;
+    margin-right: -10px;
 }
 
 .screen {
     text-align: center;
     background-color: #f1f1f1;
     color: black;
-    background-size: cover;
+    min-width: 100vh;
+    min-height: 100vh;
+    margin-top: -10px;
+    margin-bottom: -10px;
+    margin-left: -10px;
+    margin-right: -10px;
 }
 
 a {
@@ -126,4 +134,8 @@ a:hover {
     padding-top: 7px;
     padding-bottom: 7px;
     padding-left: 20px;
+}
+
+.hover {
+    width: 1561px;
 }

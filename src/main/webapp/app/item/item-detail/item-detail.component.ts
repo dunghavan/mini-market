@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { JhiEventManager } from 'ng-jhipster';
 
 @Component({
     selector: 'app-item-detail',
@@ -68,7 +67,9 @@ export class ItemDetailComponent implements OnInit {
         this.item_sell_status = 'con hang';
         this.item_current_status = 'Hang cu';
         this.item_ship_status = 'Khong ship';
-        this.item_description = 'hang su dung dc 1 nam do khong co nhau cau can nhuong lai';
+        // tslint:disable-next-line:max-line-length
+        this.item_description =
+            'hang su dung dc 1 nam do khong co nhau cau can nhuong laihang su dung dc 1 nam do khong co nhau cau can nhuong laihang su dung dc 1 nam do khong co nhau cau can nhuong laihang su dung dc 1 nam do khong co nhau cau can nhuong laihang su dung dc 1 nam do khong co nhau cau can nhuong laihang su dung dc 1 nam do khong co nhau cau can nhuong laihang su dung dc 1 nam do khong co nhau cau can nhuong laihang su dung dc 1 nam do khong co nhau cau can nhuong laihang su dung dc 1 nam do khong co nhau cau can nhuong laihang su dung dc 1 nam do khong co nhau cau can nhuong laihang su dung dc 1 nam do khong co nhau cau can nhuong laihang su dung dc 1 nam do khong co nhau cau can nhuong laihang su dung dc 1 nam do khong co nhau cau can nhuong laihang su dung dc 1 nam do khong co nhau cau can nhuong laihang su dung dc 1 nam do khong co nhau cau can nhuong laihang su dung dc 1 nam do khong co nhau cau can nhuong laihang su dung dc 1 nam do khong co nhau cau can nhuong lai';
     }
 
     get_image() {

@@ -1,13 +1,54 @@
 .background {
-    background-color: white;
-    display: table;
-    justify-content: center;
-    margin-left: 25%;
+    background-color: #f1f1f1;
+    color: black;
+    text-align: center;
+    display: inline-block;
+    width: 1110px;
 }
 
-.item {
-    display: table-row;
-    vertical-align: middle;
+.content {
+    background-color: #f1f1f1;
+    color: black;
+    float: left;
+    display: block;
+    margin-left: 10px;
+    width: 800px;
+}
+
+.filter {
+    float: left;
+    display: block;
+    background-color: #f1f1f1;
+    color: black;
+    width: 300px;
+}
+
+.filter_option {
+    background-color: white;
+    color: black;
+    margin-top: 0px;
+    margin-bottom: 5px;
+    padding: 5px;
+    padding-bottom: 10px;
+}
+
+.filter_place {
+    background-color: white;
+    color: black;
+    text-align: left;
+    margin-left: 20px;
+}
+
+.screen {
+    text-align: center;
+    background-color: #f1f1f1;
+    color: black;
+    min-width: 100vh;
+    min-height: 100vh;
+    margin-top: -10px;
+    margin-bottom: -10px;
+    margin-left: -10px;
+    margin-right: -10px;
 }
 
 a {
@@ -26,7 +67,7 @@ a:hover {
     color: black;
     float: left;
     margin-top: 5px;
-    margin-left: 30%;
+    margin-left: 320px;
 }
 
 .next {
@@ -34,7 +75,7 @@ a:hover {
     color: black;
     float: left;
     margin-top: 5px;
-    margin-left: 4%;
+    margin-left: 10px;
 }
 
 .round {
@@ -43,18 +84,29 @@ a:hover {
 
 .number {
     float: left;
-    padding-left: 30px;
+    margin-left: 10px;
 }
 
 .page {
+    background-color: white;
     text-align: center;
-    display: inline;
+    display: inline-block;
+    width: 800px;
 }
 
-.screen {
+.split_horizontal {
     background-color: #f1f1f1;
-    position: absolute;
-    top: 0%;
-    right: 0%;
-    left: 0;
+    float: inherit;
+    height: 5px;
+}
+
+.sort {
+    background-color: white;
+    display: inline-block;
+    width: 800px;
+}
+
+.priority {
+    float: left;
+    margin-left: 40px;
 }

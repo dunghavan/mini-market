@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { JhiEventManager } from 'ng-jhipster';
 
 @Component({
     selector: 'app-list-item',

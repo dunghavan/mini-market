@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "item")
-public class Item implements Serializable {
+public class Item extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -46,11 +46,11 @@ public class Item implements Serializable {
     @Column(name = "state")
     private Boolean state;
 
-    @Column(name = "created_date")
-    private Instant createdDate;
-
-    @Column(name = "last_modified_date")
-    private Instant lastModifiedDate;
+//    @Column(name = "created_date")
+//    private Instant createdDate;
+//
+//    @Column(name = "last_modified_date")
+//    private Instant lastModifiedDate;
 
     @ManyToOne
     @JsonIgnoreProperties("")
@@ -97,6 +97,7 @@ public class Item implements Serializable {
     public Item() {
 
     }
+
     public Item(long id) {
         this.id = id;
     }
@@ -186,22 +187,6 @@ public class Item implements Serializable {
         this.note = note;
     }
 
-    public Instant getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Instant createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Instant getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(Instant lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -236,8 +221,6 @@ public class Item implements Serializable {
             ", address='" + address + '\'' +
             ", note='" + note + '\'' +
             ", state=" + state +
-            ", createdDate=" + createdDate +
-            ", lastModifiedDate=" + lastModifiedDate +
             ", user=" + user +
             ", type=" + type +
             '}';

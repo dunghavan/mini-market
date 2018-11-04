@@ -110,6 +110,9 @@ export class ItemUpdateComponent implements OnInit {
     }
 
     save() {
+        this.item.isAvailable = this.status.id === 1;
+        this.item.state = this.state.id === 1;
+        // this.isSaving = true;
         console.log('save item: ', this.item);
         this.isSaving = true;
         if (this.item.id !== undefined) {

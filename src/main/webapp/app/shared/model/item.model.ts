@@ -13,6 +13,7 @@ export interface IItem {
     createdDate?: Date;
     lastModifiedDate?: Date;
     type?: Type;
+    phone?: string;
 }
 
 export class Item implements IItem {
@@ -29,5 +30,6 @@ export class Item implements IItem {
         public createdDate?: Date,
         public lastModifiedDate?: Date,
         public type?: Type,
+        public phone?: string,
     ) {}
 }

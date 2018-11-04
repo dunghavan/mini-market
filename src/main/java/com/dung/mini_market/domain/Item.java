@@ -2,6 +2,7 @@ package com.dung.mini_market.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 
@@ -32,6 +33,7 @@ public class Item extends AbstractAuditingEntity implements Serializable {
     private Integer price;
 
     @Column(name = "is_available")
+    @JsonProperty("isAvailable")
     private Boolean isAvailable;
 
     @Column(name = "delivery_way")
@@ -46,8 +48,8 @@ public class Item extends AbstractAuditingEntity implements Serializable {
     @Column(name = "state")
     private Boolean state;
 
-//    @Column(name = "created_date")
-//    private Instant createdDate;
+    @Column(name = "phone")
+    private String phone;
 //
 //    @Column(name = "last_modified_date")
 //    private Instant lastModifiedDate;
@@ -96,6 +98,14 @@ public class Item extends AbstractAuditingEntity implements Serializable {
 
     public Item() {
 
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public Item(long id) {
@@ -221,6 +231,7 @@ public class Item extends AbstractAuditingEntity implements Serializable {
             ", address='" + address + '\'' +
             ", note='" + note + '\'' +
             ", state=" + state +
+            ", phone='" + phone + '\'' +
             ", user=" + user +
             ", type=" + type +
             '}';

@@ -1,4 +1,4 @@
-export interface Iitem_des {
+export class ItemDes {
     Item_id: number;
     Item_image_url: string;
     Item_name: string;
@@ -7,8 +7,5 @@ export interface Iitem_des {
     Item_date_time: string;
     User_name: string;
     User_rating: number;
-}
-
-export class Item_des implements Iitem_des {
-    constructor();
+    constructor() {}
 }

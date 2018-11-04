@@ -9,24 +9,24 @@
     background-color: white;
     float: left;
     width: 550px;
-    height: 550px;
+    height: 520px;
 }
 
 .split {
     background-color: #f1f1f1;
     float: inherit;
     width: 1px;
-    height: 550px;
+    height: 520px;
 }
 
 .item {
     background-color: white;
     float: right;
     width: 550px;
-    height: 550px;
+    height: 520px;
 }
 .content {
-    margin-top: 560px;
+    margin-top: 525px;
     background-color: white;
 }
 
@@ -63,7 +63,7 @@
 .user {
     background: white;
     float: left;
-    margin-left: 10px;
+    margin-left: 5px;
     width: 450px;
 }
 
@@ -131,8 +131,16 @@ a:hover {
 
 .description_text {
     text-align: left;
-    padding-top: 7px;
-    padding-bottom: 7px;
+    font-weight: bold;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 20px;
+}
+
+.text {
+    text-align: left;
+    padding-top: 1px;
+    padding-bottom: 1px;
     padding-left: 20px;
 }
 

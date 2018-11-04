@@ -1,16 +1,16 @@
 <div class="background">
 
   <div class="image">
-    <img src="{{ Item_image_url }}" width="150" height="150">
+    <img src="{{ item_des.Item_image_url }}" width="150" height="150">
   </div>
 
   <div class="content">
-    <h3>{{ Item_name }}</h3>
+    <h3>{{ item_des.Item_name }}</h3>
     <div>
-      <p>Price: {{ Item_price }} | Address: {{ Item_address }} | Date time: {{ Item_date_time }}</p>
+      <p>Price: {{ item_des.Item_price }} | Address: {{ item_des.Item_address }} | Date time: {{ item_des.Item_date_time }}</p>
     </div>
     <div>
-      <p>User name: {{ User_name }} | User rating: {{ User_rating }}</p>
+      <p>User name: {{ item_des.User_name }} | User rating: {{ item_des.User_rating }}</p>
     </div>
   </div>
 

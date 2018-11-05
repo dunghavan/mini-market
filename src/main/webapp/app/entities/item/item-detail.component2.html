@@ -1,57 +1,66 @@
 <div class="row justify-content-center">
     <div class="col-8">
-        <div *ngIf="item">
-            <h2><span jhiTranslate="miniMarketApp.item.detail.title">Item</span> {{item.id}}</h2>
-            <hr>
-            <jhi-alert-error></jhi-alert-error>
 
-            <div *ngIf="images" class="row form-group">
-                <div class="col-3 mr-1" *ngFor="let image of images; trackBy: trackByFn">
-                    <img src="http://localhost:8888/{{image.name}}" width="200px" height="160px">
+    </div>
+    <div class="screen">
+        <div class="background">
+            <div class="hover">
+                <div class="header">
+                    <div class="image">
+                        <img src="{{ current_image_url }}" alt="Trulli" width="400" height="400">
+                        <div>
+                            <div width="100" height="100" class="left_button">
+                                <a class="previous round" (click)="previous_image()">&#8249;</a>
+                            </div>
+                            <div class="small_image" *ngFor="let image of images" >
+                                <img src="http://localhost:8888/{{image.name}}" alt="Trulli" width="100" height="100" class="left" (click)="showImage(image.id)">
+                            </div>
+                            <div width="100" height="100" class="right_button" >
+                                <a class="next round" (click)="next_image()" >&#8250; </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="split"></div>
+
+                    <div class="item">
+                        <h1>{{ item.name }}</h1>
+                        <div class="detail_item">
+                            <h1>Price: {{item.price}}</h1>
+                            <p>Item type: {{ item.type.name }}</p>
+                            <p>Date time: {{ item.createdDate | date: 'dd/MM/yyy hh:mm'}}</p>
+                            <p *ngIf="item.isAvailable">Sell status: Còn hàng</p>
+                            <p *ngIf="!item.isAvailable">Sell status: Hết hàng</p>
+                            <p *ngIf="item.state">Sell status: Mới 100%</p>
+                            <p *ngIf="!item.state">Sell status: Đã qua sử dụng</p>
+                            <p>Ship status: {{ item.deliveryWay }}</p>
+                        </div>
+                    </div>
+
+                    <div class="content">
+                        <div class="description_text">
+                            <p>Description</p>
+                        </div>
+                        <div class="split_horizontal"></div>
+                        <div class="text">
+                            <p>{{item.desc}}</p>
+                        </div>
+                    </div>
+
                 </div>
+
+                <div class="user">
+                    <div class="detail_user">
+                        <h3>User name: {{ user_detail.user_name }}</h3>
+                        <p>Address: {{ user_detail.user_address }}</p>
+                        <p>Phone number: {{ user_detail.user_phone_number }}</p>
+                        <p>Email: {{ user_detail.user_email }}</p>
+                        <p>User rating: {{user_detail.user_rating}}</p>
+                        <p>number rating: {{  user_detail.user_number_rating }}</p>
+                    </div>
+                </div>
+
             </div>
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="miniMarketApp.item.name">Name</span></dt>
-                <dd>
-                    <span>{{item.name}}</span>
-                </dd>
-                <dt><span jhiTranslate="miniMarketApp.item.desc">Desc</span></dt>
-                <dd>
-                    <span>{{item.desc}}</span>
-                </dd>
-                <dt><span jhiTranslate="miniMarketApp.item.price">Price</span></dt>
-                <dd>
-                    <span>{{item.price}}</span>
-                </dd>
-                <dt><span jhiTranslate="miniMarketApp.item.status">Status</span></dt>
-                <dd>
-                    <span>{{item.status}}</span>
-                </dd>
-                <dt><span jhiTranslate="miniMarketApp.item.note">Note</span></dt>
-                <dd>
-                    <span>{{item.note}}</span>
-                </dd>
-                <dt><span>Created date</span></dt>
-                <dd>
-                    <span>{{item.createdDate}}</span>
-                </dd>
-                <dt><span>Last modified date</span></dt>
-                <dd>
-                    <span>{{item.lastModifiedDate}}</span>
-                </dd>
-            </dl>
-
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-            </button>
-
-            <button type="button"
-                    [routerLink]="['/item', item.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
         </div>
     </div>
 </div>

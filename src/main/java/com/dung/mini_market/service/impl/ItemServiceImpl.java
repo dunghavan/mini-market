@@ -64,7 +64,8 @@ public class ItemServiceImpl implements ItemService {
     @Transactional(readOnly = true)
     public Optional<Item> findOne(Long id) {
         log.debug("Request to get Item : {}", id);
-        return itemRepository.findById(id);
+        Optional<Item> item = itemRepository.findById(id);
+        return item;
     }
 
     /**

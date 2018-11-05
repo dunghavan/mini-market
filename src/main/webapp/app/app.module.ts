@@ -30,7 +30,7 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         MiniMarketCoreModule,
         MiniMarketHomeModule,
         MiniMarketAccountModule,
-        MiniMarketEntityModule
+        MiniMarketEntityModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],

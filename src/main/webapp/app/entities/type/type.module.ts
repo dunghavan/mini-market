@@ -11,13 +11,25 @@ import {
     typeRoute,
     typePopupRoute
 } from './';
+import {ItemComponent} from "app/item/item/item.component";
 
 const ENTITY_STATES = [...typeRoute, ...typePopupRoute];
 
 @NgModule({
     imports: [MiniMarketSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [TypeComponent, TypeDetailComponent, TypeUpdateComponent, TypeDeleteDialogComponent, TypeDeletePopupComponent],
-    entryComponents: [TypeComponent, TypeUpdateComponent, TypeDeleteDialogComponent, TypeDeletePopupComponent],
+    declarations: [
+        TypeComponent,
+        TypeDetailComponent,
+        TypeUpdateComponent,
+        TypeDeleteDialogComponent,
+        TypeDeletePopupComponent,
+    ],
+    entryComponents: [
+        TypeComponent,
+        TypeUpdateComponent,
+        TypeDeleteDialogComponent,
+        TypeDeletePopupComponent,
+    ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class MiniMarketTypeModule {}

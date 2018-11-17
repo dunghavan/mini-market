@@ -18,4 +18,6 @@ import java.util.Optional;
 public interface ItemRepository extends JpaRepository<Item, Long> {
     @Query("SELECT i FROM Item i WHERE i.name LIKE 'ao'")
     Optional<Page<Item>> searchByCustomer(Pageable pageable);
+
+    Page<Item> findAllByUserId(Long userId, Pageable pageable);
 }

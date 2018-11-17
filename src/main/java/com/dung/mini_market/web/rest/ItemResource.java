@@ -2,8 +2,10 @@ package com.dung.mini_market.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.dung.mini_market.domain.Item;
+import com.dung.mini_market.security.SecurityUtils;
 import com.dung.mini_market.service.ItemService;
 import com.dung.mini_market.web.rest.errors.BadRequestAlertException;
+import com.dung.mini_market.web.rest.errors.UserNotFoundException;
 import com.dung.mini_market.web.rest.util.HeaderUtil;
 import com.dung.mini_market.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -90,9 +92,13 @@ public class ItemResource {
     @GetMapping("/items")
     @Timed
     public ResponseEntity<List<Item>> getAllItems(Pageable pageable) {
-        // TODO get all by User Id
         log.debug("REST request to get a page of Items");
-        Page<Item> page = itemService.findAll(pageable);
+        Optional<Long> userIdOpt = SecurityUtils.getCurrentUserId();
+        if (!userIdOpt.isPresent()){
+            throw new UserNotFoundException();
+        }
+        Long userId = userIdOpt.get();
+        Page<Item> page = itemService.findAllByUser(userId, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/items");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

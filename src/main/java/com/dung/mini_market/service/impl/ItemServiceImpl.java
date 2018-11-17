@@ -53,6 +53,12 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.findAll(pageable);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Item> findAllByUser(Long userId, Pageable pageable) {
+        log.debug("Request to get all Items");
+        return itemRepository.findAllByUserId(userId, pageable);
+    }
 
     /**
      * Get one item by id.

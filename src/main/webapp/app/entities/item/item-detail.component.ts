@@ -5,7 +5,7 @@ import { IItem } from 'app/shared/model/item.model';
 import {IImage} from 'app/shared/model/image.model';
 import {ImageService} from 'app/entities/image';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {UserDetail} from "app/item/item-detail/user-detail.model";
+import {UserDetail} from "app/entities/item-detail/user-detail.model";
 
 @Component({
     selector: 'jhi-item-detail',

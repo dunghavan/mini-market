@@ -11,7 +11,7 @@ import {
     typeRoute,
     typePopupRoute
 } from './';
-import {ItemComponent} from "app/item/item/item.component";
+import {ItemCardComponent} from "app/entities/item-card/item-card.component";
 
 const ENTITY_STATES = [...typeRoute, ...typePopupRoute];
 

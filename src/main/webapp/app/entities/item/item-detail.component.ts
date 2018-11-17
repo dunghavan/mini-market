@@ -5,7 +5,6 @@ import { IItem } from 'app/shared/model/item.model';
 import {IImage} from 'app/shared/model/image.model';
 import {ImageService} from 'app/entities/image';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {UserDetail} from "app/entities/item-detail/user-detail.model";
 
 @Component({
     selector: 'jhi-item-detail',
@@ -17,10 +16,9 @@ export class ItemDetailComponent implements OnInit {
     images: IImage[];
     current_image_select: number;
     current_image_url: string;
-    user_detail: UserDetail;
 
     constructor(private activatedRoute: ActivatedRoute, private imageService: ImageService) {
-        this.user_detail = new UserDetail();
+
     }
 
     ngOnInit() {
@@ -29,9 +27,6 @@ export class ItemDetailComponent implements OnInit {
             console.log('item: ', this.item);
             this.loadImages();
         });
-        // this.get_image();
-        this.get_user_info();
-        // this.get_item_info();
     }
 
     showImage(imgId: number) {
@@ -52,16 +47,6 @@ export class ItemDetailComponent implements OnInit {
         }
         this.current_image_url = this.images[this.current_image_select].name;
     }
-    get_user_info() {
-        this.user_detail.user_name = 'Huy';
-        this.user_detail.user_address = '266/20A Bach Dang, Binh Thanh, Ho Chi Minh';
-        this.user_detail.user_phone_number = '0942714728';
-        this.user_detail.user_email = 'huydinh.le@amperecomputing.com';
-        this.user_detail.user_rating = 5;
-        this.user_detail.user_number_rating = 10;
-        console.log(this.user_detail.user_email);
-    }
-
     // get_item_info() {
     //     this.item.item_name = 'Ao thun';
     //     this.item.item_price = '100.000 VND';

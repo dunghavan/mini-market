@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import {ItemDes} from '../item/item/item-des.model'
+import {ItemDes} from 'app/entities/item-card/item-des.model'
 
 @Component({
     selector: 'app-list-item',

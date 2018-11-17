@@ -32,59 +32,55 @@
                     <input type="checkbox" name="4p" value="4p"> 4 point<br>
                     <input type="checkbox" name="5p" value="5p"> 5 point<br>
                 </div>
-                <div class="background">
-                    <div class="filter">
-                    </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="sort">
+                <div class="priority">
+                    <p>Priority: </p>
                 </div>
-                <div class="content">
-                    <div class="sort">
-                        <div class="priority">
-                            <p>Priority: </p>
-                        </div>
-                        <div class="priority">
-                            <p>Name</p>
-                        </div>
-                        <div class="priority">
-                            <p>Date</p>
-                        </div>
-                        <div class="priority">
-                            <p>Rating</p>
-                        </div>
-                        <div class="priority">
-                            <p>Low price</p>
-                        </div>
-                        <div class="priority">
-                            <p>High price</p>
-                        </div>
-                    </div>
-                    <div class="split_horizontal"></div>
-                    <div *ngFor="let item of item_in_page">
-                        <app-item [item_des]="item"></app-item>
-                        <div></div>
-                    </div>
-                    <div class="page">
-                        <div width="100" height="100" class="left_button">
-                            <a href="#" class="previous round" (click)="previous_page()">&#8249;</a>
-                        </div>
-                        <div class="number">
-                            <p>1</p>
-                        </div>
-                        <div class="number">
-                            <p>2</p>
-                        </div>
-                        <div class="number">
-                            <p>3</p>
-                        </div>
-                        <div class="number">
-                            <p>4</p>
-                        </div>
-                        <div class="number">
-                            <p>5</p>
-                        </div>
-                        <div width="100" height="100" class="right_button" >
-                            <a href="#" class="next round" (click)="next_page()" >&#8250; </a>
-                        </div>
-                    </div>
+                <div class="priority">
+                    <p>Name</p>
+                </div>
+                <div class="priority">
+                    <p>Date</p>
+                </div>
+                <div class="priority">
+                    <p>Rating</p>
+                </div>
+                <div class="priority">
+                    <p>Low price</p>
+                </div>
+                <div class="priority">
+                    <p>High price</p>
+                </div>
+            </div>
+            <div class="split_horizontal"></div>
+            <div *ngFor="let item of item_in_page">
+                <app-item-card [item_des]="item"></app-item-card>
+                <div></div>
+            </div>
+            <div class="page">
+                <div width="100" height="100" class="left_button">
+                    <a href="#" class="previous round" (click)="previous_page()">&#8249;</a>
+                </div>
+                <div class="number">
+                    <p>1</p>
+                </div>
+                <div class="number">
+                    <p>2</p>
+                </div>
+                <div class="number">
+                    <p>3</p>
+                </div>
+                <div class="number">
+                    <p>4</p>
+                </div>
+                <div class="number">
+                    <p>5</p>
+                </div>
+                <div width="100" height="100" class="right_button" >
+                    <a href="#" class="next round" (click)="next_page()" >&#8250; </a>
                 </div>
             </div>
         </div>

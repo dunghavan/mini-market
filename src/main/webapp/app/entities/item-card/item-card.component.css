@@ -2,13 +2,14 @@
     float: left;
     height: 200px;
     width: 200px;
-    text-align: center;
+    text-align: left;
 }
 
 .content {
     float: left;
     height: 200px;
     width: 500px;
+    text-align: left;
 }
 
 .save {
@@ -24,4 +25,11 @@
     color: black;
     height: 200px;
     width: 800px;
+}
+
+.price {
+    font-size: 20px;
+    float: bottom;
+    margin-left: 20px;
+    color: rgba(255, 116, 16, 0.84);
 }

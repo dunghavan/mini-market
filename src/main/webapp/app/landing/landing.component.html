@@ -2,10 +2,10 @@
     <div class="background">
         <div class="filter">
             <div class="filter_option">
-                <h3>Filter</h3>
+                <h3>Bộ lọc</h3>
             </div>
             <div class="filter_option">
-                <h3>Price</h3>
+                <h3>Giá</h3>
                 <div class="filter_place">
                     <input type="checkbox" name="100k" value="100k"> Under 100.000<br>
                     <input type="checkbox" name="100_1000k" value="100_1000k"> 100.000 - 1000.000<br>
@@ -15,22 +15,19 @@
             </div>
             <div class="split_horizontal"></div>
             <div class="filter_option">
-                <h3>Place</h3>
+                <h3>Loại</h3>
                 <div class="filter_place">
-                    <input type="checkbox" name="hochiminh" value="hochiminh">Ho Chi Minh<br>
-                    <input type="checkbox" name="hanoi" value="hanoi">Ha Noi<br>
-                    <input type="checkbox" name="danang" value="danang">Da Nang<br>
+                    <input type="checkbox" name="hochiminh" value="hochiminh">Quần<br>
+                    <input type="checkbox" name="hanoi" value="hanoi">Áo<br>
+                    <input type="checkbox" name="danang" value="danang">Giày dép<br>
                 </div>
             </div>
             <div class="split_horizontal"></div>
             <div class="filter_option">
-                <h3>Rating</h3>
+                <h3>Trạng thái</h3>
                 <div class="filter_place">
-                    <input type="checkbox" name="1p" value="1p"> 1 point<br>
-                    <input type="checkbox" name="2p" value="2p"> 2 point<br>
-                    <input type="checkbox" name="3p" value="3p"> 3 point<br>
-                    <input type="checkbox" name="4p" value="4p"> 4 point<br>
-                    <input type="checkbox" name="5p" value="5p"> 5 point<br>
+                    <input type="checkbox" name="hochiminh" value="hochiminh">Còn mới 100%<br>
+                    <input type="checkbox" name="hanoi" value="hanoi">Đã qua sử dụng<br>
                 </div>
             </div>
         </div>
@@ -56,8 +53,8 @@
                 </div>
             </div>
             <div class="split_horizontal"></div>
-            <div *ngFor="let item of item_in_page">
-                <app-item-card [item_des]="item"></app-item-card>
+            <div *ngFor="let item of items">
+                <app-item-card [item]="item"></app-item-card>
                 <div></div>
             </div>
             <div class="page">

@@ -1,4 +1,5 @@
 import {Type} from "app/shared/model/type.model";
+import {Image} from "app/shared/model/image.model";
 
 export interface IItem {
     id?: number;
@@ -14,6 +15,7 @@ export interface IItem {
     lastModifiedDate?: Date;
     type?: Type;
     phone?: string;
+    images?: Image[]
 }
 
 export class Item implements IItem {
@@ -31,5 +33,6 @@ export class Item implements IItem {
         public lastModifiedDate?: Date,
         public type?: Type,
         public phone?: string,
+        public images?: Image[],
     ) {}
 }

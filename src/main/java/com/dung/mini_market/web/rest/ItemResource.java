@@ -2,6 +2,7 @@ package com.dung.mini_market.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.dung.mini_market.domain.Item;
+import com.dung.mini_market.domain.User;
 import com.dung.mini_market.security.SecurityUtils;
 import com.dung.mini_market.service.ItemService;
 import com.dung.mini_market.web.rest.errors.BadRequestAlertException;
@@ -55,6 +56,12 @@ public class ItemResource {
         if (item.getId() != null) {
             throw new BadRequestAlertException("A new item cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        Optional<Long> userIdOpt = SecurityUtils.getCurrentUserId();
+        if (!userIdOpt.isPresent()){
+            throw new UserNotFoundException();
+        }
+        User currentUserLogin = new User(userIdOpt.get());
+        item.setUser(currentUserLogin);
         Item result = itemService.save(item);
         return ResponseEntity.created(new URI("/api/items/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))

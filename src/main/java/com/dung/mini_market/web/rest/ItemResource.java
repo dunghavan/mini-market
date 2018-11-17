@@ -90,6 +90,16 @@ public class ItemResource {
     @GetMapping("/items")
     @Timed
     public ResponseEntity<List<Item>> getAllItems(Pageable pageable) {
+        // TODO get all by User Id
+        log.debug("REST request to get a page of Items");
+        Page<Item> page = itemService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/items");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/items/get-by-customer")
+    @Timed
+    public ResponseEntity<List<Item>> getAllItemsByCustomer(Pageable pageable) {
         log.debug("REST request to get a page of Items");
         Page<Item> page = itemService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/items");

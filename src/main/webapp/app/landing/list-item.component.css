@@ -84,6 +84,7 @@ a:hover {
 
 .number {
     float: left;
+    margin-top: 15px;
     margin-left: 10px;
 }
 

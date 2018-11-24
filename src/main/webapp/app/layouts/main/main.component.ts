@@ -6,6 +6,7 @@ import { JhiLanguageHelper } from 'app/core';
 @Component({
     selector: 'jhi-main',
     templateUrl: './main.component.html'
+    styleUrls: ['./main.component.css']
 
 })
 export class JhiMainComponent implements OnInit {

@@ -11,8 +11,9 @@ import {
     itemRoute,
     itemPopupRoute
 } from './';
-import {ListItemComponent} from "app/landing/list-item.component";
-import {ItemCardComponent} from "app/entities/item-card/item-card.component";
+import {ListItemComponent} from 'app/landing/list-item.component';
+import {ItemCardComponent} from 'app/entities/item-card/item-card.component';
+import {ItemCardUserComponent} from 'app/entities/item-card-user/item-card-user.component';
 
 const ENTITY_STATES = [...itemRoute, ...itemPopupRoute];
 
@@ -26,6 +27,7 @@ const ENTITY_STATES = [...itemRoute, ...itemPopupRoute];
         ItemDeletePopupComponent,
         ListItemComponent,
         ItemCardComponent,
+        ItemCardUserComponent,
     ],
     entryComponents: [
         ItemComponent,
@@ -33,7 +35,9 @@ const ENTITY_STATES = [...itemRoute, ...itemPopupRoute];
         ItemDeleteDialogComponent,
         ItemDeletePopupComponent,
         ListItemComponent,
-        ItemCardComponent],
+        ItemCardComponent,
+        ItemCardUserComponent,
+    ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class MiniMarketItemModule {}

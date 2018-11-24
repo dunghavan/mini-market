@@ -6,6 +6,7 @@ import { JhiLanguageService } from 'ng-jhipster';
 import { VERSION } from 'app/app.constants';
 import { JhiLanguageHelper, Principal, LoginModalService, LoginService } from 'app/core';
 import { ProfileService } from '../profiles/profile.service';
+import { SearchBarComponent } from '../searchbar/searchbar.component';
 
 @Component({
     selector: 'jhi-navbar',

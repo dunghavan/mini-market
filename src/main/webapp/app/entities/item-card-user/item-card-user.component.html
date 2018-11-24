@@ -1,0 +1,22 @@
+<div class="background">
+
+  <div class="image">
+    <img src="{{ item_des.Item_image_url }}" width="150" height="150">
+  </div>
+
+  <div class="content">
+    <h3>{{ Iitem.name }}</h3>
+    <div>
+      <p>Price: {{ Iitem.price }} | Address: {{ Iitem.address }} | Date time: {{ Iitem.createdDate }}</p>
+    </div>
+  </div>
+
+   <div>
+       <button type="button" class="btn btn-primary">View</button>
+       <div></div>
+       <button type="button" class="btn btn-warning">Edit</button>
+       <div></div>
+       <button type="button" class="btn btn-danger">Delete</button>
+   </div>
+
+</div>

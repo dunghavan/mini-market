@@ -2,13 +2,13 @@
     background-color: #f1f1f1;
     color: black;
     float: left;
-    width: 1101px;
+    width: 901px;
 }
 
 .image {
     background-color: white;
     float: left;
-    width: 550px;
+    width: 450px;
     height: 520px;
 }
 
@@ -21,8 +21,8 @@
 
 .item {
     background-color: white;
-    float: right;
-    width: 550px;
+    float: left;
+    width: 450px;
     height: 520px;
 }
 .content {
@@ -145,5 +145,8 @@ a:hover {
 }
 
 .hover {
-    width: 1561px;
+    width: 1361px;
+    text-align: center;
+    display: inline-block;
+    background-color: #f1f1f1;
 }

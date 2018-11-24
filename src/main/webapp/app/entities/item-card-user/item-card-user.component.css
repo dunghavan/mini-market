@@ -26,6 +26,13 @@
     width: 900px;
 }
 
+.price {
+    font-size: 20px;
+    float: bottom;
+    margin-left: 20px;
+    color: rgba(255, 116, 16, 0.84);
+}
+
 .btn-primary{
     margin-top: 10px;
     width: 150px;

@@ -10,21 +10,12 @@ import { Principal } from 'app/core';
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { ItemService } from './item.service';
 
-import { ItemDes } from 'app/entities/item-card/item-des.model'
-
 @Component({
     selector: 'jhi-item',
     templateUrl: './item2.component.html',
     styleUrls: ['./item2.component.css']
 })
 export class ItemComponent implements OnInit, OnDestroy {
-
-    item_des: ItemDes;
-    MAX_ITEM_PER_PAGE = 10;
-    MAX_PAGE = 10;
-    MAX_DISPLAY_PAGE = 5;
-    current_selected_page: number;
-    item_in_page: Array<ItemDes>;
 
     currentAccount: any;
     items: IItem[];
@@ -50,49 +41,29 @@ export class ItemComponent implements OnInit, OnDestroy {
         private router: Router,
         private eventManager: JhiEventManager
     ) {
-        this.itemsPerPage = ITEMS_PER_PAGE;
+        /*this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data.pagingParams.page;
             this.previousPage = data.pagingParams.page;
             this.reverse = data.pagingParams.ascending;
             this.predicate = data.pagingParams.predicate;
-        });
-
-        this.current_selected_page = 1;
-        this.get_item_id_in_page(this.current_selected_page);
+        });*/
+        this.loadItems();
     }
 
-    previous_page() {
-        if (this.current_selected_page > 1) {
-            this.current_selected_page -= 1;
-            this.get_item_id_in_page(this.current_selected_page);
-        }
+    loadItems() {
+        this.itemService.queryByCustomer().subscribe(
+            (res: HttpResponse<IItem[]>) => this.onSuccess(res),
+            (res: HttpErrorResponse) => this.onError(res)
+        );
     }
 
-    next_page() {
-        if (this.current_selected_page < this.MAX_PAGE) {
-            this.current_selected_page += 1;
-            this.get_item_id_in_page(this.current_selected_page);
-        }
-    }
-    get_item_id_in_page(page_number: number) {
-        this.item_in_page = [];
-        for (let i = 0; i < this.MAX_ITEM_PER_PAGE; i++) {
-            this.get_data();
-            this.item_in_page.push(this.item_des);
-        }
+    onSuccess(res: any) {
+        this.items = res.body;
     }
 
-    get_data() {
-        this.item_des = new ItemDes();
-        this.item_des.Item_name = 'Ao thun';
-        this.item_des.Item_price = '100.000 VND';
-        this.item_des.Item_address = 'Ho Chi Minh';
-        this.item_des.Item_date_time = '27/10/2018';
-        this.item_des.User_name = 'Huy';
-        this.item_des.User_rating = 5;
-        this.item_des.Item_image_url = 'http://hstatic.net/640/1000004640/1/2016/8-17/xanhla-aothun.jpg';
-
+    onError(res: any) {
+        console.log('err: ', res);
     }
 
     loadAll() {
@@ -173,7 +144,7 @@ export class ItemComponent implements OnInit, OnDestroy {
         this.items = data;
     }
 
-    private onError(errorMessage: string) {
+    /*private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
-    }
+    }*/
 }

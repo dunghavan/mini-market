@@ -33,6 +33,17 @@ public final class SecurityUtils {
             });
     }
 
+    public static Optional<Long> getCurrentUserId() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        return Optional.ofNullable(securityContext.getAuthentication())
+            .map(authentication -> {
+                if (authentication.getPrincipal() instanceof CustomUserDetails) {
+                    CustomUserDetails springSecurityUser = (CustomUserDetails) authentication.getPrincipal();
+                    return springSecurityUser.getId();
+                }
+                return null;
+            });
+    }
     /**
      * Get the JWT of the current user.
      *

@@ -28,7 +28,7 @@ public interface ItemService {
      */
     Page<Item> findAll(Pageable pageable);
 
-
+    Page<Item> findAllByUser(Long userId, Pageable pageable);
     /**
      * Get the "id" item.
      *

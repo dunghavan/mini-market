@@ -2,8 +2,11 @@ package com.dung.mini_market.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.dung.mini_market.domain.Item;
+import com.dung.mini_market.domain.User;
+import com.dung.mini_market.security.SecurityUtils;
 import com.dung.mini_market.service.ItemService;
 import com.dung.mini_market.web.rest.errors.BadRequestAlertException;
+import com.dung.mini_market.web.rest.errors.UserNotFoundException;
 import com.dung.mini_market.web.rest.util.HeaderUtil;
 import com.dung.mini_market.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -53,6 +56,12 @@ public class ItemResource {
         if (item.getId() != null) {
             throw new BadRequestAlertException("A new item cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        Optional<Long> userIdOpt = SecurityUtils.getCurrentUserId();
+        if (!userIdOpt.isPresent()){
+            throw new UserNotFoundException();
+        }
+        User currentUserLogin = new User(userIdOpt.get());
+        item.setUser(currentUserLogin);
         Item result = itemService.save(item);
         return ResponseEntity.created(new URI("/api/items/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -90,6 +99,20 @@ public class ItemResource {
     @GetMapping("/items")
     @Timed
     public ResponseEntity<List<Item>> getAllItems(Pageable pageable) {
+        log.debug("REST request to get a page of Items");
+        Optional<Long> userIdOpt = SecurityUtils.getCurrentUserId();
+        if (!userIdOpt.isPresent()){
+            throw new UserNotFoundException();
+        }
+        Long userId = userIdOpt.get();
+        Page<Item> page = itemService.findAllByUser(userId, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/items");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/items/get-by-customer")
+    @Timed
+    public ResponseEntity<List<Item>> getAllItemsByCustomer(Pageable pageable) {
         log.debug("REST request to get a page of Items");
         Page<Item> page = itemService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/items");

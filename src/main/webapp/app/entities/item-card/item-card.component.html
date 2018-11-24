@@ -1,17 +1,24 @@
 <div class="background">
 
   <div class="image">
-    <img src="{{ item_des.Item_image_url }}" width="150" height="150">
+      <img *ngIf="item.images.length > 0" src="http://localhost:8888/{{ item.images[0].name }}" width="150" height="150" onerror="src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png'">
+      <img *ngIf="item.images.length === 0" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png" width="150" height="150">
   </div>
 
   <div class="content">
-    <h3>{{ item_des.Item_name }}</h3>
-    <div>
-      <p>Price: {{ item_des.Item_price }} | Address: {{ item_des.Item_address }} | Date time: {{ item_des.Item_date_time }}</p>
+      <div class="row">
+          <h3>{{ item.name }}</h3>
+          <p class="price">Giá: {{ item.price }}đ</p>
+      </div>
+    <div class="row">
+        <p>Địa chỉ: {{ item.price }}</p>
     </div>
-    <div>
-      <p>User name: {{ item_des.User_name }} | User rating: {{ item_des.User_rating }}</p>
-    </div>
+      <div class="row">
+          <p>Ngày đăng: {{ item.createdDate | date: 'dd/MM/yyyy HH:mm:ss'}}</p>
+      </div>
+      <div class="row">
+          <p>Người đăng:</p>
+      </div>
   </div>
 
 </div>

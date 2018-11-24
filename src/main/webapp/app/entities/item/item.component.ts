@@ -14,7 +14,6 @@ import { ItemDes } from 'app/entities/item-card/item-des.model'
 
 @Component({
     selector: 'jhi-item',
-    #templateUrl: './item.component.html'
     templateUrl: './item2.component.html',
     styleUrls: ['./item2.component.css']
 })

@@ -11,9 +11,12 @@ import {
     itemRoute,
     itemPopupRoute
 } from './';
+
 import {ListItemComponent} from 'app/landing/list-item.component';
 import {ItemCardComponent} from 'app/entities/item-card/item-card.component';
 import {ItemCardUserComponent} from 'app/entities/item-card-user/item-card-user.component';
+import {ListItemComponent} from "app/landing/landing.component";
+import {ItemCardComponent} from "app/entities/item-card/item-card.component";
 
 const ENTITY_STATES = [...itemRoute, ...itemPopupRoute];
 

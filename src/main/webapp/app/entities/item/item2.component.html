@@ -3,8 +3,8 @@
         <div class="content">
             <app-search-bar></app-search-bar>
             <div class="split_horizontal"></div>
-            <div *ngFor="let item of item_in_page">
-                <app-item-card-user [item_des]="item"></app-item-card-user>
+            <div *ngFor="let item of items">
+                <app-item-card-user [Iitem]="item"></app-item-card-user>
                 <div class="split_horizontal"></div>
             </div>
             <div class="page">

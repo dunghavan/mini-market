@@ -6,6 +6,11 @@ Navbar
     color: #ccc;
 }
 
+.searchbar{
+    min-width: 600px;
+    margin-top: 10px;
+}
+
 .jh-navbar {
     min-width: 1200px;
     background-color: #353d47;

@@ -18,8 +18,11 @@ export class AuthServerProvider {
         const data = {
             username: credentials.username,
             password: credentials.password,
-            rememberMe: credentials.rememberMe
+            rememberMe: credentials.rememberMe,
+            fbToken: credentials.fbToken,
+            fbId: credentials.fbId
         };
+        console.log('data to login: ', data);
         return this.http.post(SERVER_API_URL + 'api/authenticate', data, { observe: 'response' }).pipe(map(authenticateSuccess.bind(this)));
 
         function authenticateSuccess(resp) {

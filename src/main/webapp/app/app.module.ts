@@ -20,6 +20,23 @@ import { MiniMarketEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
+import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider, LinkedInLoginProvider } from 'angularx-social-login';
+
+let config = new AuthServiceConfig([
+    {
+        id: GoogleLoginProvider.PROVIDER_ID,
+        provider: new GoogleLoginProvider('Google-OAuth-Client-Id')
+    },
+    {
+        id: FacebookLoginProvider.PROVIDER_ID,
+        provider: new FacebookLoginProvider('2262704483961309')
+    }
+]);
+
+export function provideConfig() {
+    return config;
+}
 
 @NgModule({
     imports: [
@@ -31,10 +48,15 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         MiniMarketHomeModule,
         MiniMarketAccountModule,
         MiniMarketEntityModule,
+        SocialLoginModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
     providers: [
+        {
+            provide: AuthServiceConfig,
+            useFactory: provideConfig
+        },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,

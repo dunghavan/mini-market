@@ -8,15 +8,33 @@ import javax.validation.constraints.Size;
  */
 public class LoginVM {
 
-    @NotNull
+    private String fbToken;
+
+    private String fbId;
+
     @Size(min = 1, max = 50)
     private String username;
 
-    @NotNull
     @Size(min = ManagedUserVM.PASSWORD_MIN_LENGTH, max = ManagedUserVM.PASSWORD_MAX_LENGTH)
     private String password;
 
     private Boolean rememberMe;
+
+    public String getFbToken() {
+        return fbToken;
+    }
+
+    public void setFbToken(String fbToken) {
+        this.fbToken = fbToken;
+    }
+
+    public String getFbId() {
+        return fbId;
+    }
+
+    public void setFbId(String fbId) {
+        this.fbId = fbId;
+    }
 
     public String getUsername() {
         return username;
@@ -45,7 +63,10 @@ public class LoginVM {
     @Override
     public String toString() {
         return "LoginVM{" +
-            "username='" + username + '\'' +
+            "fbToken='" + fbToken + '\'' +
+            ", fbId='" + fbId + '\'' +
+            ", username='" + username + '\'' +
+            ", password='" + password + '\'' +
             ", rememberMe=" + rememberMe +
             '}';
     }

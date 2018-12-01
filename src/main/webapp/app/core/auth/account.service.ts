@@ -15,4 +15,8 @@ export class AccountService {
     save(account: any): Observable<HttpResponse<any>> {
         return this.http.post(SERVER_API_URL + 'api/account', account, { observe: 'response' });
     }
+
+    fbLogin(url: string): Observable<HttpResponse<any>> {
+        return this.http.get(url, { observe: 'response' });
+    }
 }

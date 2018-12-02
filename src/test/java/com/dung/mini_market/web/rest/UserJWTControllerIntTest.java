@@ -4,6 +4,7 @@ import com.dung.mini_market.MiniMarketApp;
 import com.dung.mini_market.domain.User;
 import com.dung.mini_market.repository.UserRepository;
 import com.dung.mini_market.security.jwt.TokenProvider;
+import com.dung.mini_market.service.RedisService;
 import com.dung.mini_market.web.rest.errors.ExceptionTranslator;
 import com.dung.mini_market.web.rest.vm.LoginVM;
 import org.junit.Before;
@@ -50,11 +51,14 @@ public class UserJWTControllerIntTest {
     @Autowired
     private ExceptionTranslator exceptionTranslator;
 
+    @Autowired
+    private RedisService redisService;
+
     private MockMvc mockMvc;
 
     @Before
     public void setup() {
-        UserJWTController userJWTController = new UserJWTController(tokenProvider, authenticationManager);
+        UserJWTController userJWTController = new UserJWTController(tokenProvider, authenticationManager, redisService);
         this.mockMvc = MockMvcBuilders.standaloneSetup(userJWTController)
             .setControllerAdvice(exceptionTranslator)
             .build();

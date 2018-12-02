@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { IItem } from 'app/shared/model/item.model';
-import {IImage} from 'app/shared/model/image.model';
-import {ImageService} from 'app/entities/image';
-import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import { IImage } from 'app/shared/model/image.model';
+import { ImageService } from 'app/entities/image';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 @Component({
     selector: 'jhi-item-detail',
@@ -17,9 +17,7 @@ export class ItemDetailComponent implements OnInit {
     current_image_select: number;
     current_image_url: string;
 
-    constructor(private activatedRoute: ActivatedRoute, private imageService: ImageService) {
-
-    }
+    constructor(private activatedRoute: ActivatedRoute, private imageService: ImageService) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ item }) => {
@@ -37,7 +35,7 @@ export class ItemDetailComponent implements OnInit {
         if (this.current_image_select >= this.images.length) {
             this.current_image_select = 0;
         }
-        this.current_image_url = 'http://localhost:8888/' + this.images[this.current_image_select].name;
+        this.current_image_url = 'http://localhost:8889/' + this.images[this.current_image_select].name;
     }
 
     previous_image() {
@@ -75,18 +73,16 @@ export class ItemDetailComponent implements OnInit {
             size: 10,
             sort: ['id']
         };
-        this.imageService.findByItemId(this.item.id, requestOption)
-            .subscribe(
-                (res: HttpResponse<IImage[]>) => this.onSuccess(res.body),
-                (err: HttpErrorResponse) => this.onError(err.message)
-            );
+        this.imageService
+            .findByItemId(this.item.id, requestOption)
+            .subscribe((res: HttpResponse<IImage[]>) => this.onSuccess(res.body), (err: HttpErrorResponse) => this.onError(err.message));
     }
 
     onSuccess(images: IImage[]) {
         this.images = images;
         console.log('get images success: ', this.images);
         this.current_image_select = 0;
-        this.current_image_url = 'http://localhost:8888/' + this.images[this.current_image_select].name;
+        this.current_image_url = 'http://localhost:8889/' + this.images[this.current_image_select].name;
     }
 
     onError(msg: string) {

@@ -1,24 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiLanguageService } from 'ng-jhipster';
+import { JhiEventManager, JhiLanguageService } from 'ng-jhipster';
 
 import { VERSION } from 'app/app.constants';
 import { JhiLanguageHelper, Principal, LoginModalService, LoginService } from 'app/core';
 import { ProfileService } from '../profiles/profile.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'jhi-navbar',
     templateUrl: './navbar.component.html',
     styleUrls: ['navbar.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
     inProduction: boolean;
     isNavbarCollapsed: boolean;
     languages: any[];
     swaggerEnabled: boolean;
     modalRef: NgbModalRef;
     version: string;
+    i = 0;
+    username: string;
+    eventSubscriber: Subscription;
 
     constructor(
         private loginService: LoginService,
@@ -27,7 +31,8 @@ export class NavbarComponent implements OnInit {
         private principal: Principal,
         private loginModalService: LoginModalService,
         private profileService: ProfileService,
-        private router: Router
+        private router: Router,
+        private eventManager: JhiEventManager
     ) {
         this.version = VERSION ? 'v' + VERSION : '';
         this.isNavbarCollapsed = true;
@@ -42,6 +47,19 @@ export class NavbarComponent implements OnInit {
             this.inProduction = profileInfo.inProduction;
             this.swaggerEnabled = profileInfo.swaggerEnabled;
         });
+        this.getUserLoggedIn();
+        this.registerAuthenticationSuccess();
+    }
+    registerAuthenticationSuccess() {
+        console.log('handle event login success');
+        this.eventSubscriber = this.eventManager.subscribe('authenticationSuccess', message => {
+            this.getUserLoggedIn();
+        });
+    }
+    getUserLoggedIn() {
+        this.principal.identity().then(account => {
+            this.username = account.firstName;
+        });
     }
 
     changeLanguage(languageKey: string) {
@@ -53,6 +71,8 @@ export class NavbarComponent implements OnInit {
     }
 
     isAuthenticated() {
+        console.log('navbar call isAuthenticated() ' + this.i);
+        this.i++;
         return this.principal.isAuthenticated();
     }
 
@@ -72,5 +92,8 @@ export class NavbarComponent implements OnInit {
 
     getImageUrl() {
         return this.isAuthenticated() ? this.principal.getImageUrl() : null;
+    }
+    ngOnDestroy() {
+        this.eventManager.destroy(this.eventSubscriber);
     }
 }

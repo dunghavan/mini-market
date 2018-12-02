@@ -3,7 +3,8 @@ import { ItemService } from 'app/entities/item';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { IItem, Item } from 'app/shared/model/item.model';
 import { AccountService, LoginService } from 'app/core';
-import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
+import { AuthService, FacebookLoginProvider } from 'angularx-social-login';
+import { JhiEventManager } from 'ng-jhipster';
 
 @Component({
     selector: 'app-list-item',
@@ -20,40 +21,35 @@ export class ListItemComponent implements OnInit {
         private itemService: ItemService,
         private accountService: AccountService,
         private authService: AuthService,
-        private loginService: LoginService
+        private loginService: LoginService,
+        private eventManager: JhiEventManager
     ) {
         this.current_selected_page = 1;
     }
 
     ngOnInit() {
         this.loadItems();
-        this.authService.authState.subscribe(user => {
-            console.log('state res: ', user);
-            this.customLogin(user.authToken, user.id);
-        });
-    }
-    signInWithFB(): void {
-        this.authService.signIn(FacebookLoginProvider.PROVIDER_ID, { redirect_uri: 'https://localhost:8081/api/login/' });
-    }
-
-    signOut(): void {
-        this.authService.signOut();
-    }
-
-    fbLogin() {
-        const url =
-            'https://www.facebook.com/v3.2/dialog/oauth?client_id=2262704483961309&state=abc&redirect_uri=https://localhost:8081/api/login/';
-
-        // const url = 'https://abc.vn';
-        this.accountService.fbLogin(url).subscribe(
-            (res: HttpResponse<SocialUser>) => {
-                console.log('response: ', res);
-                this.customLogin(res.body.authToken, res.body.id);
+        this.authService.authState.subscribe(
+            user => {
+                console.log('state res: ', user);
+                // this.customLogin(user.authToken, user.id);
             },
-            (err: any) => {
-                console.log('login err: ', err);
+            err => {
+                console.log('check state err: ', err);
             }
         );
+    }
+
+    signInWithFB(): void {
+        this.authService
+            .signIn(FacebookLoginProvider.PROVIDER_ID, { redirect_uri: 'https://minimarket.vn/api/login' })
+            .then(user => {
+                console.log('fb login success: ', user);
+                this.customLogin(user.authToken, user.id);
+            })
+            .catch(err => {
+                console.log('fb login err: ', err);
+            });
     }
 
     customLogin(fbToken: string, fbId: string) {
@@ -68,6 +64,10 @@ export class ListItemComponent implements OnInit {
             })
             .then(() => {
                 console.log('custom login success');
+                this.eventManager.broadcast({
+                    name: 'authenticationSuccess',
+                    content: 'Sending Authentication Success'
+                });
             })
             .catch(() => {
                 console.log('custom login err');

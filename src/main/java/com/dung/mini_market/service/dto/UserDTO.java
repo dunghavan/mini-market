@@ -3,6 +3,7 @@ package com.dung.mini_market.service.dto;
 import com.dung.mini_market.config.Constants;
 
 import com.dung.mini_market.domain.Authority;
+import com.dung.mini_market.domain.FacebookUser;
 import com.dung.mini_market.domain.User;
 
 import javax.validation.constraints.Email;
@@ -12,6 +13,8 @@ import javax.validation.constraints.*;
 import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static com.dung.mini_market.config.Constants.DEFAULT_LANGUAGE;
 
 /**
  * A DTO representing a user, with his authorities.
@@ -55,6 +58,15 @@ public class UserDTO {
 
     public UserDTO() {
         // Empty constructor needed for Jackson.
+    }
+
+    public UserDTO(FacebookUser facebookUser) {
+        this.login = facebookUser.getEmail();
+        this.firstName = facebookUser.getFirst_name();
+        this.lastName = facebookUser.getLast_name();
+        this.email = facebookUser.getEmail();
+        this.activated = true;
+        this.langKey = DEFAULT_LANGUAGE;
     }
 
     public UserDTO(User user) {

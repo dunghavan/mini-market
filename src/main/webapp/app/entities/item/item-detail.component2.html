@@ -13,7 +13,7 @@
                                 <a class="previous round" (click)="previous_image()">&#8249;</a>
                             </div>
                             <div class="small_image" *ngFor="let image of images" >
-                                <img src="http://localhost:8888/{{image.name}}" alt="Trulli" width="100" height="100" class="left" (click)="showImage(image.id)">
+                                <img src="http://localhost:8889/{{image.name}}" alt="Trulli" width="100" height="100" class="left" (click)="showImage(image.id)">
                             </div>
                             <div width="100" height="100" class="right_button" >
                                 <a class="next round" (click)="next_image()" >&#8250; </a>

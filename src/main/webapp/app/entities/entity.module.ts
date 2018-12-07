@@ -3,7 +3,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MiniMarketItemModule } from './item/item.module';
 import { MiniMarketImageModule } from './image/image.module';
 import { MiniMarketTypeModule } from './type/type.module';
-import {ListItemComponent} from "app/landing/landing.component";
+import { ListItemComponent } from 'app/landing/landing.component';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({

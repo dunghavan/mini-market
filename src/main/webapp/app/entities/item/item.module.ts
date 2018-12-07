@@ -12,9 +12,9 @@ import {
     itemPopupRoute
 } from './';
 
-import {ItemCardComponent} from 'app/entities/item-card/item-card.component';
-import {ItemCardUserComponent} from 'app/entities/item-card-user/item-card-user.component';
-import {ListItemComponent} from 'app/landing/landing.component';
+import { ItemCardComponent } from 'app/entities/item-card/item-card.component';
+import { ItemCardUserComponent } from 'app/entities/item-card-user/item-card-user.component';
+import { ListItemComponent } from 'app/landing/landing.component';
 
 const ENTITY_STATES = [...itemRoute, ...itemPopupRoute];
 
@@ -28,7 +28,7 @@ const ENTITY_STATES = [...itemRoute, ...itemPopupRoute];
         ItemDeletePopupComponent,
         ListItemComponent,
         ItemCardComponent,
-        ItemCardUserComponent,
+        ItemCardUserComponent
     ],
     entryComponents: [
         ItemComponent,
@@ -37,7 +37,7 @@ const ENTITY_STATES = [...itemRoute, ...itemPopupRoute];
         ItemDeletePopupComponent,
         ListItemComponent,
         ItemCardComponent,
-        ItemCardUserComponent,
+        ItemCardUserComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

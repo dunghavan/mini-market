@@ -58,7 +58,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
     getUserLoggedIn() {
         this.principal.identity().then(account => {
-            this.username = account.firstName;
+            if (account !== null) {
+                this.username = account.firstName;
+            }
+            console.log('this.account: ', account);
         });
     }
 

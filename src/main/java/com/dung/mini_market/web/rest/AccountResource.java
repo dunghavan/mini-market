@@ -107,6 +107,14 @@ public class AccountResource {
             .orElseThrow(() -> new InternalServerErrorException("User could not be found"));
     }
 
+    @GetMapping("/account/get-by-item-id")
+    @Timed
+    public UserDTO getUserInfoByItemId(@Valid @RequestParam Long itemId) {
+        return userService.getUserWithAuthorities()
+            .map(UserDTO::new)
+            .orElseThrow(() -> new InternalServerErrorException("User could not be found"));
+    }
+
     /**
      * POST  /account : update the current user information.
      *

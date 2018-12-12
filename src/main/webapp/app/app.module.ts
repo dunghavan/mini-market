@@ -17,6 +17,7 @@ import { MiniMarketAppRoutingModule } from './app-routing.module';
 import { MiniMarketHomeModule } from './home/home.module';
 import { MiniMarketAccountModule } from './account/account.module';
 import { MiniMarketEntityModule } from './entities/entity.module';
+import { MiniMarketSearchBarModule } from './layouts/searchbar/searchbar.module';
 import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
@@ -48,7 +49,8 @@ export function provideConfig() {
         MiniMarketHomeModule,
         MiniMarketAccountModule,
         MiniMarketEntityModule,
-        SocialLoginModule
+        SocialLoginModule,
+        MiniMarketSearchBarModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],

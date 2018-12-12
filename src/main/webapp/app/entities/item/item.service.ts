@@ -22,7 +22,7 @@ export class ItemService {
     uploadFiles(fd: FormData): Observable<HttpResponse<any>> {
         const url = SERVER_API_URL + 'api/images-upload';
         console.log('post form data: ', fd.get('file'));
-        return this.http.post<any>(url, fd, {observe: 'response'});
+        return this.http.post<any>(url, fd, { observe: 'response' });
     }
 
     update(item: IItem): Observable<EntityResponseType> {

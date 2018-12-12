@@ -12,14 +12,16 @@ describe('Component Tests', () => {
         let fixture: ComponentFixture<JhiMetricsMonitoringModalComponent>;
         let service: JhiMetricsService;
 
-        beforeEach(async(() => {
-            TestBed.configureTestingModule({
-                imports: [MiniMarketTestModule],
-                declarations: [JhiMetricsMonitoringModalComponent]
+        beforeEach(
+            async(() => {
+                TestBed.configureTestingModule({
+                    imports: [MiniMarketTestModule],
+                    declarations: [JhiMetricsMonitoringModalComponent]
+                })
+                    .overrideTemplate(JhiMetricsMonitoringModalComponent, '')
+                    .compileComponents();
             })
-                .overrideTemplate(JhiMetricsMonitoringModalComponent, '')
-                .compileComponents();
-        }));
+        );
 
         beforeEach(() => {
             fixture = TestBed.createComponent(JhiMetricsMonitoringModalComponent);

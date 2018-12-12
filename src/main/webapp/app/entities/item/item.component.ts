@@ -9,124 +9,133 @@ import { Principal } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { ItemService } from './item.service';
+import { numberOfBytes } from 'ng-jhipster/src/directive/number-of-bytes';
 
 @Component({
     selector: 'jhi-item',
-    templateUrl: './item.component.html'
+    templateUrl: './item2.component.html',
+    styleUrls: ['./item2.component.css']
 })
-export class ItemComponent implements OnInit, OnDestroy {
-    currentAccount: any;
+export class ItemComponent implements OnInit {
     items: IItem[];
-    error: any;
-    success: any;
-    eventSubscriber: Subscription;
-    routeData: any;
-    links: any;
-    totalItems: any;
-    queryCount: any;
-    itemsPerPage: any;
-    page: any;
-    predicate: any;
-    previousPage: any;
-    reverse: any;
+    MAX_ITEM_PER_PAGE: number;
+    MAX_PAGE_TO_DISPLAY: number;
+    max_item: number;
+    current_page: number;
+    current_list: number;
+    last_list: number;
+    number_of_page_to_display: number;
+    number_of_page: number;
+    number_of_list: number;
+    list_page: number[];
 
-    constructor(
-        private itemService: ItemService,
-        private parseLinks: JhiParseLinks,
-        private jhiAlertService: JhiAlertService,
-        private principal: Principal,
-        private activatedRoute: ActivatedRoute,
-        private router: Router,
-        private eventManager: JhiEventManager
-    ) {
-        this.itemsPerPage = ITEMS_PER_PAGE;
-        this.routeData = this.activatedRoute.data.subscribe(data => {
-            this.page = data.pagingParams.page;
-            this.previousPage = data.pagingParams.page;
-            this.reverse = data.pagingParams.ascending;
-            this.predicate = data.pagingParams.predicate;
-        });
-    }
-
-    loadAll() {
-        this.itemService
-            .query({
-                page: this.page - 1,
-                size: this.itemsPerPage,
-                sort: this.sort()
-            })
-            .subscribe(
-                (res: HttpResponse<IItem[]>) => this.paginateItems(res.body, res.headers),
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
-    }
-
-    loadPage(page: number) {
-        if (page !== this.previousPage) {
-            this.previousPage = page;
-            this.transition();
-        }
-    }
-
-    transition() {
-        this.router.navigate(['/item'], {
-            queryParams: {
-                page: this.page,
-                size: this.itemsPerPage,
-                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-            }
-        });
-        this.loadAll();
-    }
-
-    clear() {
-        this.page = 0;
-        this.router.navigate([
-            '/item',
-            {
-                page: this.page,
-                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-            }
-        ]);
-        this.loadAll();
-    }
+    constructor(private itemService: ItemService) {}
 
     ngOnInit() {
-        this.loadAll();
-        this.principal.identity().then(account => {
-            this.currentAccount = account;
-        });
-        this.registerChangeInItems();
+        this.loadItems();
     }
 
-    ngOnDestroy() {
-        this.eventManager.destroy(this.eventSubscriber);
+    loadItems() {
+        this.itemService
+            .queryByCustomer()
+            .subscribe((res: HttpResponse<IItem[]>) => this.onSuccess(res), (res: HttpErrorResponse) => this.onError(res));
     }
 
-    trackId(index: number, item: IItem) {
-        return item.id;
+    onSuccess(res: any) {
+        this.items = res.body;
     }
 
-    registerChangeInItems() {
-        this.eventSubscriber = this.eventManager.subscribe('itemListModification', response => this.loadAll());
+    onError(res: any) {
+        console.log('err: ', res);
     }
 
-    sort() {
-        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
-        if (this.predicate !== 'id') {
-            result.push('id');
+    set_page(page: number) {
+        if (this.current_page != page) {
+            this.current_page = page;
+            this.load_page();
         }
-        return result;
     }
 
-    private paginateItems(data: IItem[], headers: HttpHeaders) {
-        this.links = this.parseLinks.parse(headers.get('link'));
-        this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-        this.queryCount = this.totalItems;
-        this.items = data;
+    previous_page() {
+        this.current_page--;
+        if (this.current_page < 1) {
+            this.current_page = 1;
+        } else {
+            if (this.current_page <= (this.number_of_list - 1) * this.MAX_PAGE_TO_DISPLAY) {
+                this.current_list--;
+                this.update_list();
+            }
+            this.load_page();
+        }
     }
 
-    private onError(errorMessage: string) {
-        this.jhiAlertService.error(errorMessage, null, null);
+    next_page() {
+        this.current_page++;
+        if (this.current_page > this.number_of_page) {
+            this.current_page = this.number_of_page;
+        } else {
+            if (this.current_list != this.number_of_page) {
+                if (this.current_page > this.number_of_list * this.MAX_PAGE_TO_DISPLAY) {
+                    this.current_list++;
+                    this.update_list();
+                }
+            }
+            this.load_page();
+        }
+    }
+
+    first_page() {
+        if (this.current_page != 1) {
+            this.current_page = 1;
+            if (this.current_list != 1) {
+                this.current_list = 1;
+                this.update_list();
+            }
+            this.load_page();
+        }
+    }
+
+    last_page() {
+        if (this.current_page != this.number_of_page) {
+            this.current_page = this.number_of_page;
+            if (this.current_list != this.number_of_list) {
+                this.current_list = this.number_of_list;
+                this.update_list();
+            }
+            this.load_page();
+        }
+    }
+
+    load_page() {}
+
+    update_list() {
+        if (this.current_list === this.number_of_list) {
+            this.number_of_page_to_display = this.last_list;
+        } else {
+            this.number_of_page_to_display = this.MAX_PAGE_TO_DISPLAY;
+        }
+        var iter;
+        this.list_page = [];
+        for (iter = 1; iter <= this.number_of_page_to_display; iter++) {
+            this.list_page[iter] = (this.number_of_list - 1) * this.MAX_PAGE_TO_DISPLAY + iter;
+        }
+    }
+
+    list_init() {
+        this.number_of_page = this.max_item / this.MAX_ITEM_PER_PAGE;
+        if (this.max_item % this.MAX_ITEM_PER_PAGE > 0) {
+            this.number_of_page++;
+        }
+
+        this.number_of_list = this.number_of_page / this.MAX_PAGE_TO_DISPLAY;
+        this.last_list = this.number_of_page % this.MAX_PAGE_TO_DISPLAY;
+        if (this.last_list > 0) {
+            this.number_of_list++;
+        }
+
+        this.current_page = 1;
+        this.current_list = 1;
+        this.update_list();
+        this.load_page();
     }
 }

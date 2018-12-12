@@ -13,21 +13,23 @@ describe('Component Tests', () => {
         let fixture: ComponentFixture<JhiAlertErrorComponent>;
         let eventManager: JhiEventManager;
 
-        beforeEach(async(() => {
-            TestBed.configureTestingModule({
-                imports: [MiniMarketTestModule, TranslateModule.forRoot()],
-                declarations: [JhiAlertErrorComponent],
-                providers: [
-                    JhiEventManager,
-                    {
-                        provide: JhiAlertService,
-                        useClass: MockAlertService
-                    }
-                ]
+        beforeEach(
+            async(() => {
+                TestBed.configureTestingModule({
+                    imports: [MiniMarketTestModule, TranslateModule.forRoot()],
+                    declarations: [JhiAlertErrorComponent],
+                    providers: [
+                        JhiEventManager,
+                        {
+                            provide: JhiAlertService,
+                            useClass: MockAlertService
+                        }
+                    ]
+                })
+                    .overrideTemplate(JhiAlertErrorComponent, '')
+                    .compileComponents();
             })
-                .overrideTemplate(JhiAlertErrorComponent, '')
-                .compileComponents();
-        }));
+        );
 
         beforeEach(() => {
             fixture = TestBed.createComponent(JhiAlertErrorComponent);

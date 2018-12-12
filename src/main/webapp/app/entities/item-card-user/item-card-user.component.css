@@ -1,0 +1,49 @@
+.image {
+    float: left;
+    height: 200px;
+    width: 200px;
+    text-align: center;
+}
+
+.content {
+    float: left;
+    height: 200px;
+    width: 500px;
+}
+
+.save {
+    float: left;
+    height: 200px;
+    width: 200px;
+}
+
+.background {
+    background-color: white;
+    text-align: center;
+    display: inline-block;
+    color: black;
+    height: 200px;
+    width: 900px;
+}
+
+.price {
+    font-size: 20px;
+    float: bottom;
+    margin-left: 20px;
+    color: rgba(255, 116, 16, 0.84);
+}
+
+.btn-primary {
+    margin-top: 10px;
+    width: 150px;
+}
+
+.btn-warning {
+    margin-top: 10px;
+    width: 150px;
+}
+
+.btn-danger {
+    margin-top: 10px;
+    width: 150px;
+}

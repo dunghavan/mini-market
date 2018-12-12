@@ -5,11 +5,10 @@ import { Observable } from 'rxjs';
 
 import { IItem } from 'app/shared/model/item.model';
 import { ItemService } from './item.service';
-import {IType} from 'app/shared/model/type.model';
-import {TypeService} from 'app/entities/type';
-import {Status} from "app/shared/model/status.model";
-import {State} from "app/shared/model/state.model";
-
+import { IType } from 'app/shared/model/type.model';
+import { TypeService } from 'app/entities/type';
+import { Status } from 'app/shared/model/status.model';
+import { State } from 'app/shared/model/state.model';
 
 interface ModalMessage {
     isShow: boolean;
@@ -20,7 +19,6 @@ interface ModalMessage {
     selector: 'jhi-item-update',
     templateUrl: './item-update.component.html'
 })
-
 export class ItemUpdateComponent implements OnInit {
     private _item: IItem;
     private types: IType[];
@@ -33,12 +31,11 @@ export class ItemUpdateComponent implements OnInit {
     states: State[];
     state: State;
 
-    constructor(private itemService: ItemService, private activatedRoute: ActivatedRoute,
-                private typeService: TypeService) {}
+    constructor(private itemService: ItemService, private activatedRoute: ActivatedRoute, private typeService: TypeService) {}
 
     ngOnInit() {
-        this.errorMessage = {isShow: false, msg: ''};
-        this.successMessage = {isShow: false, msg: ''};
+        this.errorMessage = { isShow: false, msg: '' };
+        this.successMessage = { isShow: false, msg: '' };
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ item }) => {
             this.item = item;
@@ -53,10 +50,12 @@ export class ItemUpdateComponent implements OnInit {
     }
 
     loadTypes() {
-        this.typeService.query().subscribe(
-            (res: HttpResponse<IType[]>) => this.types = res.body,
-            (res: HttpErrorResponse) => console.log('get types err: ', res)
-        );
+        this.typeService
+            .query()
+            .subscribe(
+                (res: HttpResponse<IType[]>) => (this.types = res.body),
+                (res: HttpErrorResponse) => console.log('get types err: ', res)
+            );
     }
 
     previousState() {
@@ -72,7 +71,8 @@ export class ItemUpdateComponent implements OnInit {
                 const reader = new FileReader();
 
                 reader.readAsDataURL(this.files[i]); // read file as data url
-                reader.onload = (_event) => { // called once readAsDataURL is completed
+                reader.onload = _event => {
+                    // called once readAsDataURL is completed
                     // @ts-ignore
                     this.files[i]['tempUrl'] = _event.target.result;
                 };
@@ -91,10 +91,9 @@ export class ItemUpdateComponent implements OnInit {
         }
         formData.set('itemId', String(itemId));
         console.log('begin upload...: ');
-        this.itemService.uploadFiles(formData).subscribe(
-            (res) => this.onUploadSuccess(res.body),
-            (err: HttpErrorResponse) => this.onUploadError(err.message)
-        );
+        this.itemService
+            .uploadFiles(formData)
+            .subscribe(res => this.onUploadSuccess(res.body), (err: HttpErrorResponse) => this.onUploadError(err.message));
     }
 
     private onUploadSuccess(result: any) {
@@ -123,7 +122,10 @@ export class ItemUpdateComponent implements OnInit {
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IItem>>) {
-        result.subscribe((res: HttpResponse<IItem>) => this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError(res.message));
+        result.subscribe(
+            (res: HttpResponse<IItem>) => this.onSaveSuccess(res.body),
+            (res: HttpErrorResponse) => this.onSaveError(res.message)
+        );
     }
 
     private onSaveSuccess(result: IItem) {

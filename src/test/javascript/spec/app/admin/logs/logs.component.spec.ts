@@ -14,15 +14,17 @@ describe('Component Tests', () => {
         let fixture: ComponentFixture<LogsComponent>;
         let service: LogsService;
 
-        beforeEach(async(() => {
-            TestBed.configureTestingModule({
-                imports: [MiniMarketTestModule],
-                declarations: [LogsComponent],
-                providers: [LogsService]
+        beforeEach(
+            async(() => {
+                TestBed.configureTestingModule({
+                    imports: [MiniMarketTestModule],
+                    declarations: [LogsComponent],
+                    providers: [LogsService]
+                })
+                    .overrideTemplate(LogsComponent, '')
+                    .compileComponents();
             })
-                .overrideTemplate(LogsComponent, '')
-                .compileComponents();
-        }));
+        );
 
         beforeEach(() => {
             fixture = TestBed.createComponent(LogsComponent);

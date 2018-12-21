@@ -64,10 +64,14 @@ a:hover {
 }
 
 .page {
-    background-color: white;
+    background-color: #f1f1f1;
     text-align: center;
     display: inline-block;
     width: 900px;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
 }
 
 .priority {
@@ -78,5 +82,16 @@ a:hover {
 .split_horizontal {
     background-color: #f1f1f1;
     float: inherit;
-    height: 1px;
+    height: 5px;
+}
+
+.toolbox {
+    background-color: white;
+    text-align: left;
+    display: inline-block;
+    width: 900px;
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
 }

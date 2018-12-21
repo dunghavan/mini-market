@@ -15,6 +15,7 @@ import {
 import { ItemCardComponent } from 'app/entities/item-card/item-card.component';
 import { ItemCardUserComponent } from 'app/entities/item-card-user/item-card-user.component';
 import { ListItemComponent } from 'app/landing/landing.component';
+import { EditDialogComponent } from 'app/entities/item/edit-dialog.component';
 
 const ENTITY_STATES = [...itemRoute, ...itemPopupRoute];
 
@@ -28,7 +29,8 @@ const ENTITY_STATES = [...itemRoute, ...itemPopupRoute];
         ItemDeletePopupComponent,
         ListItemComponent,
         ItemCardComponent,
-        ItemCardUserComponent
+        ItemCardUserComponent,
+        EditDialogComponent
     ],
     entryComponents: [
         ItemComponent,
@@ -37,7 +39,8 @@ const ENTITY_STATES = [...itemRoute, ...itemPopupRoute];
         ItemDeletePopupComponent,
         ListItemComponent,
         ItemCardComponent,
-        ItemCardUserComponent
+        ItemCardUserComponent,
+        EditDialogComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, Routes, RouterModule, ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -9,6 +9,8 @@ import { IType } from 'app/shared/model/type.model';
 import { TypeService } from 'app/entities/type';
 import { Status } from 'app/shared/model/status.model';
 import { State } from 'app/shared/model/state.model';
+import { MatDialog } from '@angular/material';
+import { EditDialogComponent } from 'app/entities/item/edit-dialog.component';
 
 interface ModalMessage {
     isShow: boolean;
@@ -17,7 +19,8 @@ interface ModalMessage {
 
 @Component({
     selector: 'jhi-item-update',
-    templateUrl: './item-update.component.html'
+    templateUrl: './item-update.component.html',
+    styleUrls: ['./item-update.component.css']
 })
 export class ItemUpdateComponent implements OnInit {
     private _item: IItem;
@@ -31,7 +34,14 @@ export class ItemUpdateComponent implements OnInit {
     states: State[];
     state: State;
 
-    constructor(private itemService: ItemService, private activatedRoute: ActivatedRoute, private typeService: TypeService) {}
+    constructor(
+        private itemService: ItemService,
+        private activatedRoute: ActivatedRoute,
+        private typeService: TypeService,
+        public dialog: MatDialog,
+        private _route: ActivatedRoute,
+        private _router: Router
+    ) {}
 
     ngOnInit() {
         this.errorMessage = { isShow: false, msg: '' };
@@ -49,6 +59,18 @@ export class ItemUpdateComponent implements OnInit {
         this.loadTypes();
     }
 
+    openDialog(): void {
+        const dialogRef = this.dialog.open(EditDialogComponent, {
+            data: {
+                saveState: 'success'
+            }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+        });
+    }
+
     loadTypes() {
         this.typeService
             .query()
@@ -59,7 +81,7 @@ export class ItemUpdateComponent implements OnInit {
     }
 
     previousState() {
-        window.history.back();
+        this._router.navigate(['/item/'], {});
     }
 
     handleFileInput(event: any) {
@@ -119,6 +141,7 @@ export class ItemUpdateComponent implements OnInit {
         } else {
             this.subscribeToSaveResponse(this.itemService.create(this.item));
         }
+        this.openDialog();
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IItem>>) {

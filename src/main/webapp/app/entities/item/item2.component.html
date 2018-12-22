@@ -1,11 +1,15 @@
 <div class="screen">
     <div class="background">
-        <button class="btn btn-success" [routerLink]="['/item/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span>
-            Create new Item
-            </span>
-        </button>
+        <div class="toolbox">
+            <label style="margin-right: 10px ;font-size: 25px">User toolbox</label>
+            <button class="btn btn-success" [routerLink]="['/item/new']">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span>
+                Create new Item
+                </span>
+            </button>
+        </div>
+        <div class="split_horizontal"></div>
         <div class="content">
             <div *ngFor="let item of items">
                 <app-item-card-user [item]="item"></app-item-card-user>

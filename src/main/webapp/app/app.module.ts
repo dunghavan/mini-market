@@ -18,11 +18,15 @@ import { MiniMarketHomeModule } from './home/home.module';
 import { MiniMarketAccountModule } from './account/account.module';
 import { MiniMarketEntityModule } from './entities/entity.module';
 import { MiniMarketSearchBarModule } from './layouts/searchbar/searchbar.module';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider, LinkedInLoginProvider } from 'angularx-social-login';
+import { MatButtonModule, MatCheckboxModule, MatTableModule, MatDialogModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 let config = new AuthServiceConfig([
     {
@@ -50,7 +54,15 @@ export function provideConfig() {
         MiniMarketAccountModule,
         MiniMarketEntityModule,
         SocialLoginModule,
-        MiniMarketSearchBarModule
+        MiniMarketSearchBarModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatTableModule,
+        MatDialogModule,
+        BrowserAnimationsModule
+
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],

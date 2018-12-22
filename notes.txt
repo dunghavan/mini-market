@@ -3,3 +3,40 @@
 - Tinh trang
 
 2. Xem NGINX
+
+3. Search and filter:
+    - search: string
+    - price:
+        + 1k -> 10k: 1
+        + 10 -> 50k: 2
+        + 50 -> 100k: 3
+        + 100k -> 200k: 4
+        + 200k -> 300k: 5
+        + 300k -> 500k: 6
+        + 500k -> 700k: 7
+        + 700k -> 1000k: 8
+        + 1000k -> 2000k: 9
+        + 2000k -> 5000k: 10
+        + 5000k -> 10.000k: 11
+        + 10.000k -> 15.000k: 12
+        + 15.000k -> 20.000k: 13
+        + 20.000k -> 30.000k: 14
+        + 30.000k -> ...    : 15
+        + all: 0
+    - status:
+        + Còn hàng: 1
+        + Hết hàng: 0
+    - state:
+        + Mới 100%: 1
+        + Đã qua sử dụng: 0
+    - type: typeId in database (0 if all)
+
+example: /get-by-customer?search=aokhoac&price=1&status=0&state=1&type=5
+
+LIST TASK:
+1. Thêm dialog khi add xong item mới
+2. Thêm dialog xóa item trong page list
+3. Sử dụng vòng ngFor để load hình ảnh trong page detail (tối đa 4 hình)
+4. Xử lý dữ liệu và gọi api Search từ landing page
+5. Tạo page detail của customer và thêm facebook comment
+

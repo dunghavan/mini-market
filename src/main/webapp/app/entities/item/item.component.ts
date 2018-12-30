@@ -1,15 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { IItem } from 'app/shared/model/item.model';
-import { Principal } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { ItemService } from './item.service';
-import { numberOfBytes } from 'ng-jhipster/src/directive/number-of-bytes';
+import { NavigationEnd } from '@angular/router';
+import { JhiEventManager } from 'ng-jhipster';
+import { Subscriber, Subscription } from 'rxjs';
 
 @Component({
     selector: 'jhi-item',
@@ -28,13 +26,23 @@ export class ItemComponent implements OnInit {
     number_of_page: number;
     number_of_list: number;
     list_page: number[];
+    eventSubscriber: Subscription;
 
-    constructor(private itemService: ItemService) {}
+    constructor(private itemService: ItemService, private eventManager: JhiEventManager) {}
 
     ngOnInit() {
-        this.loadItems();
+        this.max_item = 0;
+        //this.loadItems();
+        this.MAX_ITEM_PER_PAGE = 10;
+        this.MAX_PAGE_TO_DISPLAY = 5;
+        this.current_page = 1;
+        this.current_list = 1;
+        this.load_page();
+        //this.registerChangeInImages();
     }
-
+    registerChangeInImages() {
+        this.eventSubscriber = this.eventManager.subscribe('itemListModification', response => this.loadItems());
+    }
     loadItems() {
         this.itemService
             .queryByCustomer()
@@ -43,6 +51,11 @@ export class ItemComponent implements OnInit {
 
     onSuccess(res: any) {
         this.items = res.body;
+        if (this.max_item == 0) {
+            this.max_item = parseInt(res.headers.get('X-Total-Count'), 10);
+            this.list_init();
+        }
+        window.scroll(0, 0);
     }
 
     onError(res: any) {
@@ -53,6 +66,7 @@ export class ItemComponent implements OnInit {
         if (this.current_page != page) {
             this.current_page = page;
             this.load_page();
+            console.log('++++++++++++++++++++++++++++++++++++++++++++++');
         }
     }
 
@@ -61,9 +75,11 @@ export class ItemComponent implements OnInit {
         if (this.current_page < 1) {
             this.current_page = 1;
         } else {
-            if (this.current_page <= (this.number_of_list - 1) * this.MAX_PAGE_TO_DISPLAY) {
-                this.current_list--;
-                this.update_list();
+            if (this.current_list != 1) {
+                if (this.current_page <= (this.number_of_list - 1) * this.MAX_PAGE_TO_DISPLAY) {
+                    this.current_list--;
+                    this.update_list();
+                }
             }
             this.load_page();
         }
@@ -74,7 +90,7 @@ export class ItemComponent implements OnInit {
         if (this.current_page > this.number_of_page) {
             this.current_page = this.number_of_page;
         } else {
-            if (this.current_list != this.number_of_page) {
+            if (this.current_list != this.number_of_list) {
                 if (this.current_page > this.number_of_list * this.MAX_PAGE_TO_DISPLAY) {
                     this.current_list++;
                     this.update_list();
@@ -106,7 +122,14 @@ export class ItemComponent implements OnInit {
         }
     }
 
-    load_page() {}
+    load_page() {
+        this.itemService
+            .query({
+                page: this.current_page - 1,
+                size: this.MAX_ITEM_PER_PAGE
+            })
+            .subscribe((res: HttpResponse<IItem[]>) => this.onSuccess(res), (res: HttpErrorResponse) => this.onError(res));
+    }
 
     update_list() {
         if (this.current_list === this.number_of_list) {
@@ -116,26 +139,25 @@ export class ItemComponent implements OnInit {
         }
         var iter;
         this.list_page = [];
-        for (iter = 1; iter <= this.number_of_page_to_display; iter++) {
-            this.list_page[iter] = (this.number_of_list - 1) * this.MAX_PAGE_TO_DISPLAY + iter;
+        for (iter = 0; iter < this.number_of_page_to_display; iter++) {
+            this.list_page[iter] = (this.number_of_list - 1) * this.MAX_PAGE_TO_DISPLAY + iter + 1;
         }
     }
 
     list_init() {
-        this.number_of_page = this.max_item / this.MAX_ITEM_PER_PAGE;
+        console.log('---------------------------------->>>>>>>>>>>>>>>>');
+        this.number_of_page = Math.floor(this.max_item / this.MAX_ITEM_PER_PAGE);
         if (this.max_item % this.MAX_ITEM_PER_PAGE > 0) {
             this.number_of_page++;
         }
-
-        this.number_of_list = this.number_of_page / this.MAX_PAGE_TO_DISPLAY;
+        console.log(this.number_of_page);
+        this.number_of_list = Math.floor(this.number_of_page / this.MAX_PAGE_TO_DISPLAY);
         this.last_list = this.number_of_page % this.MAX_PAGE_TO_DISPLAY;
         if (this.last_list > 0) {
             this.number_of_list++;
         }
-
-        this.current_page = 1;
-        this.current_list = 1;
+        console.log(this.number_of_list);
         this.update_list();
-        this.load_page();
+        console.log('---------------------------------->>>>>>>>>>>>>>>>');
     }
 }

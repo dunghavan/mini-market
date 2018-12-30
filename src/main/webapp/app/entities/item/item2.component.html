@@ -18,18 +18,18 @@
             <div class="page">
                 <ul class="pagination justify-content-center">
                     <li [ngClass]="current_page === 1 ? 'page-item disabled' : 'page-item'">
-                        <a class="page-link" href="#" aria-label="First page" (click)="first_page()">
+                        <a class="page-link"  aria-label="First page" (click)="first_page()">
                             <span aria-hidden="true">&laquo;</span>
                             <span class="sr-only">First Page</span>
                         </a>
                     </li>
-                    <li [ngClass]="current_page === 1 ? 'page-item disabled' : 'page-item'"><a class="page-link" href="#" (click)="previous_page()">Previous</a></li>
+                    <li [ngClass]="current_page === 1 ? 'page-item disabled' : 'page-item'"><a class="page-link"  (click)="previous_page()">Previous</a></li>
                     <div *ngFor="let page of list_page" >
-                        <li [ngClass]="current_page === page ? 'page-item active' : 'page-item'"><a class="page-link" href="#" (click)="set_page(page)">{{ page }}</a></li>
+                        <li [ngClass]="current_page === page ? 'page-item active' : 'page-item'"><a class="page-link" (click)="set_page(page)">{{ page }}</a></li>
                     </div>
-                    <li [ngClass]="current_page === number_of_page ? 'page-item disabled' : 'page-item'"><a class="page-link" href="#" (click)="next_page()">Next</a></li>
+                    <li [ngClass]="current_page === number_of_page ? 'page-item disabled' : 'page-item'"><a class="page-link" (click)="next_page()">Next</a></li>
                     <li [ngClass]="current_page === number_of_page ? 'page-item disabled' : 'page-item'">
-                        <a class="page-link" href="#" aria-label="Last page" (click)="last_page()">
+                        <a class="page-link"  aria-label="Last page" (click)="last_page()">
                             <span aria-hidden="true">&raquo;</span>
                             <span class="sr-only">Last Page</span>
                         </a>

@@ -41,7 +41,13 @@ export class ListItemComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.loadItems();
+        this.max_item = 0;
+        //this.loadItems();
+        this.MAX_ITEM_PER_PAGE = 10;
+        this.MAX_PAGE_TO_DISPLAY = 5;
+        this.current_page = 1;
+        this.current_list = 1;
+        this.load_page();
         this.authService.authState.subscribe(
             user => {
                 console.log('state res: ', user);
@@ -101,25 +107,6 @@ export class ListItemComponent implements OnInit, OnDestroy {
                 console.log('custom login err');
             });
     }
-    // previous_page() {
-    //     if (this.current_selected_page > 1) {
-    //         this.current_selected_page -= 1;
-    //         this.get_item_id_in_page(this.current_selected_page);
-    //     }
-    // }
-    // next_page() {
-    //     if (this.current_selected_page < this.MAX_PAGE) {
-    //         this.current_selected_page += 1;
-    //         this.get_item_id_in_page(this.current_selected_page);
-    //     }
-    // }
-    // get_item_id_in_page(page_number: number) {
-    //     this.item_in_page = [];
-    //     for (let i = 0; i < this.MAX_ITEM_PER_PAGE; i++) {
-    //         this.get_data();
-    //         this.item_in_page.push(this.item_des);
-    //     }
-    // }
 
     loadItems() {
         this.itemService
@@ -129,6 +116,11 @@ export class ListItemComponent implements OnInit, OnDestroy {
 
     onSuccess(res: any) {
         this.items = res.body;
+        if (this.max_item == 0) {
+            this.max_item = parseInt(res.headers.get('X-Total-Count'), 10);
+            this.list_init();
+        }
+        window.scroll(0, 0);
     }
 
     onError(res: any) {
@@ -147,9 +139,11 @@ export class ListItemComponent implements OnInit, OnDestroy {
         if (this.current_page < 1) {
             this.current_page = 1;
         } else {
-            if (this.current_page <= (this.number_of_list - 1) * this.MAX_PAGE_TO_DISPLAY) {
-                this.current_list--;
-                this.update_list();
+            if (this.current_list != 1) {
+                if (this.current_page <= (this.number_of_list - 1) * this.MAX_PAGE_TO_DISPLAY) {
+                    this.current_list--;
+                    this.update_list();
+                }
             }
             this.load_page();
         }
@@ -160,7 +154,7 @@ export class ListItemComponent implements OnInit, OnDestroy {
         if (this.current_page > this.number_of_page) {
             this.current_page = this.number_of_page;
         } else {
-            if (this.current_list != this.number_of_page) {
+            if (this.current_list != this.number_of_list) {
                 if (this.current_page > this.number_of_list * this.MAX_PAGE_TO_DISPLAY) {
                     this.current_list++;
                     this.update_list();
@@ -192,7 +186,14 @@ export class ListItemComponent implements OnInit, OnDestroy {
         }
     }
 
-    load_page() {}
+    load_page() {
+        this.itemService
+            .query({
+                page: this.current_page - 1,
+                size: this.MAX_ITEM_PER_PAGE
+            })
+            .subscribe((res: HttpResponse<IItem[]>) => this.onSuccess(res), (res: HttpErrorResponse) => this.onError(res));
+    }
 
     update_list() {
         if (this.current_list === this.number_of_list) {
@@ -202,26 +203,25 @@ export class ListItemComponent implements OnInit, OnDestroy {
         }
         var iter;
         this.list_page = [];
-        for (iter = 1; iter <= this.number_of_page_to_display; iter++) {
-            this.list_page[iter] = (this.number_of_list - 1) * this.MAX_PAGE_TO_DISPLAY + iter;
+        for (iter = 0; iter < this.number_of_page_to_display; iter++) {
+            this.list_page[iter] = (this.number_of_list - 1) * this.MAX_PAGE_TO_DISPLAY + iter + 1;
         }
     }
 
     list_init() {
-        this.number_of_page = this.max_item / this.MAX_ITEM_PER_PAGE;
+        console.log('---------------------------------->>>>>>>>>>>>>>>>');
+        this.number_of_page = Math.floor(this.max_item / this.MAX_ITEM_PER_PAGE);
         if (this.max_item % this.MAX_ITEM_PER_PAGE > 0) {
             this.number_of_page++;
         }
-
-        this.number_of_list = this.number_of_page / this.MAX_PAGE_TO_DISPLAY;
+        console.log(this.number_of_page);
+        this.number_of_list = Math.floor(this.number_of_page / this.MAX_PAGE_TO_DISPLAY);
         this.last_list = this.number_of_page % this.MAX_PAGE_TO_DISPLAY;
         if (this.last_list > 0) {
             this.number_of_list++;
         }
-
-        this.current_page = 1;
-        this.current_list = 1;
+        console.log(this.number_of_list);
         this.update_list();
-        this.load_page();
+        console.log('---------------------------------->>>>>>>>>>>>>>>>');
     }
 }

@@ -112,9 +112,14 @@ public class ItemResource {
 
     @GetMapping("/items/get-by-customer")
     @Timed
-    public ResponseEntity<List<Item>> getAllItemsByCustomer(Pageable pageable) {
+    public ResponseEntity<List<Item>> getAllItemsByCustomer(@RequestParam String search, @RequestParam Long price,
+                                                            @RequestParam Long status, @RequestParam Long state, @RequestParam Long type, Pageable pageable) {
         log.debug("REST request to get a page of Items");
-        Page<Item> page = itemService.findAll(pageable);
+        if ((status != 0 && status != 1 && status != -1) || (state != 0 && state != 1 && state != -1)) {
+            return null; //TODO throw exception
+        }
+
+        Page<Item> page = itemService.searchByCustomer(search, price, state, status, type, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/items");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

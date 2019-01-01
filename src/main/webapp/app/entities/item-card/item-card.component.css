@@ -25,6 +25,7 @@
     color: black;
     height: 200px;
     width: 800px;
+    cursor: pointer;
 }
 
 .price {

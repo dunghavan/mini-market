@@ -3,6 +3,9 @@ import { IItem } from 'app/shared/model/item.model';
 import { ImageService } from 'app/entities/image';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { IImage, Image } from 'app/shared/model/image.model';
+import { ItemDeleteDialogComponent } from 'app/entities/item';
+import { MatDialog } from '@angular/material';
+import { DeleteDialogComponent } from 'app/entities/item/delete-dialog.component';
 
 @Component({
     selector: 'app-item-card-user',
@@ -11,7 +14,7 @@ import { IImage, Image } from 'app/shared/model/image.model';
 })
 export class ItemCardUserComponent implements OnInit {
     @Input() item: IItem;
-    constructor(private imageService: ImageService) {}
+    constructor(private imageService: ImageService, public dialog: MatDialog) {}
 
     ngOnInit() {
         console.log('resutl: ', this.item);
@@ -29,5 +32,17 @@ export class ItemCardUserComponent implements OnInit {
                 console.log('err: ', res);
             }
         );
+    }
+
+    openDialog(): void {
+        const dialogRef = this.dialog.open(DeleteDialogComponent, {
+            data: {
+                id: this.item.id
+            }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+        });
     }
 }

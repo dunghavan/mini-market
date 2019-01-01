@@ -31,10 +31,14 @@
                 class="btn btn-warning">Edit</button>
         <div></div>
         <button type="submit"
-                [routerLink]="['/', { outlets: { popup: 'item/'+ item.id + '/delete'} }]"
-                replaceUrl="true"
-                queryParamsHandling="merge"
+                (click)="openDialog()"
                 class="btn btn-danger">Delete</button>
+        <!--<button type="submit"-->
+                <!--[routerLink]="['/', { outlets: { popup: 'item/'+ item.id + '/delete'} }]"-->
+                <!--replaceUrl="true"-->
+                <!--queryParamsHandling="merge"-->
+                <!--(click)="openDialog()"-->
+                <!--class="btn btn-danger">Delete</button>-->
     </div>
 
 </div>

@@ -1,6 +1,14 @@
 import { Type } from 'app/shared/model/type.model';
 import { Image } from 'app/shared/model/image.model';
 
+export interface User {
+    activated?: boolean;
+    createdDate?: Date;
+    email?: string;
+    firstName?: string;
+    lastName?: string;
+}
+
 export interface IItem {
     id?: number;
     name?: string;
@@ -16,6 +24,17 @@ export interface IItem {
     type?: Type;
     phone?: string;
     images?: Image[];
+    user?: user;
+}
+
+export class user implements User {
+    constructor(
+        public activated?: boolean,
+        public createdDate?: Date,
+        public email?: string,
+        public firstName?: string,
+        public lastName?: string
+    ) {}
 }
 
 export class Item implements IItem {
@@ -33,6 +52,7 @@ export class Item implements IItem {
         public lastModifiedDate?: Date,
         public type?: Type,
         public phone?: string,
-        public images?: Image[]
+        public images?: Image[],
+        public user?: user
     ) {}
 }

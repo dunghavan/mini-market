@@ -1,4 +1,4 @@
-<div class="background">
+<div class="background" (click)="view_item()">
 
   <div class="image">
       <img *ngIf="item.images.length > 0" src="http://localhost:8889/{{ item.images[0].name }}" width="150" height="150" onerror="src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png'">

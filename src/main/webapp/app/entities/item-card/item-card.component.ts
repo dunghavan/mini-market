@@ -3,6 +3,7 @@ import { IItem } from 'app/shared/model/item.model';
 import { ImageService } from 'app/entities/image';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { IImage, Image } from 'app/shared/model/image.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-item-card',
@@ -11,7 +12,7 @@ import { IImage, Image } from 'app/shared/model/image.model';
 })
 export class ItemCardComponent implements OnInit {
     @Input() item: IItem;
-    constructor(private imageService: ImageService) {}
+    constructor(private imageService: ImageService, private _route: ActivatedRoute, private _router: Router) {}
 
     ngOnInit() {
         console.log('resutl: ', this.item);
@@ -29,5 +30,9 @@ export class ItemCardComponent implements OnInit {
                 console.log('err: ', res);
             }
         );
+    }
+
+    view_item() {
+        this._router.navigate(['/item', this.item.id, 'view'], {});
     }
 }

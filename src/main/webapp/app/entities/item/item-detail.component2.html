@@ -23,20 +23,14 @@
                 <div class="item">
                     <h1>{{ item.name }}</h1>
                     <div class="detail_item">
-                        <h1>Price: {{item.price}}</h1>
-                        <p>Item type: {{ item.type.name }}</p>
-                        <p>Date time: {{ item.createdDate | date: 'dd/MM/yyy hh:mm'}}</p>
+                        <h1 *ngIf="item.price">Price: {{item.price}}</h1>
+                        <p *ngIf="item.type.name">Item type: {{ item.type.name }}</p>
+                        <p *ngIf="item.createdDate">Date time: {{ item.createdDate | date: 'dd/MM/yyy hh:mm'}}</p>
                         <p *ngIf="item.isAvailable">Sell status: Còn hàng</p>
                         <p *ngIf="!item.isAvailable">Sell status: Hết hàng</p>
                         <p *ngIf="item.state">Sell status: Mới 100%</p>
                         <p *ngIf="!item.state">Sell status: Đã qua sử dụng</p>
-                        <p>Ship status: {{ item.deliveryWay }}</p>
-                    </div>
-                    <div class="edit">
-                        <button type="submit"
-                                [routerLink]="['/item', item.id, 'edit']"
-                                class="btn btn-warning">Edit</button>
-                        <div></div>
+                        <p *ngIf="item.deliveryWay">Ship status: {{ item.deliveryWay }}</p>
                     </div>
                 </div>
 
@@ -54,14 +48,10 @@
             </div>
 
             <div class="user">
-                <!--<div class="detail_user">-->
-                    <!--<h3>User name: {{ user_detail.user_name }}</h3>-->
-                    <!--<p>Address: {{ user_detail.user_address }}</p>-->
-                    <!--<p>Phone number: {{ user_detail.user_phone_number }}</p>-->
-                    <!--<p>Email: {{ user_detail.user_email }}</p>-->
-                    <!--<p>User rating: {{user_detail.user_rating}}</p>-->
-                    <!--<p>number rating: {{  user_detail.user_number_rating }}</p>-->
-                <!--</div>-->
+                <div class="detail_user">
+                    <h3>User name: {{ user.firstName + user.lastName}}</h3>
+                    <p>Email: {{ user.email }}</p>
+                </div>
             </div>
 
         </div>

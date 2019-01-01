@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { IItem } from 'app/shared/model/item.model';
+import { IItem, user } from 'app/shared/model/item.model';
 import { IImage } from 'app/shared/model/image.model';
 import { ImageService } from 'app/entities/image';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
@@ -13,19 +13,23 @@ import { Router, Routes, RouterModule, ActivatedRoute } from '@angular/router';
 })
 export class ItemDetailComponent implements OnInit {
     item: IItem;
+    user: user;
     images: IImage[];
     current_image_select: number;
     current_image_url: string;
     current_image_name: string;
     number_of_image: number;
-    isLogin: boolean;
+    MAX_DISPLAY_IMAGE: number;
 
     constructor(private activatedRoute: ActivatedRoute, private imageService: ImageService) {}
 
     ngOnInit() {
+        this.MAX_DISPLAY_IMAGE = 3;
         this.activatedRoute.data.subscribe(({ item }) => {
             this.item = item;
+            this.user = this.item.user;
             console.log('item: ', this.item);
+            console.log(this.user.lastName);
             this.loadImages();
         });
     }
@@ -39,6 +43,7 @@ export class ItemDetailComponent implements OnInit {
         }
         this.updateImage();
     }
+
     next_image() {
         this.current_image_select++;
         if (this.current_image_select >= this.images.length) {
@@ -67,7 +72,10 @@ export class ItemDetailComponent implements OnInit {
     }
 
     onSuccess(images: IImage[]) {
-        this.images = images;
+        for (var i = 0; i < this.MAX_DISPLAY_IMAGE; i++) {
+            this.images[i] = images[i];
+        }
+        //this.images = images;
         console.log('get images success: ', this.images);
         this.number_of_image = this.images.length;
         this.current_image_select = 0;

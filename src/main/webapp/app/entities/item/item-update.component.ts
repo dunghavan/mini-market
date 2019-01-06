@@ -5,12 +5,13 @@ import { Observable } from 'rxjs';
 
 import { IItem } from 'app/shared/model/item.model';
 import { ItemService } from './item.service';
-import { IType } from 'app/shared/model/type.model';
+import { IType, Type } from 'app/shared/model/type.model';
 import { TypeService } from 'app/entities/type';
 import { Status } from 'app/shared/model/status.model';
 import { State } from 'app/shared/model/state.model';
 import { MatDialog } from '@angular/material';
 import { EditDialogComponent } from 'app/entities/item/edit-dialog.component';
+import { ImageService } from 'app/entities/image';
 
 interface ModalMessage {
     isShow: boolean;
@@ -29,10 +30,11 @@ export class ItemUpdateComponent implements OnInit {
     files: FileList;
     errorMessage: ModalMessage;
     successMessage: ModalMessage;
-    statuses: Status[];
-    status: Status;
+    avais: Status[];
+    avai: Status;
     states: State[];
     state: State;
+    curType: Type;
 
     constructor(
         private itemService: ItemService,
@@ -40,7 +42,8 @@ export class ItemUpdateComponent implements OnInit {
         private typeService: TypeService,
         public dialog: MatDialog,
         private _route: ActivatedRoute,
-        private _router: Router
+        private _router: Router,
+        private imageService: ImageService
     ) {}
 
     ngOnInit() {
@@ -49,11 +52,14 @@ export class ItemUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ item }) => {
             this.item = item;
+            // this.curType = this.item.type;
+            // console.log('this.curType: ', this.curType);
         });
         this.types = [];
+        this.curType = { id: 3, name: 'Ao', desc: null };
         console.log('this.item: ', this.item);
-        this.statuses = Status.getStatus();
-        this.status = this.item.isAvailable ? this.statuses[0] : this.statuses[1];
+        this.avais = Status.getStatus();
+        this.avai = this.item.isAvailable ? this.avais[0] : this.avais[1];
         this.states = State.getStates();
         this.state = this.item.state ? this.states[0] : this.states[1];
         this.loadTypes();
@@ -72,12 +78,16 @@ export class ItemUpdateComponent implements OnInit {
     }
 
     loadTypes() {
-        this.typeService
-            .query()
-            .subscribe(
-                (res: HttpResponse<IType[]>) => (this.types = res.body),
-                (res: HttpErrorResponse) => console.log('get types err: ', res)
-            );
+        this.typeService.query().subscribe(
+            (res: HttpResponse<IType[]>) => {
+                this.types = res.body;
+                console.log('this.types: ', this.types);
+                console.log('this.curType: ', this.curType);
+            },
+            (res: HttpErrorResponse) => {
+                console.log('get types err: ', res);
+            }
+        );
     }
 
     previousState() {
@@ -86,7 +96,10 @@ export class ItemUpdateComponent implements OnInit {
 
     handleFileInput(event: any) {
         this.files = event.target.files;
-
+        console.log('this.files: ', this.files);
+        this.previewFiles();
+    }
+    previewFiles() {
         // preview image before upload
         if (this.files !== undefined && this.files.length !== 0) {
             for (let i = 0; i < this.files.length; i++) {
@@ -131,7 +144,7 @@ export class ItemUpdateComponent implements OnInit {
     }
 
     save() {
-        this.item.isAvailable = this.status.id === 1;
+        this.item.isAvailable = this.avai.id === 1;
         this.item.state = this.state.id === 1;
         // this.isSaving = true;
         console.log('save item: ', this.item);

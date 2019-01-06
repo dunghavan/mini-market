@@ -33,6 +33,6 @@ export class ItemCardComponent implements OnInit {
     }
 
     view_item() {
-        this._router.navigate(['/item', this.item.id, 'view'], {});
+        this._router.navigate(['/item', this.item.id, 'detail-by-customer'], {});
     }
 }

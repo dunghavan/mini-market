@@ -12,6 +12,7 @@ import { ItemDetailComponent } from './item-detail.component';
 import { ItemUpdateComponent } from './item-update.component';
 import { ItemDeletePopupComponent } from './item-delete-dialog.component';
 import { IItem } from 'app/shared/model/item.model';
+import { ItemDetailByCustomerComponent } from 'app/entities/item-detail-by-customer/item-detail-by-customer.component';
 
 @Injectable({ providedIn: 'root' })
 export class ItemResolve implements Resolve<IItem> {
@@ -67,6 +68,18 @@ export const itemRoute: Routes = [
     {
         path: 'item/:id/edit',
         component: ItemUpdateComponent,
+        resolve: {
+            item: ItemResolve
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'miniMarketApp.item.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'item/:id/detail-by-customer',
+        component: ItemDetailByCustomerComponent,
         resolve: {
             item: ItemResolve
         },

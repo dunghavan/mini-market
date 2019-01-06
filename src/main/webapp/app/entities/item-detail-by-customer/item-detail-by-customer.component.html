@@ -1,0 +1,53 @@
+<button type="submit"
+        (click)="previousState()"
+        class="btn btn-info">
+    <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+</button>
+<div class="row justify-content-center">
+    <div class="col-4">
+        <div>
+            <div style="width: 50vw; height: 60vh;">
+                <img src="http://localhost:8888/{{ selectedImageName }}" style="max-width: 30vw; max-height: 40vh;" onerror="src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png'">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4" [ngClass]="img.select ? 'border border-primary': ''" *ngFor="let img of item.images; let i = index" (click)="viewImage(i)">
+                <img width="100vh" src="http://localhost:8888/{{img.name}}"/>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-5">
+        <div *ngIf="item">
+            <h2>{{item.name}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="miniMarketApp.item.name">Name</span></dt>
+                <dd>
+                    <span>{{item.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="miniMarketApp.item.desc">Desc</span></dt>
+                <dd>
+                    <span>{{item.desc}}</span>
+                </dd>
+                <dt><span jhiTranslate="miniMarketApp.item.price">Price</span></dt>
+                <dd>
+                    <span>{{item.price}}</span>
+                </dd>
+                <dt><span jhiTranslate="miniMarketApp.item.status">Status</span></dt>
+                <dd>
+                    <span>{{item.status}}</span>
+                </dd>
+                <dt><span jhiTranslate="miniMarketApp.item.note">Note</span></dt>
+                <dd>
+                    <span>{{item.note}}</span>
+                </dd>
+            </dl>
+
+        </div>
+    </div>
+    <div class="col-3">
+
+    </div>
+</div>

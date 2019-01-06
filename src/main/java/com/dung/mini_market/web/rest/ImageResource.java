@@ -86,7 +86,7 @@ public class ImageResource {
                 String sha1String = DigestUtils.sha1Hex(bytes);
                 storeFilename = sha1String + "." + FilenameUtils.getExtension(f.getOriginalFilename());
 
-                Path path = Paths.get("/home/blue/minimarket_image" + "/" + storeFilename);
+                Path path = Paths.get("/home/dunghv/image" + "/" + storeFilename);
                 Files.write(path, bytes);
 
                 imageService.save(new Image(storeFilename, "", "", Long.parseLong(itemIdToSave)));

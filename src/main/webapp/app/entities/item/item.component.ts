@@ -71,62 +71,76 @@ export class ItemComponent implements OnInit {
     }
 
     previous_page() {
-        this.current_page--;
-        if (this.current_page < 1) {
-            this.current_page = 1;
-        } else {
-            if (this.current_list != 1) {
-                if (this.current_page <= (this.number_of_list - 1) * this.MAX_PAGE_TO_DISPLAY) {
-                    this.current_list--;
-                    this.update_list();
+        if (this.max_item > 0) {
+            this.current_page--;
+            if (this.current_page < 1) {
+                this.current_page = 1;
+            } else {
+                if (this.current_list != 1) {
+                    if (this.current_page <= (this.number_of_list - 1) * this.MAX_PAGE_TO_DISPLAY) {
+                        this.current_list--;
+                        this.update_list();
+                    }
                 }
+                this.load_page();
             }
-            this.load_page();
         }
     }
 
     next_page() {
-        this.current_page++;
-        if (this.current_page > this.number_of_page) {
-            this.current_page = this.number_of_page;
-        } else {
-            if (this.current_list != this.number_of_list) {
-                if (this.current_page > this.number_of_list * this.MAX_PAGE_TO_DISPLAY) {
-                    this.current_list++;
-                    this.update_list();
+        if (this.max_item > 0) {
+            this.current_page++;
+            if (this.current_page > this.number_of_page) {
+                this.current_page = this.number_of_page;
+            } else {
+                if (this.current_list != this.number_of_list) {
+                    if (this.current_page > this.number_of_list * this.MAX_PAGE_TO_DISPLAY) {
+                        this.current_list++;
+                        this.update_list();
+                    }
                 }
+                this.load_page();
             }
-            this.load_page();
         }
     }
 
     first_page() {
-        if (this.current_page != 1) {
-            this.current_page = 1;
-            if (this.current_list != 1) {
-                this.current_list = 1;
-                this.update_list();
+        if (this.max_item > 0) {
+            if (this.current_page != 1) {
+                this.current_page = 1;
+                if (this.current_list != 1) {
+                    this.current_list = 1;
+                    this.update_list();
+                }
+                this.load_page();
             }
-            this.load_page();
         }
     }
 
     last_page() {
-        if (this.current_page != this.number_of_page) {
-            this.current_page = this.number_of_page;
-            if (this.current_list != this.number_of_list) {
-                this.current_list = this.number_of_list;
-                this.update_list();
+        if (this.max_item > 0) {
+            if (this.current_page != this.number_of_page) {
+                this.current_page = this.number_of_page;
+                if (this.current_list != this.number_of_list) {
+                    this.current_list = this.number_of_list;
+                    this.update_list();
+                }
+                this.load_page();
             }
-            this.load_page();
         }
     }
 
     load_page() {
         this.itemService
-            .query({
+            .queryByCustomer({
                 page: this.current_page - 1,
-                size: this.MAX_ITEM_PER_PAGE
+                size: this.MAX_ITEM_PER_PAGE,
+                search: '',
+                price: -1,
+                status: -1,
+                state: -1,
+                type: -1,
+                sort: -1
             })
             .subscribe((res: HttpResponse<IItem[]>) => this.onSuccess(res), (res: HttpErrorResponse) => this.onError(res));
     }
@@ -145,19 +159,21 @@ export class ItemComponent implements OnInit {
     }
 
     list_init() {
-        console.log('---------------------------------->>>>>>>>>>>>>>>>');
-        this.number_of_page = Math.floor(this.max_item / this.MAX_ITEM_PER_PAGE);
-        if (this.max_item % this.MAX_ITEM_PER_PAGE > 0) {
-            this.number_of_page++;
+        if (this.max_item > 0) {
+            console.log('---------------------------------->>>>>>>>>>>>>>>>');
+            this.number_of_page = Math.floor(this.max_item / this.MAX_ITEM_PER_PAGE);
+            if (this.max_item % this.MAX_ITEM_PER_PAGE > 0) {
+                this.number_of_page++;
+            }
+            console.log(this.number_of_page);
+            this.number_of_list = Math.floor(this.number_of_page / this.MAX_PAGE_TO_DISPLAY);
+            this.last_list = this.number_of_page % this.MAX_PAGE_TO_DISPLAY;
+            if (this.last_list > 0) {
+                this.number_of_list++;
+            }
+            console.log(this.number_of_list);
+            this.update_list();
+            console.log('---------------------------------->>>>>>>>>>>>>>>>');
         }
-        console.log(this.number_of_page);
-        this.number_of_list = Math.floor(this.number_of_page / this.MAX_PAGE_TO_DISPLAY);
-        this.last_list = this.number_of_page % this.MAX_PAGE_TO_DISPLAY;
-        if (this.last_list > 0) {
-            this.number_of_list++;
-        }
-        console.log(this.number_of_list);
-        this.update_list();
-        console.log('---------------------------------->>>>>>>>>>>>>>>>');
     }
 }

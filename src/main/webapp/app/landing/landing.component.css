@@ -115,3 +115,11 @@ a:hover {
     float: left;
     margin-left: 40px;
 }
+
+.white_background {
+    background-color: white;
+}
+
+.gray_background {
+    background-color: gray;
+}

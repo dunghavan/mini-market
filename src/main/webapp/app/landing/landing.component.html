@@ -10,49 +10,53 @@
             <div class="filter_option">
                 <h3>Giá</h3>
                 <div class="filter_place">
-                    <input type="checkbox" name="100k" value="100k"> Under 100.000<br>
-                    <input type="checkbox" name="100_1000k" value="100_1000k"> 100.000 - 1000.000<br>
-                    <input type="checkbox" name="1000_10000k" value="1000_10000k"> 1000.000 - 10.000.000<br>
-                    <input type="checkbox" name="10000k" value="10000k"> Over 10.000.000<br>
+                    <input type="checkbox" [(ngModel)]="prices.under100" (change)="get_filter()"> Under 100.000<br>
+                    <input type="checkbox" [(ngModel)]="prices.from100_1000" (change)="get_filter()"> 100.000 - 1000.000<br>
+                    <input type="checkbox" [(ngModel)]="prices.from1000_10000" (change)="get_filter()"> 1000.000 - 10.000.000<br>
+                    <input type="checkbox" [(ngModel)]="prices.over10000" (change)="get_filter()"> Over 10.000.000<br>
                 </div>
             </div>
             <div class="split_horizontal"></div>
             <div class="filter_option">
                 <h3>Loại</h3>
                 <div class="filter_place">
-                    <input type="checkbox" name="hochiminh" value="hochiminh">Quần<br>
-                    <input type="checkbox" name="hanoi" value="hanoi">Áo<br>
-                    <input type="checkbox" name="danang" value="danang">Giày dép<br>
+                    <input type="checkbox" [(ngModel)]="types.quan" (change)="get_filter()">Quần<br>
+                    <input type="checkbox" [(ngModel)]="types.ao" (change)="get_filter()">Áo<br>
+                    <input type="checkbox" [(ngModel)]="types.giay_dep" (change)="get_filter()">Giày dép<br>
                 </div>
             </div>
             <div class="split_horizontal"></div>
             <div class="filter_option">
                 <h3>Trạng thái</h3>
                 <div class="filter_place">
-                    <input type="checkbox" name="hochiminh" value="hochiminh">Còn mới 100%<br>
-                    <input type="checkbox" name="hanoi" value="hanoi">Đã qua sử dụng<br>
+                    <input type="checkbox" [(ngModel)]="statuss.moi" (change)="get_filter()">Còn mới 100%<br>
+                    <input type="checkbox" [(ngModel)]="statuss.cu" (change)="get_filter()">Đã qua sử dụng<br>
+                </div>
+            </div>
+            <div class="filter_option">
+                <h3>Tình trạng</h3>
+                <div class="filter_place">
+                    <input type="checkbox" [(ngModel)]="states.conhang" (change)="get_filter()">Còn hàng<br>
+                    <input type="checkbox" [(ngModel)]="states.hethang" (change)="get_filter()">hết hàng<br>
                 </div>
             </div>
         </div>
         <div class="content">
             <div class="sort">
                 <div class="priority">
-                    <p>Priority: </p>
+                    <p>Sort: </p>
                 </div>
                 <div class="priority">
-                    <p>Name</p>
+                    <p [ngClass]="Sort.name === true ? 'gray_background' : 'white_background'" (click)="get_sort(1)">Name</p>
                 </div>
                 <div class="priority">
-                    <p>Date</p>
+                    <p [ngClass]="Sort.date === true ? 'gray_background' : 'white_background'" (click)="get_sort(2)">New Date</p>
                 </div>
                 <div class="priority">
-                    <p>Rating</p>
+                    <p [ngClass]="Sort.price_low === true ? 'gray_background' : 'white_background'" (click)="get_sort(3)">Low price</p>
                 </div>
                 <div class="priority">
-                    <p>Low price</p>
-                </div>
-                <div class="priority">
-                    <p>High price</p>
+                    <p [ngClass]="Sort.price_high === true ? 'gray_background' : 'white_background'" (click)="get_sort(4)">High price</p>
                 </div>
             </div>
             <div class="split_horizontal"></div>

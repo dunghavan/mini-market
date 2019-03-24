@@ -20,10 +20,13 @@ export class AuthServerProvider {
             password: credentials.password,
             rememberMe: credentials.rememberMe,
             fbToken: credentials.fbToken,
-            fbId: credentials.fbId
+            fbId: credentials.fbId,
+            email: credentials.email
         };
         console.log('data to login: ', data);
-        return this.http.post(SERVER_API_URL + 'api/authenticate', data, { observe: 'response' }).pipe(map(authenticateSuccess.bind(this)));
+        return this.http
+            .post(SERVER_API_URL + 'core/v1/accounts/authenticate', data, { observe: 'response' })
+            .pipe(map(authenticateSuccess.bind(this)));
 
         function authenticateSuccess(resp) {
             const bearerToken = resp.headers.get('Authorization');

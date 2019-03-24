@@ -1,16 +1,22 @@
-import { Component, Input, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ItemService } from 'app/entities/item';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { IItem, Item } from 'app/shared/model/item.model';
+import { IItem } from 'app/shared/model/item.model';
 import { AccountService, LoginService } from 'app/core';
 import { AuthService, FacebookLoginProvider } from 'angularx-social-login';
 import { JhiEventManager } from 'ng-jhipster';
-import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+declare var $: any;
 
 @Component({
     selector: 'app-list-item',
     templateUrl: './landing.component.html',
-    styleUrls: ['./landing.component.css']
+    styleUrls: [
+        '../../content/css/bootstrap.css',
+        '../../content/css/etalage.css',
+        '../../content/css/megamenu.css',
+        '../../content/css/style.css'
+    ]
 })
 export class ListItemComponent implements OnInit, OnDestroy {
     items: IItem[];
@@ -41,8 +47,9 @@ export class ListItemComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.animation();
         this.max_item = 0;
-        //this.loadItems();
+        // this.loadItems();
         this.MAX_ITEM_PER_PAGE = 10;
         this.MAX_PAGE_TO_DISPLAY = 5;
         this.current_page = 1;
@@ -116,7 +123,7 @@ export class ListItemComponent implements OnInit, OnDestroy {
 
     onSuccess(res: any) {
         this.items = res.body;
-        if (this.max_item == 0) {
+        if (this.max_item === 0) {
             this.max_item = parseInt(res.headers.get('X-Total-Count'), 10);
             this.list_init();
         }
@@ -128,7 +135,7 @@ export class ListItemComponent implements OnInit, OnDestroy {
     }
 
     set_page(page: number) {
-        if (this.current_page != page) {
+        if (this.current_page !== page) {
             this.current_page = page;
             this.load_page();
         }
@@ -139,7 +146,7 @@ export class ListItemComponent implements OnInit, OnDestroy {
         if (this.current_page < 1) {
             this.current_page = 1;
         } else {
-            if (this.current_list != 1) {
+            if (this.current_list !== 1) {
                 if (this.current_page <= (this.number_of_list - 1) * this.MAX_PAGE_TO_DISPLAY) {
                     this.current_list--;
                     this.update_list();
@@ -154,7 +161,7 @@ export class ListItemComponent implements OnInit, OnDestroy {
         if (this.current_page > this.number_of_page) {
             this.current_page = this.number_of_page;
         } else {
-            if (this.current_list != this.number_of_list) {
+            if (this.current_list !== this.number_of_list) {
                 if (this.current_page > this.number_of_list * this.MAX_PAGE_TO_DISPLAY) {
                     this.current_list++;
                     this.update_list();
@@ -165,9 +172,9 @@ export class ListItemComponent implements OnInit, OnDestroy {
     }
 
     first_page() {
-        if (this.current_page != 1) {
+        if (this.current_page !== 1) {
             this.current_page = 1;
-            if (this.current_list != 1) {
+            if (this.current_list !== 1) {
                 this.current_list = 1;
                 this.update_list();
             }
@@ -176,9 +183,9 @@ export class ListItemComponent implements OnInit, OnDestroy {
     }
 
     last_page() {
-        if (this.current_page != this.number_of_page) {
+        if (this.current_page !== this.number_of_page) {
             this.current_page = this.number_of_page;
-            if (this.current_list != this.number_of_list) {
+            if (this.current_list !== this.number_of_list) {
                 this.current_list = this.number_of_list;
                 this.update_list();
             }
@@ -201,7 +208,7 @@ export class ListItemComponent implements OnInit, OnDestroy {
         } else {
             this.number_of_page_to_display = this.MAX_PAGE_TO_DISPLAY;
         }
-        var iter;
+        let iter;
         this.list_page = [];
         for (iter = 0; iter < this.number_of_page_to_display; iter++) {
             this.list_page[iter] = (this.number_of_list - 1) * this.MAX_PAGE_TO_DISPLAY + iter + 1;
@@ -223,5 +230,50 @@ export class ListItemComponent implements OnInit, OnDestroy {
         console.log(this.number_of_list);
         this.update_list();
         console.log('---------------------------------->>>>>>>>>>>>>>>>');
+    }
+
+    animation() {
+        $(document).ready(function() {
+            $('.tab1 .single-bottom').hide();
+            $('.tab2 .single-bottom').hide();
+            $('.tab3 .w_nav2').hide();
+            $('.tab4 .single-bottom').hide();
+            $('.tab5 .star-at').hide();
+            $('.tab1 ul').click(function() {
+                $('.tab1 .single-bottom').slideToggle(300);
+                $('.tab2 .single-bottom').hide();
+                $('.tab3 .w_nav2').hide();
+                $('.tab4 .single-bottom').hide();
+                $('.tab5 .star-at').hide();
+            });
+            $('.tab2 ul').click(function() {
+                $('.tab2 .single-bottom').slideToggle(300);
+                $('.tab1 .single-bottom').hide();
+                $('.tab3 .w_nav2').hide();
+                $('.tab4 .single-bottom').hide();
+                $('.tab5 .star-at').hide();
+            });
+            $('.tab3 ul').click(function() {
+                $('.tab3 .w_nav2').slideToggle(300);
+                $('.tab4 .single-bottom').hide();
+                $('.tab5 .star-at').hide();
+                $('.tab2 .single-bottom').hide();
+                $('.tab1 .single-bottom').hide();
+            });
+            $('.tab4 ul').click(function() {
+                $('.tab4 .single-bottom').slideToggle(300);
+                $('.tab5 .star-at').hide();
+                $('.tab3 .w_nav2').hide();
+                $('.tab2 .single-bottom').hide();
+                $('.tab1 .single-bottom').hide();
+            });
+            $('.tab5 ul').click(function() {
+                $('.tab5 .star-at').slideToggle(300);
+                $('.tab4 .single-bottom').hide();
+                $('.tab3 .w_nav2').hide();
+                $('.tab2 .single-bottom').hide();
+                $('.tab1 .single-bottom').hide();
+            });
+        });
     }
 }

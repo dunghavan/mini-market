@@ -87,7 +87,7 @@ export const itemRoute: Routes = [
             authorities: ['ROLE_USER'],
             pageTitle: 'miniMarketApp.item.home.title'
         },
-        canActivate: [UserRouteAccessService]
+        canActivate: []
     }
 ];
 

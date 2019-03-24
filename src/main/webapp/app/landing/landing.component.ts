@@ -6,10 +6,11 @@ import { AccountService, LoginService } from 'app/core';
 import { AuthService, FacebookLoginProvider } from 'angularx-social-login';
 import { JhiEventManager } from 'ng-jhipster';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-declare var $: any;
+// declare var $: any;
+import * as $ from 'jquery';
 
 @Component({
-    selector: 'app-list-item',
+    selector: 'jhi-app-list-item',
     templateUrl: './landing.component.html',
     styleUrls: [
         '../../content/css/bootstrap.css',

@@ -14,21 +14,23 @@ import { NotificationInterceptor } from './blocks/interceptor/notification.inter
 import { MiniMarketSharedModule } from 'app/shared';
 import { MiniMarketCoreModule } from 'app/core';
 import { MiniMarketAppRoutingModule } from './app-routing.module';
-import { MiniMarketHomeModule } from './home/home.module';
+import { MiniMarketHomeModule } from 'app/home';
 import { MiniMarketAccountModule } from './account/account.module';
 import { MiniMarketEntityModule } from './entities/entity.module';
 import { MiniMarketSearchBarModule } from './layouts/searchbar/searchbar.module';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import * as moment from 'moment';
+import * as $ from 'jquery';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider, LinkedInLoginProvider } from 'angularx-social-login';
 import { MatButtonModule, MatCheckboxModule, MatTableModule, MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MiniMarketItemModule } from 'app/item/item.module';
 
-let config = new AuthServiceConfig([
+const config = new AuthServiceConfig([
     {
         id: GoogleLoginProvider.PROVIDER_ID,
         provider: new GoogleLoginProvider('Google-OAuth-Client-Id')
@@ -61,7 +63,8 @@ export function provideConfig() {
         MatCheckboxModule,
         MatTableModule,
         MatDialogModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        MiniMarketItemModule
 
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],

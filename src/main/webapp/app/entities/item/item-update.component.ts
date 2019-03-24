@@ -25,7 +25,7 @@ interface ModalMessage {
 })
 export class ItemUpdateComponent implements OnInit {
     private _item: IItem;
-    private types: IType[];
+    public types: IType[];
     isSaving: boolean;
     files: FileList;
     errorMessage: ModalMessage;

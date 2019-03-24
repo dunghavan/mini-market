@@ -32,13 +32,13 @@ export class ItemComponent implements OnInit {
 
     ngOnInit() {
         this.max_item = 0;
-        //this.loadItems();
+        // this.loadItems();
         this.MAX_ITEM_PER_PAGE = 10;
         this.MAX_PAGE_TO_DISPLAY = 5;
         this.current_page = 1;
         this.current_list = 1;
         this.load_page();
-        //this.registerChangeInImages();
+        // this.registerChangeInImages();
     }
     registerChangeInImages() {
         this.eventSubscriber = this.eventManager.subscribe('itemListModification', response => this.loadItems());
@@ -51,7 +51,7 @@ export class ItemComponent implements OnInit {
 
     onSuccess(res: any) {
         this.items = res.body;
-        if (this.max_item == 0) {
+        if (this.max_item === 0) {
             this.max_item = parseInt(res.headers.get('X-Total-Count'), 10);
             this.list_init();
         }
@@ -63,7 +63,7 @@ export class ItemComponent implements OnInit {
     }
 
     set_page(page: number) {
-        if (this.current_page != page) {
+        if (this.current_page !== page) {
             this.current_page = page;
             this.load_page();
             console.log('++++++++++++++++++++++++++++++++++++++++++++++');
@@ -75,7 +75,7 @@ export class ItemComponent implements OnInit {
         if (this.current_page < 1) {
             this.current_page = 1;
         } else {
-            if (this.current_list != 1) {
+            if (this.current_list !== 1) {
                 if (this.current_page <= (this.number_of_list - 1) * this.MAX_PAGE_TO_DISPLAY) {
                     this.current_list--;
                     this.update_list();
@@ -90,7 +90,7 @@ export class ItemComponent implements OnInit {
         if (this.current_page > this.number_of_page) {
             this.current_page = this.number_of_page;
         } else {
-            if (this.current_list != this.number_of_list) {
+            if (this.current_list !== this.number_of_list) {
                 if (this.current_page > this.number_of_list * this.MAX_PAGE_TO_DISPLAY) {
                     this.current_list++;
                     this.update_list();
@@ -101,9 +101,9 @@ export class ItemComponent implements OnInit {
     }
 
     first_page() {
-        if (this.current_page != 1) {
+        if (this.current_page !== 1) {
             this.current_page = 1;
-            if (this.current_list != 1) {
+            if (this.current_list !== 1) {
                 this.current_list = 1;
                 this.update_list();
             }
@@ -112,9 +112,9 @@ export class ItemComponent implements OnInit {
     }
 
     last_page() {
-        if (this.current_page != this.number_of_page) {
+        if (this.current_page !== this.number_of_page) {
             this.current_page = this.number_of_page;
-            if (this.current_list != this.number_of_list) {
+            if (this.current_list !== this.number_of_list) {
                 this.current_list = this.number_of_list;
                 this.update_list();
             }
@@ -137,7 +137,7 @@ export class ItemComponent implements OnInit {
         } else {
             this.number_of_page_to_display = this.MAX_PAGE_TO_DISPLAY;
         }
-        var iter;
+        let iter;
         this.list_page = [];
         for (iter = 0; iter < this.number_of_page_to_display; iter++) {
             this.list_page[iter] = (this.number_of_list - 1) * this.MAX_PAGE_TO_DISPLAY + iter + 1;

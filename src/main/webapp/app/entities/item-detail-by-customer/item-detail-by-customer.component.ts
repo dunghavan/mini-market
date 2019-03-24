@@ -9,7 +9,13 @@ import { ImageService } from 'app/entities/image';
 
 @Component({
     selector: 'jhi-item-detail-by-customer',
-    templateUrl: './item-detail-by-customer.component.html'
+    templateUrl: './item-detail-by-customer.component.html',
+    styleUrls: [
+        '../../../content/css/bootstrap.css',
+        '../../../content/css/etalage.css',
+        '../../../content/css/megamenu.css',
+        '../../../content/css/style.css'
+    ]
 })
 export class ItemDetailByCustomerComponent implements OnInit {
     item: IItem;
@@ -18,11 +24,12 @@ export class ItemDetailByCustomerComponent implements OnInit {
     constructor(private activatedRoute: ActivatedRoute, private imageService: ImageService) {}
 
     ngOnInit() {
-        this.activatedRoute.data.subscribe(({ item }) => {
-            this.item = item;
-            this.item.images = [];
-            this.loadImages();
-        });
+        console.log('run item detail by customer');
+        // this.activatedRoute.data.subscribe(({ item }) => {
+        //     this.item = item;
+        //     this.item.images = [];
+        //     this.loadImages();
+        // });
     }
 
     loadImages() {

@@ -221,7 +221,6 @@ export class ListItemComponent implements OnInit, OnDestroy {
         }
     }
 
-    //search=aokhoac&price=1&status=0&state=1&type=5
     load_page() {
         console.log('search ne');
         console.log(this.search);
@@ -238,15 +237,6 @@ export class ListItemComponent implements OnInit, OnDestroy {
             })
             .subscribe((res: HttpResponse<IItem[]>) => this.onSuccess(res), (res: HttpErrorResponse) => this.onError(res));
     }
-
-    /*sort()
-    {
-        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
-        if (this.predicate !== 'id') {
-            result.push('id');
-        }
-        return result;
-    }*/
 
     update_list() {
         if (this.current_list === this.number_of_list) {
@@ -412,10 +402,7 @@ export class ListItemComponent implements OnInit, OnDestroy {
         if (this.statuss.cu == false && this.statuss.moi == false) {
             this.status = -1;
         }
-        console.log(this.price);
-        console.log(this.type);
-        console.log(this.status);
-        console.log(this.state);
+        this.max_item = 0;
         this.load_page();
     }
 
@@ -510,7 +497,7 @@ export class ListItemComponent implements OnInit, OnDestroy {
                 break;
             default:
         }
+        this.max_item = 0;
         this.load_page();
-        console.log(this.sort);
     }
 }

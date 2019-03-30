@@ -38,10 +38,10 @@ export class ItemComponent implements OnInit {
         this.current_page = 1;
         this.current_list = 1;
         this.load_page();
-        //this.registerChangeInImages();
+        this.registerChangeInImages();
     }
     registerChangeInImages() {
-        this.eventSubscriber = this.eventManager.subscribe('itemListModification', response => this.loadItems());
+        this.eventSubscriber = this.eventManager.subscribe('itemListModification', response => this.load_page());
     }
     loadItems() {
         this.itemService

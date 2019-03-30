@@ -64,7 +64,10 @@
                 <app-item-card [item]="item"></app-item-card>
                 <div></div>
             </div>
-            <div class="page">
+            <div *ngIf="max_item === 0">
+                <p>There is no result for your search</p>
+            </div>
+            <div *ngIf="max_item !== 0" class="page">
                 <ul class="pagination justify-content-center">
                     <li [ngClass]="current_page === 1 ? 'page-item disabled' : 'page-item'">
                         <a class="page-link" href="#" aria-label="First page" (click)="first_page()">

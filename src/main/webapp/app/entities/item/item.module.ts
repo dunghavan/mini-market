@@ -18,6 +18,7 @@ import { ListItemComponent } from 'app/landing/landing.component';
 import { EditDialogComponent } from 'app/entities/item/edit-dialog.component';
 import { DeleteDialogComponent } from 'app/entities/item/delete-dialog.component';
 import { ItemDetailByCustomerComponent } from 'app/entities/item-detail-by-customer/item-detail-by-customer.component';
+import { ComboItemCardComponent } from 'app/entities/item-card/combo-item-card.component';
 
 const ENTITY_STATES = [...itemRoute, ...itemPopupRoute];
 
@@ -34,7 +35,8 @@ const ENTITY_STATES = [...itemRoute, ...itemPopupRoute];
         ItemCardUserComponent,
         EditDialogComponent,
         DeleteDialogComponent,
-        ItemDetailByCustomerComponent
+        ItemDetailByCustomerComponent,
+        ComboItemCardComponent
     ],
     entryComponents: [
         ItemComponent,
@@ -46,7 +48,8 @@ const ENTITY_STATES = [...itemRoute, ...itemPopupRoute];
         ItemCardUserComponent,
         EditDialogComponent,
         DeleteDialogComponent,
-        ItemDetailByCustomerComponent
+        ItemDetailByCustomerComponent,
+        ComboItemCardComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

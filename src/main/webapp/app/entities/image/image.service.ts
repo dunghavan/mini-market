@@ -11,7 +11,7 @@ type EntityArrayResponseType = HttpResponse<IImage[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ImageService {
-    private resourceUrl = SERVER_API_URL + 'api/images';
+    private resourceUrl = SERVER_API_URL + 'core/v1/images';
 
     constructor(private http: HttpClient) {}
 

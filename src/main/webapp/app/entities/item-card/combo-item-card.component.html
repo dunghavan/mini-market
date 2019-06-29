@@ -1,0 +1,18 @@
+<div class="bottom-grid">
+    <div class="col-md-4 shirt" *ngFor="let item of items">
+        <div class="bottom-grid-top">
+            <a (click)="view_item(item.id)">
+                <img style="width: 175px; height: 144px" class="img-responsive" *ngIf="item.images && item.images.length > 0" src="http://localhost:8888/{{ item.images[0].name }}" alt=""
+                     onerror="src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png'">
+                <div class="five">
+                    <h6 class="one" >-50%</h6>
+                </div>
+                <div class="pre">
+                    <p>{{item.name}}</p>
+                    <span>${{item.price}}</span>
+                    <div class="clearfix"> </div>
+                </div></a>
+        </div>
+    </div>
+    <div class="clearfix"> </div>
+</div>

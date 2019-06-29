@@ -32,6 +32,7 @@ export class ListItemComponent implements OnInit, OnDestroy {
     number_of_page: number;
     number_of_list: number;
     list_page: number[];
+    comboItemCount: number[];
 
     constructor(
         private itemService: ItemService,
@@ -124,6 +125,14 @@ export class ListItemComponent implements OnInit, OnDestroy {
 
     onSuccess(res: any) {
         this.items = res.body;
+        console.log('list item: ', this.items);
+        const remain = this.items.length % 3;
+        let count = Math.round(this.items.length / 3);
+        if (remain > 0) {
+            count += 1;
+        }
+        this.comboItemCount = new Array(count);
+
         if (this.max_item === 0) {
             this.max_item = parseInt(res.headers.get('X-Total-Count'), 10);
             this.list_init();

@@ -119,7 +119,7 @@
                         <p *ngIf="successMessage.isShow" style="color: green;">{{ successMessage.msg }}</p>
                     </div>
                     <div>
-                        <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                        <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="backToPreviousPage()">
                             <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                         </button>
                         <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">

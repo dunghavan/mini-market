@@ -12,6 +12,7 @@ import { State } from 'app/shared/model/state.model';
 import { MatDialog } from '@angular/material';
 import { EditDialogComponent } from 'app/entities/item/edit-dialog.component';
 import { ImageService } from 'app/entities/image';
+import { Location as _Location } from '@angular/common';
 
 interface ModalMessage {
     isShow: boolean;
@@ -43,7 +44,8 @@ export class ItemUpdateComponent implements OnInit {
         public dialog: MatDialog,
         private _route: ActivatedRoute,
         private _router: Router,
-        private imageService: ImageService
+        private imageService: ImageService,
+        private _location: _Location
     ) {}
 
     ngOnInit() {
@@ -90,8 +92,9 @@ export class ItemUpdateComponent implements OnInit {
         );
     }
 
-    previousState() {
-        this._router.navigate(['/item/'], {});
+    public backToPreviousPage() {
+        console.log('go back...');
+        this._location.back();
     }
 
     handleFileInput(event: any) {
@@ -135,7 +138,6 @@ export class ItemUpdateComponent implements OnInit {
         this.isSaving = false;
         console.log('upload done: ', result);
         this.showSuccessMsg('upload images success');
-        this.previousState();
     }
     private onUploadError(msg: string) {
         this.isSaving = false;

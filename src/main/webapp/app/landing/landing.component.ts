@@ -27,6 +27,7 @@ export class ListItemComponent implements OnInit, OnDestroy {
     total: number;
     comboItemCount: number[];
     doneLoad: boolean;
+    bestViewItems: IItem[];
 
     constructor(
         private itemService: ItemService,
@@ -120,6 +121,12 @@ export class ListItemComponent implements OnInit, OnDestroy {
             .subscribe((res: HttpResponse<IItem[]>) => this.onSuccess(res), (res: HttpErrorResponse) => this.onError(res));
     }
 
+    loadBestViewItem() {
+        // TODO call to server here...
+        const end = this.items.length >= 6 ? 6 : this.items.length;
+        this.bestViewItems = this.items.slice(0, end);
+        console.log('list bestViewItems: ', this.bestViewItems);
+    }
     onSuccess(res: any) {
         this.items = res.body;
         console.log('list item: ', this.items);
@@ -131,6 +138,7 @@ export class ListItemComponent implements OnInit, OnDestroy {
         this.comboItemCount = new Array(count);
         this.total = parseInt(res.headers.get('x-total-count'), 10);
         this.doneLoad = true;
+        this.loadBestViewItem();
         // window.scroll(0, 0);
     }
 

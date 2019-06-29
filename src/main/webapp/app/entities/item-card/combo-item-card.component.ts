@@ -38,7 +38,7 @@ export class ComboItemCardComponent implements OnInit {
             this.items.push(this.item_3);
         }
         console.log('array result: ', this.items);
-        this.loadImages();
+        // this.loadImages();
     }
 
     loadImages() {

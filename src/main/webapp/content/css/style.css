@@ -711,6 +711,12 @@ ul.place li.by {
     font-weight: 600;
     padding: 0 0 0.5em;
 }
+.content-bottom-grid h5 {
+    color: #7db122;
+    /*font-size: 1.4em;*/
+    font-weight: 600;
+    padding: 0 0 0.5em;
+}
 .latest-grid {
     background: #f9f9f9;
     border-radius: 5px;

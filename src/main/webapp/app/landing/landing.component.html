@@ -1,16 +1,15 @@
 <div class="container">
-    <div class="header" id="home">
-        <div class="header-para">
-            <a [routerLink]="['/item/new']">Add new item...</a>
-        </div>
-        <ul class="header-in">
-            <li><a href="account.html">MY ACCOUNT</a> </li>
-            <li ><a href="contact.html" > CONTACT US</a></li>
-        </ul>
-        <div class="clearfix"> </div>
-    </div>
-    <!---->
-    <div class="header-top">
+<!--    <div class="header" id="home">-->
+<!--        <div class="header-para">-->
+<!--            <a [routerLink]="['/item/new']">Add new item...</a>-->
+<!--        </div>-->
+<!--        <ul class="header-in">-->
+<!--            <li><a href="account.html">MY ACCOUNT</a> </li>-->
+<!--            <li ><a href="contact.html" > CONTACT US</a></li>-->
+<!--        </ul>-->
+<!--        <div class="clearfix"> </div>-->
+<!--    </div>-->
+    <div class="header-top" id="headerTop">
         <div class="logo">
             <a href="index.html"><img src="../../content/images/logo.png" alt="" ></a>
         </div>
@@ -224,59 +223,60 @@
             </ul>
         </div>
         <div class="cart icon1 sub-icon1">
-            <h6 >Shopping Cart:
-                <span class="item">3 items</span>
-                <span class="rate">70$</span>
-                <li><a href="#" class="round"> </a>
-                    <ul class="sub-icon1 list">
-                        <h3>Recently added items(3)</h3>
-                        <div class="shopping_cart">
-                            <div class="cart_box">
-                                <div class="message">
-                                    <div class="alert-close"> </div>
-                                    <div class="list_img"><img src="../../content/images/si.jpg" class="img-responsive" alt=""></div>
-                                    <div class="list_desc"><h4><a href="#">velit esse molestie</a></h4>
+            <a style="color: rgba(67,171,60,0.74);" [routerLink]="['/item/new']">Đăng mặt hàng để bán...</a>
+<!--            <h6 >Shopping Cart:-->
+<!--                <span class="item">3 items</span>-->
+<!--                <span class="rate">70$</span>-->
+<!--                <li><a href="#" class="round"> </a>-->
+<!--                    <ul class="sub-icon1 list">-->
+<!--                        <h3>Recently added items(3)</h3>-->
+<!--                        <div class="shopping_cart">-->
+<!--                            <div class="cart_box">-->
+<!--                                <div class="message">-->
+<!--                                    <div class="alert-close"> </div>-->
+<!--                                    <div class="list_img"><img src="../../content/images/si.jpg" class="img-responsive" alt=""></div>-->
+<!--                                    <div class="list_desc"><h4><a href="#">velit esse molestie</a></h4>-->
 
-                                        <a href="#" class="offer">1 offer applied</a>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                            <div class="cart_box">
-                                <div class="message1">
-                                    <div class="alert-close1"> </div>
-                                    <div class="list_img"><img src="../../content/images/si1.jpg" class="img-responsive" alt=""></div>
-                                    <div class="list_desc"><h4><a href="#">velit esse molestie</a></h4>
+<!--                                        <a href="#" class="offer">1 offer applied</a>-->
+<!--                                    </div>-->
+<!--                                    <div class="clearfix"></div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="cart_box">-->
+<!--                                <div class="message1">-->
+<!--                                    <div class="alert-close1"> </div>-->
+<!--                                    <div class="list_img"><img src="../../content/images/si1.jpg" class="img-responsive" alt=""></div>-->
+<!--                                    <div class="list_desc"><h4><a href="#">velit esse molestie</a></h4>-->
 
-                                        <a href="#" class="offer">1 offer applied</a>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                            <div class="cart_box">
-                                <div class="message2">
-                                    <div class="alert-close2"> </div>
-                                    <div class="list_img"><img src="../../content/images/si.jpg" class="img-responsive" alt=""></div>
-                                    <div class="list_desc"><h4><a href="#">velit esse molestie</a></h4>
+<!--                                        <a href="#" class="offer">1 offer applied</a>-->
+<!--                                    </div>-->
+<!--                                    <div class="clearfix"></div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="cart_box">-->
+<!--                                <div class="message2">-->
+<!--                                    <div class="alert-close2"> </div>-->
+<!--                                    <div class="list_img"><img src="../../content/images/si.jpg" class="img-responsive" alt=""></div>-->
+<!--                                    <div class="list_desc"><h4><a href="#">velit esse molestie</a></h4>-->
 
-                                        <a href="#" class="offer">1 offer applied</a>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="check_button"><a href="cart.html">View Cart</a></div>
-                        <div class="clearfix"></div>
-                    </ul>
-                </li>
-            </h6>
+<!--                                        <a href="#" class="offer">1 offer applied</a>-->
+<!--                                    </div>-->
+<!--                                    <div class="clearfix"></div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="check_button"><a href="cart.html">View Cart</a></div>-->
+<!--                        <div class="clearfix"></div>-->
+<!--                    </ul>-->
+<!--                </li>-->
+<!--            </h6>-->
 
         </div>
         <div class="clearfix"> </div>
     </div>
-    <div class="page">
-        <h6><a href="#">Page Title</a><b>|</b>Page description The quick, brown <span class="for">fox jumps over a lazy dog. DJs flock by when TV ax quiz prog.</span></h6>
-    </div>
+<!--    <div class="page">-->
+<!--        <h6><a href="#">Page Title</a><b>|</b>Page description The quick, brown <span class="for">fox jumps over a lazy dog. DJs flock by when TV ax quiz prog.</span></h6>-->
+<!--    </div>-->
     <div class="content">
 
         <div class="col-md-9">
@@ -288,7 +288,7 @@
                 </div>
             </div>
             <div class="content-bottom">
-                <h3>Featured products</h3>
+                <h3>Mặt hàng mới đăng</h3>
                 <div *ngIf="doneLoad">
                     <jhi-combo-item-card *ngFor="let combo of comboItemCount; let idx = index"
                                          [item_1]="items[idx * 3]"
@@ -310,7 +310,7 @@
 
         <div class="col-md-3 col-md">
             <div class=" possible-about">
-                <h4>Sort Products</h4>
+                <h4>Lọc kết quả</h4>
                 <div class="tab1">
                     <ul class="place">
 
@@ -481,88 +481,47 @@
 
             </div>
             <div class="content-bottom-grid">
-                <h3>Best Sellers</h3>
-                <div class="latest-grid">
+                <h5>Mặt hàng xem nhiều nhất</h5>
+                <div class="latest-grid" *ngFor="let item of bestViewItems">
                     <div class="news">
-                        <a href="single.html"><img class="img-responsive" src="../../content/images/si.jpg" title="name" alt=""></a>
+                        <a>
+                            <img style="width: 57px; height: 56px" class="img-responsive" src="http://localhost:8888/{{ item.images[0].name }}" title="name" alt="">
+                        </a>
                     </div>
                     <div class="news-in">
-                        <h6><a href="single.html">Product name here</a></h6>
-                        <p>Description Lorem ipsum </p>
+                        <h6><a href="single.html">{{item.name}}</a></h6>
+                        <p>{{item.desc}}</p>
                         <ul>
-                            <li>Price: <span>$110</span> </li><b>|</b>
-                            <li>Country: <span>US</span></li>
-                        </ul>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-                <div class="latest-grid">
-                    <div class="news">
-                        <a href="single.html"><img class="img-responsive" src="../../content/images/si1.jpg" title="name" alt=""></a>
-                    </div>
-                    <div class="news-in">
-                        <h6><a href="single.html">Product name here</a></h6>
-                        <p>Description Lorem ipsum </p>
-                        <ul>
-                            <li>Price: <span>$110</span> </li><b>|</b>
-                            <li>Country: <span>US</span></li>
-                        </ul>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-                <div class="latest-grid">
-                    <div class="news">
-                        <a href="single.html"><img class="img-responsive" src="../../content/images/si.jpg" title="name" alt=""></a>
-                    </div>
-                    <div class="news-in">
-                        <h6><a href="single.html">Product name here</a></h6>
-                        <p>Description Lorem ipsum</p>
-                        <ul>
-                            <li>Price: <span>$110</span> </li><b>|</b>
-                            <li>Country: <span>US</span></li>
-                        </ul>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
-                <div class="latest-grid">
-                    <div class="news">
-                        <a href="single.html"><img class="img-responsive" src="../../content/images/si1.jpg" title="name" alt=""></a>
-                    </div>
-                    <div class="news-in">
-                        <h6><a href="single.html">Product name here</a></h6>
-                        <p>Description Lorem ipsum </p>
-                        <ul>
-                            <li>Price: <span>$110</span> </li><b>|</b>
-                            <li>Country: <span>US</span></li>
+                            <li>Price: <span>${{item.price}}</span> </li>
                         </ul>
                     </div>
                     <div class="clearfix"> </div>
                 </div>
             </div>
             <!---->
-            <div class="money">
-                <h3>Payment Options</h3>
-                <ul class="money-in">
-                    <li><a href="single.html"><img class="img-responsive" src="../../content/images/p1.png" title="name" alt=""></a></li>
-                    <li><a href="single.html"><img class="img-responsive" src="../../content/images/p2.png" title="name" alt=""></a></li>
-                    <li><a href="single.html"><img class="img-responsive" src="../../content/images/p3.png" title="name" alt=""></a></li>
-                    <li><a href="single.html"><img class="img-responsive" src="../../content/images/p4.png" title="name" alt=""></a></li>
-                    <li><a href="single.html"><img class="img-responsive" src="../../content/images/p5.png" title="name" alt=""></a></li>
-                    <li><a href="single.html"><img class="img-responsive" src="../../content/images/p6.png" title="name" alt=""></a></li>
-                    <li><a href="single.html"><img class="img-responsive" src="../../content/images/p1.png" title="name" alt=""></a></li>
-                    <li><a href="single.html"><img class="img-responsive" src="../../content/images/p4.png" title="name" alt=""></a></li>
-                    <li><a href="single.html"><img class="img-responsive" src="../../content/images/p2.png" title="name" alt=""></a></li>
+<!--            <div class="money">-->
+<!--                <h3>Payment Options</h3>-->
+<!--                <ul class="money-in">-->
+<!--                    <li><a href="single.html"><img class="img-responsive" src="../../content/images/p1.png" title="name" alt=""></a></li>-->
+<!--                    <li><a href="single.html"><img class="img-responsive" src="../../content/images/p2.png" title="name" alt=""></a></li>-->
+<!--                    <li><a href="single.html"><img class="img-responsive" src="../../content/images/p3.png" title="name" alt=""></a></li>-->
+<!--                    <li><a href="single.html"><img class="img-responsive" src="../../content/images/p4.png" title="name" alt=""></a></li>-->
+<!--                    <li><a href="single.html"><img class="img-responsive" src="../../content/images/p5.png" title="name" alt=""></a></li>-->
+<!--                    <li><a href="single.html"><img class="img-responsive" src="../../content/images/p6.png" title="name" alt=""></a></li>-->
+<!--                    <li><a href="single.html"><img class="img-responsive" src="../../content/images/p1.png" title="name" alt=""></a></li>-->
+<!--                    <li><a href="single.html"><img class="img-responsive" src="../../content/images/p4.png" title="name" alt=""></a></li>-->
+<!--                    <li><a href="single.html"><img class="img-responsive" src="../../content/images/p2.png" title="name" alt=""></a></li>-->
 
-                </ul>
-            </div>
+<!--                </ul>-->
+<!--            </div>-->
         </div>
         <div class="clearfix"> </div>
     </div>
     <!---->
     <div class="footer">
-        <p class="footer-class">© 2015 Mihstore All Rights Reserved | Template by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+        <p class="footer-class">© MiniMarket.vn </p>
 
-        <a href="#home" class="scroll to-Top" >  GO TO TOP!</a>
+        <a href="#headerTop" class="scroll to-Top" >  Lên đầu trang</a>
         <div class="clearfix"> </div>
     </div>
 </div>

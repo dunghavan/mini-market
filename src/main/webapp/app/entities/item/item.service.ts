@@ -11,7 +11,7 @@ type EntityArrayResponseType = HttpResponse<IItem[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ItemService {
-    private resourceUrl = SERVER_API_URL + 'api/items';
+    private resourceUrl = SERVER_API_URL + 'core/v1/images';
 
     constructor(private http: HttpClient) {}
 
@@ -20,7 +20,7 @@ export class ItemService {
     }
 
     uploadFiles(fd: FormData): Observable<HttpResponse<any>> {
-        const url = SERVER_API_URL + 'api/images-upload';
+        const url = this.resourceUrl + '/upload';
         console.log('post form data: ', fd.get('file'));
         return this.http.post<any>(url, fd, { observe: 'response' });
     }

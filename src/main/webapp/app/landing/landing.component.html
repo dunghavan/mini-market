@@ -289,19 +289,22 @@
             </div>
             <div class="content-bottom">
                 <h3>Featured products</h3>
-                <jhi-combo-item-card *ngFor="let combo of comboItemCount; let idx = index"
-                                     [item_1]="items[idx * 3]"
-                [item_2]="items[idx * 3 + 1]"
-                [item_3]="items[idx * 3 + 2]">
-                </jhi-combo-item-card>
+                <div *ngIf="doneLoad">
+                    <jhi-combo-item-card *ngFor="let combo of comboItemCount; let idx = index"
+                                         [item_1]="items[idx * 3]"
+                                         [item_2]="items[idx * 3 + 1]"
+                                         [item_3]="items[idx * 3 + 2]">
+                    </jhi-combo-item-card>
+                </div>
             </div>
             <ul class="start">
-                <li><span>1</span></li>
-                <li class="arrow"><a href="#">2</a></li>
-                <li class="arrow"><a href="#">3</a></li>
-                <li class="arrow"><a href="#">4</a></li>
-                <li class="arrow"><a href="#">5</a></li>
-                <li class="arrow"><a href="#">6</a></li>
+                <div class="bl-foot fix-bottom" *ngIf="items && items.length > 0">
+                    <div class="txt-pag text-center">Đang xem {{items ? items.length : 0}} trong số {{total}} kết quả</div>
+                    <ul class="pagination justify-content-center">
+                        <ngb-pagination [collectionSize]="total" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)">
+                        </ngb-pagination>
+                    </ul>
+                </div>
             </ul>
         </div>
 

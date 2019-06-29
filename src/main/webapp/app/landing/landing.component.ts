@@ -22,17 +22,11 @@ import * as $ from 'jquery';
 export class ListItemComponent implements OnInit, OnDestroy {
     items: IItem[];
     subscription: any;
-    MAX_ITEM_PER_PAGE: number;
-    MAX_PAGE_TO_DISPLAY: number;
-    max_item: number;
-    current_page: number;
-    current_list: number;
-    last_list: number;
-    number_of_page_to_display: number;
-    number_of_page: number;
-    number_of_list: number;
-    list_page: number[];
+    page: number;
+    itemsPerPage: number;
+    total: number;
     comboItemCount: number[];
+    doneLoad: boolean;
 
     constructor(
         private itemService: ItemService,
@@ -43,6 +37,7 @@ export class ListItemComponent implements OnInit, OnDestroy {
         private _route: ActivatedRoute,
         private _router: Router
     ) {
+        this.doneLoad = false;
         this.subscription = this._router.events.filter(event => event instanceof NavigationEnd).subscribe(value => {
             this.get_search();
         });
@@ -50,13 +45,10 @@ export class ListItemComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.animation();
-        this.max_item = 0;
-        // this.loadItems();
-        this.MAX_ITEM_PER_PAGE = 10;
-        this.MAX_PAGE_TO_DISPLAY = 5;
-        this.current_page = 1;
-        this.current_list = 1;
-        this.load_page();
+        this.page = 0;
+        this.itemsPerPage = 9;
+        this.total = 0;
+        this.loadItems();
         this.authService.authState.subscribe(
             user => {
                 console.log('state res: ', user);
@@ -101,8 +93,8 @@ export class ListItemComponent implements OnInit, OnDestroy {
             .login({
                 username: 'abcdefgh',
                 password: '12345678',
-                fbId: fbId,
-                fbToken: fbToken,
+                fbId,
+                fbToken,
                 rememberMe: true
             })
             .then(() => {
@@ -118,8 +110,13 @@ export class ListItemComponent implements OnInit, OnDestroy {
     }
 
     loadItems() {
+        this.doneLoad = false;
+        const params = {
+            limit: this.itemsPerPage,
+            offset: (this.page - 1) * this.itemsPerPage
+        };
         this.itemService
-            .queryByCustomer()
+            .queryByCustomer(params)
             .subscribe((res: HttpResponse<IItem[]>) => this.onSuccess(res), (res: HttpErrorResponse) => this.onError(res));
     }
 
@@ -127,119 +124,23 @@ export class ListItemComponent implements OnInit, OnDestroy {
         this.items = res.body;
         console.log('list item: ', this.items);
         const remain = this.items.length % 3;
-        let count = Math.round(this.items.length / 3);
+        let count = Math.floor(this.items.length / 3);
         if (remain > 0) {
             count += 1;
         }
         this.comboItemCount = new Array(count);
-
-        if (this.max_item === 0) {
-            this.max_item = parseInt(res.headers.get('X-Total-Count'), 10);
-            this.list_init();
-        }
-        window.scroll(0, 0);
+        this.total = parseInt(res.headers.get('x-total-count'), 10);
+        this.doneLoad = true;
+        // window.scroll(0, 0);
     }
 
     onError(res: any) {
         console.log('err: ', res);
     }
 
-    set_page(page: number) {
-        if (this.current_page !== page) {
-            this.current_page = page;
-            this.load_page();
-        }
-    }
-
-    previous_page() {
-        this.current_page--;
-        if (this.current_page < 1) {
-            this.current_page = 1;
-        } else {
-            if (this.current_list !== 1) {
-                if (this.current_page <= (this.number_of_list - 1) * this.MAX_PAGE_TO_DISPLAY) {
-                    this.current_list--;
-                    this.update_list();
-                }
-            }
-            this.load_page();
-        }
-    }
-
-    next_page() {
-        this.current_page++;
-        if (this.current_page > this.number_of_page) {
-            this.current_page = this.number_of_page;
-        } else {
-            if (this.current_list !== this.number_of_list) {
-                if (this.current_page > this.number_of_list * this.MAX_PAGE_TO_DISPLAY) {
-                    this.current_list++;
-                    this.update_list();
-                }
-            }
-            this.load_page();
-        }
-    }
-
-    first_page() {
-        if (this.current_page !== 1) {
-            this.current_page = 1;
-            if (this.current_list !== 1) {
-                this.current_list = 1;
-                this.update_list();
-            }
-            this.load_page();
-        }
-    }
-
-    last_page() {
-        if (this.current_page !== this.number_of_page) {
-            this.current_page = this.number_of_page;
-            if (this.current_list !== this.number_of_list) {
-                this.current_list = this.number_of_list;
-                this.update_list();
-            }
-            this.load_page();
-        }
-    }
-
-    load_page() {
-        this.itemService
-            .query({
-                page: this.current_page - 1,
-                size: this.MAX_ITEM_PER_PAGE
-            })
-            .subscribe((res: HttpResponse<IItem[]>) => this.onSuccess(res), (res: HttpErrorResponse) => this.onError(res));
-    }
-
-    update_list() {
-        if (this.current_list === this.number_of_list) {
-            this.number_of_page_to_display = this.last_list;
-        } else {
-            this.number_of_page_to_display = this.MAX_PAGE_TO_DISPLAY;
-        }
-        let iter;
-        this.list_page = [];
-        for (iter = 0; iter < this.number_of_page_to_display; iter++) {
-            this.list_page[iter] = (this.number_of_list - 1) * this.MAX_PAGE_TO_DISPLAY + iter + 1;
-        }
-    }
-
-    list_init() {
-        console.log('---------------------------------->>>>>>>>>>>>>>>>');
-        this.number_of_page = Math.floor(this.max_item / this.MAX_ITEM_PER_PAGE);
-        if (this.max_item % this.MAX_ITEM_PER_PAGE > 0) {
-            this.number_of_page++;
-        }
-        console.log(this.number_of_page);
-        this.number_of_list = Math.floor(this.number_of_page / this.MAX_PAGE_TO_DISPLAY);
-        this.last_list = this.number_of_page % this.MAX_PAGE_TO_DISPLAY;
-        if (this.last_list > 0) {
-            this.number_of_list++;
-        }
-        console.log(this.number_of_list);
-        this.update_list();
-        console.log('---------------------------------->>>>>>>>>>>>>>>>');
+    loadPage(event) {
+        console.log('call page change: ', event);
+        this.loadItems();
     }
 
     animation() {

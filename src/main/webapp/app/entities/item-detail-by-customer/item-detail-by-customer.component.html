@@ -1,3 +1,15 @@
+<div id="fb-root"></div>
+<!--<script>-->
+<!--    window.fbAsyncInit = function() {-->
+<!--        FB.init({-->
+<!--            appId            : '2262704483961309',-->
+<!--            autoLogAppEvents : true,-->
+<!--            xfbml            : true,-->
+<!--            version          : 'v3.3'-->
+<!--        });-->
+<!--    };-->
+<!--</script>-->
+<!--<script async defer src="https://connect.facebook.net/vi_VN/sdk.js"></script>-->
 <div class="wrapper">
 <!--    <div class="sidebar" style="background-color: transparent; color: transparent">-->
 <!--        TO DO PUT LEFT CONTENT HERE...-->
@@ -85,7 +97,7 @@
                                     <div class="col-4">
                                         <p>Đăng bởi: </p>
                                     </div>
-                                    <div class="col-8">
+                                    <div class="col-8" *ngIf="item.user">
                                         <p>{{item.user.name}}</p>
                                     </div>
                                 </div>
@@ -112,8 +124,12 @@
                                 <h4 class="card-title">Các bình luận gần đây</h4>
                                 <p class="card-category">Hãy đăng nhập bằng Facebook để có thể bình luận...</p>
                             </div>
-                            <div class="card-body ">
-                                <div id="chartActivity" class="ct-chart"></div>
+                            <div class="card-body">
+<!--                                <div id="chartActivity" class="ct-chart"></div>-->
+                                <div class="fb-comments" data-href="https://minimarket.vn"
+                                     data-width="" data-numposts="5"
+                                        data-order-by="reverse_time">
+                                </div>
                             </div>
                             <div class="card-footer ">
                                 <div class="legend">
@@ -128,7 +144,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="card  card-tasks">
+                        <div class="card  card-tasks" *ngIf="item.user">
                             <div class="card-header ">
                                 <h4 class="card-title">Các mặt hàng khác của {{item.user.name}}</h4>
                                 <p class="card-category"></p>

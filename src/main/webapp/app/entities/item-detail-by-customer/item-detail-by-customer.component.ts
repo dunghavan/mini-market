@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { IItem, Item } from 'app/shared/model/item.model';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { ImageService } from 'app/entities/image';
 import { ItemService } from 'app/entities/item';
 import { Image } from 'app/shared/model/image.model';
+declare var window: any;
 
 @Component({
     selector: 'jhi-item-detail-by-customer',
@@ -20,17 +21,22 @@ import { Image } from 'app/shared/model/image.model';
 export class ItemDetailByCustomerComponent implements OnInit {
     item: IItem;
     displayingImage: Image;
+    currentUrl = '';
     imgErrorSrc = "src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/1024px-No_image_3x4.svg.png'";
     constructor(
         private activatedRoute: ActivatedRoute,
         private imageService: ImageService,
         private route: ActivatedRoute,
-        private itemService: ItemService
+        private itemService: ItemService,
+        private router: Router
     ) {
         this.item = new Item();
+        this.currentUrl = window.location.href;
     }
 
     ngOnInit() {
+        this.initFacebookCommentDiv();
+        window.FB.XFBML.parse();
         console.log('run item detail by customer');
         this.route.params.subscribe(
             params => {
@@ -43,6 +49,13 @@ export class ItemDetailByCustomerComponent implements OnInit {
                 console.log('get item id in params err: ', err);
             }
         );
+    }
+
+    initFacebookCommentDiv() {
+        const fbComment = document.getElementsByClassName('fb-comments');
+        if (fbComment[0]) {
+            fbComment[0].setAttribute('data-href', this.currentUrl);
+        }
     }
 
     getItem(id: number) {

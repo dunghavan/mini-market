@@ -79,6 +79,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- start menu -->
     <script type="text/javascript" src="content/js/megamenu.js"></script>
     <script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
+
+<!--    For Facebook SDK-->
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId            : '2262704483961309',
+                autoLogAppEvents : true,
+                xfbml            : true,
+                version          : 'v3.3'
+            });
+        };
+    </script>
+    <script async defer src="https://connect.facebook.net/vi_VN/sdk.js"></script>
+<!--    <meta property="fb:app_id" content="2262704483961309" />-->
+    <meta property="fb:admins" content="1934642920163043"/>
 </head>
 <body>
     <!--[if lt IE 9]>

@@ -24,16 +24,17 @@ export interface IItem {
     type?: Type;
     phone?: string;
     images?: Image[];
-    user?: user;
+    user?: User;
 }
 
-export class user implements User {
+export class User implements User {
     constructor(
         public activated?: boolean,
         public createdDate?: Date,
         public email?: string,
         public firstName?: string,
-        public lastName?: string
+        public lastName?: string,
+        public name?: string
     ) {}
 }
 
@@ -53,6 +54,6 @@ export class Item implements IItem {
         public type?: Type,
         public phone?: string,
         public images?: Image[],
-        public user?: user
+        public user?: User
     ) {}
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { IItem, user } from 'app/shared/model/item.model';
+import { IItem, User } from 'app/shared/model/item.model';
 import { IImage } from 'app/shared/model/image.model';
 import { ImageService } from 'app/entities/image';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
@@ -13,7 +13,7 @@ import { Router, Routes, RouterModule, ActivatedRoute } from '@angular/router';
 })
 export class ItemDetailComponent implements OnInit {
     item: IItem;
-    user: user;
+    user: User;
     images: IImage[];
     current_image_select: number;
     current_image_url: string;
@@ -35,7 +35,7 @@ export class ItemDetailComponent implements OnInit {
     }
 
     showImage(imgName: string) {
-        var iter;
+        let iter;
         for (iter = 0; iter < this.images.length; iter++) {
             if (this.images[iter].name === imgName) {
                 this.current_image_select = iter;
@@ -72,10 +72,10 @@ export class ItemDetailComponent implements OnInit {
     }
 
     onSuccess(images: IImage[]) {
-        for (var i = 0; i < this.MAX_DISPLAY_IMAGE; i++) {
+        for (let i = 0; i < this.MAX_DISPLAY_IMAGE; i++) {
             this.images[i] = images[i];
         }
-        //this.images = images;
+        // this.images = images;
         console.log('get images success: ', this.images);
         this.number_of_image = this.images.length;
         this.current_image_select = 0;

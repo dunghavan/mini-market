@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { IItem, user } from 'app/shared/model/item.model';
+import { IItem, User } from 'app/shared/model/item.model';
 import { IImage } from 'app/shared/model/image.model';
 import * as $ from 'jquery';
 
@@ -16,7 +16,7 @@ import * as $ from 'jquery';
 })
 export class DetailComponent implements OnInit {
     item: IItem;
-    user: user;
+    user: User;
     images: IImage[];
 
     constructor() {}

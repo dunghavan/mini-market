@@ -29,6 +29,7 @@ import { GoogleLoginProvider, FacebookLoginProvider, LinkedInLoginProvider } fro
 import { MatButtonModule, MatCheckboxModule, MatTableModule, MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MiniMarketItemModule } from 'app/item/item.module';
+import { SuccessDialogComponent } from 'app/shared/dialog/success-dialog.component';
 
 const config = new AuthServiceConfig([
     {
@@ -68,7 +69,16 @@ export function provideConfig() {
 
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
-    declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+    declarations: [
+        JhiMainComponent,
+        NavbarComponent,
+        ErrorComponent,
+        PageRibbonComponent,
+        ActiveMenuDirective,
+        FooterComponent,
+        SuccessDialogComponent
+    ],
+    entryComponents: [SuccessDialogComponent],
     providers: [
         {
             provide: AuthServiceConfig,

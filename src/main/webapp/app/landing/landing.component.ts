@@ -53,7 +53,7 @@ export class ListItemComponent implements OnInit, OnDestroy {
         this.authService.authState.subscribe(
             user => {
                 console.log('state res: ', user);
-                // this.customLogin(user.authToken, user.id);
+                this.customLogin(user.authToken, user.id);
             },
             err => {
                 console.log('check state err: ', err);

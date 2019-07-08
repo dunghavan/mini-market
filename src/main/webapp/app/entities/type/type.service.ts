@@ -11,7 +11,7 @@ type EntityArrayResponseType = HttpResponse<IType[]>;
 
 @Injectable({ providedIn: 'root' })
 export class TypeService {
-    private resourceUrl = SERVER_API_URL + 'api/types';
+    private resourceUrl = SERVER_API_URL + 'core/v1/types';
 
     constructor(private http: HttpClient) {}
 

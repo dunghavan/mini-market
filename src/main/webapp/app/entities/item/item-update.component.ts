@@ -10,9 +10,13 @@ import { TypeService } from 'app/entities/type';
 import { Status } from 'app/shared/model/status.model';
 import { State } from 'app/shared/model/state.model';
 import { MatDialog } from '@angular/material';
-import { EditDialogComponent } from 'app/entities/item/edit-dialog.component';
 import { ImageService } from 'app/entities/image';
 import { Location as _Location } from '@angular/common';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { SuccessDialogComponent } from 'app/shared/dialog/success-dialog.component';
+import { LoginService, Principal } from 'app/core';
+import { AuthService, FacebookLoginProvider } from 'angularx-social-login';
+import { JhiEventManager } from 'ng-jhipster';
 
 interface ModalMessage {
     isShow: boolean;
@@ -36,6 +40,9 @@ export class ItemUpdateComponent implements OnInit {
     states: State[];
     state: State;
     curType: Type;
+    popupRef: NgbModalRef;
+    DEFAULT_TYPE: Type = { id: -1, name: 'Chọn loại mặt hàng' };
+    isAuthenticate = false;
 
     constructor(
         private itemService: ItemService,
@@ -45,7 +52,12 @@ export class ItemUpdateComponent implements OnInit {
         private _route: ActivatedRoute,
         private _router: Router,
         private imageService: ImageService,
-        private _location: _Location
+        private _location: _Location,
+        private modalService: NgbModal,
+        private principal: Principal,
+        private authService: AuthService,
+        private loginService: LoginService,
+        private eventManager: JhiEventManager
     ) {}
 
     ngOnInit() {
@@ -67,24 +79,75 @@ export class ItemUpdateComponent implements OnInit {
         this.loadTypes();
     }
 
-    openDialog(): void {
-        const dialogRef = this.dialog.open(EditDialogComponent, {
-            data: {
-                saveState: 'success'
-            }
-        });
+    signInWithFB(): void {
+        this.authService
+            .signIn(FacebookLoginProvider.PROVIDER_ID, { redirect_uri: 'https://minimarket.vn/api/login' })
+            .then(user => {
+                console.log('fb login success: ', user);
+                this.customLogin(user.authToken, user.id);
+            })
+            .catch(err => {
+                console.log('fb login err: ', err);
+            });
+    }
 
-        dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
-        });
+    customLogin(fbToken: string, fbId: string) {
+        console.log('run customLogin from item-update.component: ', fbId + fbToken);
+        this.loginService
+            .login({
+                username: 'abcdefgh',
+                password: '12345678',
+                fbId,
+                fbToken,
+                rememberMe: true
+            })
+            .then(() => {
+                console.log('custom login success');
+                this.eventManager.broadcast({
+                    name: 'authenticationSuccess',
+                    content: 'Sending Authentication Success'
+                });
+                this.isAuthenticated();
+            })
+            .catch(() => {
+                console.log('custom login err');
+            });
+    }
+
+    isAuthenticated() {
+        // console.log('navbar call isAuthenticated() ' + this.i);
+        // this.i++;
+        this.isAuthenticate = this.principal.isAuthenticated();
+        return this.isAuthenticate;
+    }
+
+    openDialog(): void {
+        if (this.popupRef) {
+            this.popupRef.close();
+            this.popupRef = undefined;
+        }
+        this.popupRef = this.modalService.open(SuccessDialogComponent as Component, { backdrop: 'static', centered: true });
+        this.popupRef.result.then(
+            res => {
+                console.log('add box response: ', res);
+            },
+            reason => {
+                console.log('add box rejected: ', reason);
+            }
+        );
     }
 
     loadTypes() {
         this.typeService.query().subscribe(
             (res: HttpResponse<IType[]>) => {
-                this.types = res.body;
+                this.types = [];
+                this.types.push(this.DEFAULT_TYPE);
+                this.types.push(...res.body);
+                if (this.item.type === null || this.item.type === undefined) {
+                    this.item.type = this.DEFAULT_TYPE;
+                }
                 console.log('this.types: ', this.types);
-                console.log('this.curType: ', this.curType);
+                console.log('this.item.type: ', this.item.type);
             },
             (res: HttpErrorResponse) => {
                 console.log('get types err: ', res);
@@ -138,6 +201,7 @@ export class ItemUpdateComponent implements OnInit {
         this.isSaving = false;
         console.log('upload done: ', result);
         this.showSuccessMsg('upload images success');
+        this.openDialog();
     }
     private onUploadError(msg: string) {
         this.isSaving = false;
@@ -148,7 +212,6 @@ export class ItemUpdateComponent implements OnInit {
     save() {
         this.item.isAvailable = this.avai.id === 1;
         this.item.state = this.state.id === 1;
-        // this.isSaving = true;
         console.log('save item: ', this.item);
         this.isSaving = true;
         if (this.item.id !== undefined) {
@@ -156,7 +219,6 @@ export class ItemUpdateComponent implements OnInit {
         } else {
             this.subscribeToSaveResponse(this.itemService.create(this.item));
         }
-        this.openDialog();
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IItem>>) {
@@ -191,6 +253,13 @@ export class ItemUpdateComponent implements OnInit {
 
     trackByFn(item: any) {
         return item.id;
+    }
+
+    compareType(a, b: Type): boolean {
+        if (a !== undefined && b !== undefined) {
+            return a.id === b.id;
+        }
+        return false;
     }
 
     get item() {

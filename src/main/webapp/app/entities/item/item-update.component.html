@@ -1,20 +1,25 @@
 <div>
     <div class="row justify-content-center background">
-        <div class="col-8">
+        <div class="col-8" *ngIf="isAuthenticate; then LoggedIn; else notLogin;"></div>
+        <ng-template #notLogin>
+            <div class="mt-5">
+                <p>Bạn cần đăng nhập tài khoản <a (click)="signInWithFB()">Facebook</a> để có thể đăng bán mặt hàng.</p>
+            </div>
+        </ng-template>
+        <ng-template #LoggedIn>
             <div class="screen">
-                <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-                    <h2 id="jhi-item-heading" jhiTranslate="miniMarketApp.item.home.createOrEditLabel">Create or edit a Item</h2>
+                <form name="editForm" role="form" novalidate (ngSubmit)="save()">
+                    <h2 id="jhi-item-heading">Thêm mới mặt hàng:</h2>
                     <div>
-                        <jhi-alert-error></jhi-alert-error>
-
+<!--                        <jhi-alert-error></jhi-alert-error>-->
                         <div class="row">
                             <div class="form-group col-8">
-                                <label class="form-control-label" jhiTranslate="miniMarketApp.item.name" for="field_name">Name</label>
+                                <label class="form-control-label" for="field_name">Tên mặt hàng:</label>
                                 <input type="text" class="form-control" name="name" id="field_name"
                                        [(ngModel)]="item.name" />
                             </div>
-                            <div class="form-group col-4" [hidden]="!item.id">
-                                <label for="id" jhiTranslate="global.field.id">Mã mặt hàng</label>
+                            <div class="form-group col-4" *ngIf="item.id">
+                                <label for="id">Mã mặt hàng:</label>
                                 <input type="text" class="form-control" id="id" name="id"
                                        [(ngModel)]="item.id" readonly />
                             </div>
@@ -22,18 +27,18 @@
 
                         <div class="row">
                             <div class="form-group col-4">
-                                <label for="field_type">Loại mặt hàng</label>
-                                <select class="form-control" name="type" [(ngModel)]="curType" id="field_type">
+                                <label for="field_type">Loại mặt hàng:</label>
+                                <select class="form-control" name="type" [(ngModel)]="item.type" id="field_type" [compareWith]="compareType">
                                     <option *ngFor="let type of types; trackBy: trackByFn" [ngValue]="type">{{type.name}}</option>
                                 </select>
                             </div>
                             <div class="form-group col-4">
-                                <label class="form-control-label" jhiTranslate="miniMarketApp.item.price" for="field_price">Price</label>
+                                <label class="form-control-label" for="field_price">Giá bán:</label>
                                 <input type="number" class="form-control" name="price" id="field_price"
                                        [(ngModel)]="item.price" />
                             </div>
                             <div class="form-group col-3">
-                                <label class="form-control-label" for="field_status">Trạng thái</label>
+                                <label class="form-control-label" for="field_status">Trạng thái:</label>
                                 <select class="form-control" name="stat" [(ngModel)]="avai" id="field_status">
                                     <option *ngFor="let s of avais; trackBy: trackByFn" [ngValue]="s">{{s.displayName}}</option>
                                 </select>
@@ -44,7 +49,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <h5><label class="form-control-label">Tải lên hình ảnh</label></h5>
+                                        <h5><label class="form-control-label">Tải lên hình ảnh:</label></h5>
                                     </div>
                                     <div *ngIf="files && files.length !== 0">
                                         <div class="row mt-2">
@@ -72,13 +77,13 @@
 
                         <div class="row">
                             <div class="form-group mt-5 col-3">
-                                <label class="form-control-label" for="field_state">Tình trạng</label>
+                                <label class="form-control-label" for="field_state">Tình trạng:</label>
                                 <select class="form-control" name="state" [(ngModel)]="state" id="field_state">
                                     <option *ngFor="let s of states; trackBy: trackByFn" [ngValue]="s">{{s.displayName}}</option>
                                 </select>
                             </div>
                             <div class="form-group mt-5 col-8">
-                                <label class="form-control-label" jhiTranslate="miniMarketApp.item.desc" for="field_desc">Desc</label>
+                                <label class="form-control-label" for="field_desc">Mô tả:</label>
                                 <textarea rows="4" class="form-control" cols="100" name="desc" id="field_desc" placeholder="Mô tả mặt hàng..." [(ngModel)]="item.desc">
                                 </textarea><br>
                             </div>
@@ -88,26 +93,26 @@
                         <!--<img src="http://localhost:8888/{{myImage}}" width="200px" height="200px">-->
                         <div class="row">
                             <div class="form-group col-8">
-                                <label class="form-control-label" for="field_deliveryWay">Cách thức giao hàng</label>
+                                <label class="form-control-label" for="field_deliveryWay">Cách thức giao hàng:</label>
                                 <textarea type="text" rows="2" class="form-control" name="status" id="field_deliveryWay"
                                        [(ngModel)]="item.deliveryWay">
                                 </textarea>
                             </div>
                             <div class="form-group col-4">
-                                <label class="form-control-label" for="field_phone">SDT liên hệ</label>
+                                <label class="form-control-label" for="field_phone">SDT liên hệ:</label>
                                 <input type="text" class="form-control" name="phone" id="field_phone"
                                           [(ngModel)]="item.phone"/>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-8">
-                                <label class="form-control-label" for="field_address">Địa chỉ</label>
+                                <label class="form-control-label" for="field_address">Địa chỉ:</label>
                                 <textarea type="text" rows="3" class="form-control" name="note" id="field_address"
                                           [(ngModel)]="item.address">
                                 </textarea>
                             </div>
                             <div class="form-group col-4">
-                                <label class="form-control-label" jhiTranslate="miniMarketApp.item.note" for="field_note">Note</label>
+                                <label class="form-control-label" for="field_note">Ghi chú:</label>
                                 <textarea type="text" rows="3" class="form-control" name="note" id="field_note" [(ngModel)]="item.note">
                                 </textarea><br>
                             </div>
@@ -119,15 +124,15 @@
                         <p *ngIf="successMessage.isShow" style="color: green;">{{ successMessage.msg }}</p>
                     </div>
                     <div>
-                        <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="backToPreviousPage()">
-                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="backToPreviousPage()">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Hủy</span>
                         </button>
-                        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                        <button type="submit" id="save-entity" [disabled]="isSaving" class="btn btn-primary">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Lưu</span>
                         </button>
                     </div>
                 </form>
             </div>
-        </div>
+        </ng-template>
     </div>
 </div>

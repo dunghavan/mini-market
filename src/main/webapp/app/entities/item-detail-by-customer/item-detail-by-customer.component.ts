@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { IItem, Item } from 'app/shared/model/item.model';
@@ -18,7 +18,7 @@ declare var window: any;
         '../../assets/css/fonts.googleapis.com.css?family=Montserrat:400,700,200'
     ]
 })
-export class ItemDetailByCustomerComponent implements OnInit {
+export class ItemDetailByCustomerComponent implements OnInit, AfterViewInit {
     item: IItem;
     displayingImage: Image;
     currentUrl = '';
@@ -35,8 +35,6 @@ export class ItemDetailByCustomerComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.initFacebookCommentDiv();
-        window.FB.XFBML.parse();
         console.log('run item detail by customer');
         this.route.params.subscribe(
             params => {
@@ -51,6 +49,15 @@ export class ItemDetailByCustomerComponent implements OnInit {
         );
     }
 
+    ngAfterViewInit(): void {
+        this.initFacebookCommentDiv();
+        if (window === undefined) {
+            console.log('--------------------------------------------window is undefined!');
+        } else {
+            window.FB.XFBML.parse();
+        }
+    }
+
     initFacebookCommentDiv() {
         const fbComment = document.getElementsByClassName('fb-comments');
         if (fbComment[0]) {
@@ -58,11 +65,19 @@ export class ItemDetailByCustomerComponent implements OnInit {
         }
     }
 
+    createFacebookAdmin(fbId: string) {
+        const link = document.createElement('meta');
+        link.setAttribute('property', 'fb:admins');
+        link.content = fbId;
+        document.getElementsByTagName('head')[0].appendChild(link);
+    }
+
     getItem(id: number) {
         this.itemService.find(id).subscribe(
             (res: HttpResponse<IItem>) => {
                 this.item = res.body;
                 console.log('this.item: ', this.item);
+                this.createFacebookAdmin(this.item.user.facebookId);
                 this.viewImage();
             },
             (err: HttpErrorResponse) => {

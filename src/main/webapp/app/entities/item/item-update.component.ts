@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, Routes, RouterModule, ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { IItem } from 'app/shared/model/item.model';
 import { ItemService } from './item.service';
@@ -43,6 +43,7 @@ export class ItemUpdateComponent implements OnInit {
     popupRef: NgbModalRef;
     DEFAULT_TYPE: Type = { id: -1, name: 'Chọn loại mặt hàng' };
     isAuthenticate = false;
+    eventSubscriber: Subscription;
 
     constructor(
         private itemService: ItemService,
@@ -61,6 +62,9 @@ export class ItemUpdateComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.isAuthenticated();
+        this.registerAuthenticationSuccess();
+        console.log('this.isAuthenticate: ', this.isAuthenticate);
         this.errorMessage = { isShow: false, msg: '' };
         this.successMessage = { isShow: false, msg: '' };
         this.isSaving = false;
@@ -77,6 +81,12 @@ export class ItemUpdateComponent implements OnInit {
         this.states = State.getStates();
         this.state = this.item.state ? this.states[0] : this.states[1];
         this.loadTypes();
+    }
+    registerAuthenticationSuccess() {
+        console.log('handle event login success');
+        this.eventSubscriber = this.eventManager.subscribe('authenticationSuccess', message => {
+            this.isAuthenticated();
+        });
     }
 
     signInWithFB(): void {

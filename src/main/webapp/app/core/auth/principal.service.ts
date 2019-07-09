@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { AccountService } from './account.service';
+import { JhiEventManager } from 'ng-jhipster';
 
 @Injectable({ providedIn: 'root' })
 export class Principal {
@@ -8,7 +9,7 @@ export class Principal {
     private authenticated = false;
     private authenticationState = new Subject<any>();
 
-    constructor(private account: AccountService) {}
+    constructor(private account: AccountService, private eventManager: JhiEventManager) {}
 
     authenticate(identity) {
         this.userIdentity = identity;
@@ -50,6 +51,7 @@ export class Principal {
     }
 
     identity(force?: boolean): Promise<any> {
+        console.log('Run identity() with force = ', force);
         if (force === true) {
             this.userIdentity = undefined;
         }
@@ -69,6 +71,11 @@ export class Principal {
                 if (account) {
                     this.userIdentity = account;
                     this.authenticated = true;
+                    // broadcast event
+                    this.eventManager.broadcast({
+                        name: 'authenticationSuccess',
+                        content: 'Sending Authentication Success'
+                    });
                 } else {
                     this.userIdentity = null;
                     this.authenticated = false;

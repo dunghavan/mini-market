@@ -3,7 +3,7 @@ import { Router, Routes, RouterModule, ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 
-import { IItem } from 'app/shared/model/item.model';
+import { IItem, Item } from 'app/shared/model/item.model';
 import { ItemService } from './item.service';
 import { IType, Type } from 'app/shared/model/type.model';
 import { TypeService } from 'app/entities/type';
@@ -44,6 +44,8 @@ export class ItemUpdateComponent implements OnInit {
     DEFAULT_TYPE: Type = { id: -1, name: 'Chọn loại mặt hàng' };
     isAuthenticate = false;
     eventSubscriber: Subscription;
+    isEmptyName = false;
+    isEmptyImage = false;
 
     constructor(
         private itemService: ItemService,
@@ -68,14 +70,19 @@ export class ItemUpdateComponent implements OnInit {
         this.errorMessage = { isShow: false, msg: '' };
         this.successMessage = { isShow: false, msg: '' };
         this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ item }) => {
-            this.item = item;
-            // this.curType = this.item.type;
-            // console.log('this.curType: ', this.curType);
-        });
+        this.activatedRoute.data.subscribe(
+            ({ item }) => {
+                this.item = item;
+                // this.curType = this.item.type;
+                // console.log('this.curType: ', this.curType);
+            },
+            err => {
+                this.item = new Item();
+                console.log('this.item after init: ', this.item);
+            }
+        );
         this.types = [];
         this.curType = { id: 3, name: 'Ao', desc: null };
-        console.log('this.item: ', this.item);
         this.avais = Status.getStatus();
         this.avai = this.item.isAvailable ? this.avais[0] : this.avais[1];
         this.states = State.getStates();
@@ -219,12 +226,37 @@ export class ItemUpdateComponent implements OnInit {
         this.showErrorMsg('upload images failed');
     }
 
+    clearErrors() {
+        this.isEmptyName = false;
+        this.isEmptyImage = false;
+    }
+
+    validateData(): boolean {
+        if (this.item.name.length === 0) {
+            this.isEmptyName = true;
+            console.log('name of item is empty!');
+            return false;
+        }
+        if (this.files === undefined || this.files.length === 0) {
+            this.isEmptyImage = true;
+            return false;
+        }
+        return true;
+    }
+
     save() {
+        this.clearErrors();
+        if (!this.validateData()) {
+            setTimeout(() => {
+                this.clearErrors();
+            }, 5000);
+            return;
+        }
         this.item.isAvailable = this.avai.id === 1;
         this.item.state = this.state.id === 1;
         console.log('save item: ', this.item);
         this.isSaving = true;
-        if (this.item.id !== undefined) {
+        if (this.item.id !== undefined && this.item.id !== 0) {
             this.subscribeToSaveResponse(this.itemService.update(this.item));
         } else {
             this.subscribeToSaveResponse(this.itemService.create(this.item));

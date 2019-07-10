@@ -17,6 +17,9 @@
                                 <label class="form-control-label" for="field_name">Tên mặt hàng:</label>
                                 <input type="text" class="form-control" name="name" id="field_name"
                                        [(ngModel)]="item.name" />
+                                <div *ngIf="isEmptyName" style="color: red">
+                                    Hãy nhập tên mặt hàng
+                                </div>
                             </div>
                             <div class="form-group col-4" *ngIf="item.id">
                                 <label for="id">Mã mặt hàng:</label>
@@ -71,6 +74,9 @@
                                     <!--</button>-->
                                     <!--</div>-->
                                     <!--</div>-->
+                                    <div *ngIf="isEmptyImage" style="color: red">
+                                        Hãy chọn ít nhất 1 hình ảnh để upload!
+                                    </div>
                                 </div>
                             </div>
                         </div>

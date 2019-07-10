@@ -56,5 +56,18 @@ export class Item implements IItem {
         public phone?: string,
         public images?: Image[],
         public user?: User
-    ) {}
+    ) {
+        this.id = 0;
+        this.name = '';
+        this.desc = '';
+        this.price = 0;
+        this.isAvailable = false;
+        this.note = '';
+        this.state = false;
+        this.deliveryWay = '';
+        this.address = '';
+        this.createdDate = new Date();
+        this.lastModifiedDate = new Date();
+        this.phone = '';
+    }
 }

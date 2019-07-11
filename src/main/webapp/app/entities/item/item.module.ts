@@ -19,6 +19,7 @@ import { EditDialogComponent } from 'app/entities/item/edit-dialog.component';
 import { DeleteDialogComponent } from 'app/entities/item/delete-dialog.component';
 import { ItemDetailByCustomerComponent } from 'app/entities/item-detail-by-customer/item-detail-by-customer.component';
 import { ComboItemCardComponent } from 'app/entities/item-card/combo-item-card.component';
+import { MyItemComponent } from 'app/entities/item/my-item.component';
 
 const ENTITY_STATES = [...itemRoute, ...itemPopupRoute];
 
@@ -36,7 +37,8 @@ const ENTITY_STATES = [...itemRoute, ...itemPopupRoute];
         EditDialogComponent,
         DeleteDialogComponent,
         ItemDetailByCustomerComponent,
-        ComboItemCardComponent
+        ComboItemCardComponent,
+        MyItemComponent
     ],
     entryComponents: [
         ItemComponent,

@@ -133,6 +133,12 @@
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu>
                     <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="my-item" routerLinkActive="active" (click)="collapseNavbar()">
+                            <fa-icon [icon]="'wrench'" [fixedWidth]="true"></fa-icon>
+                            <span>Mặt hàng của tôi</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true">
                         <a class="dropdown-item" routerLink="settings" routerLinkActive="active" (click)="collapseNavbar()">
                             <fa-icon [icon]="'wrench'" [fixedWidth]="true"></fa-icon>
                             <span jhiTranslate="global.menu.account.settings">Settings</span>

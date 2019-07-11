@@ -13,6 +13,7 @@ import { ItemUpdateComponent } from './item-update.component';
 import { ItemDeletePopupComponent } from './item-delete-dialog.component';
 import { IItem } from 'app/shared/model/item.model';
 import { ItemDetailByCustomerComponent } from 'app/entities/item-detail-by-customer/item-detail-by-customer.component';
+import { MyItemComponent } from 'app/entities/item/my-item.component';
 
 @Injectable({ providedIn: 'root' })
 export class ItemResolve implements Resolve<IItem> {
@@ -40,6 +41,19 @@ export const itemRoute: Routes = [
             pageTitle: 'miniMarketApp.item.home.title'
         },
         canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'my-item',
+        component: MyItemComponent,
+        resolve: {
+            pagingParams: JhiResolvePagingParams
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            defaultSort: 'id,asc',
+            pageTitle: 'miniMarketApp.item.home.title'
+        }
+        // canActivate: [UserRouteAccessService]
     },
     {
         path: 'item/:id/view',

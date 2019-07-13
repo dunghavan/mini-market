@@ -54,25 +54,12 @@ export class MyItemComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        if (this.currentSearch) {
-            this.itemService
-                .queryByCustomer({
-                    page: this.page - 1,
-                    query: this.currentSearch,
-                    size: this.itemsPerPage,
-                    sort: this.sort()
-                })
-                .subscribe(
-                    (res: HttpResponse<IItem[]>) => this.paginateItems(res.body, res.headers),
-                    (res: HttpErrorResponse) => this.onError(res.message)
-                );
-            return;
-        }
         this.itemService
-            .query({
+            .queryByCustomer({
                 page: this.page - 1,
                 size: this.itemsPerPage,
-                sort: this.sort()
+                sortby: 'id',
+                order: 'desc'
             })
             .subscribe(
                 (res: HttpResponse<IItem[]>) => this.paginateItems(res.body, res.headers),
@@ -83,51 +70,13 @@ export class MyItemComponent implements OnInit, OnDestroy {
     loadPage(page: number) {
         if (page !== this.previousPage) {
             this.previousPage = page;
-            this.transition();
+            this.loadAll();
         }
     }
 
-    transition() {
-        this.router.navigate(['/item'], {
-            queryParams: {
-                page: this.page,
-                size: this.itemsPerPage,
-                search: this.currentSearch,
-                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-            }
-        });
-        this.loadAll();
-    }
+    clear() {}
 
-    clear() {
-        this.page = 0;
-        this.currentSearch = '';
-        this.router.navigate([
-            '/item',
-            {
-                page: this.page,
-                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-            }
-        ]);
-        this.loadAll();
-    }
-
-    search(query) {
-        if (!query) {
-            return this.clear();
-        }
-        this.page = 0;
-        this.currentSearch = query;
-        this.router.navigate([
-            '/item',
-            {
-                search: this.currentSearch,
-                page: this.page,
-                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-            }
-        ]);
-        this.loadAll();
-    }
+    search(query) {}
 
     ngOnInit() {
         this.loadAll();
@@ -147,14 +96,6 @@ export class MyItemComponent implements OnInit, OnDestroy {
 
     registerChangeInItems() {
         this.eventSubscriber = this.eventManager.subscribe('itemListModification', response => this.loadAll());
-    }
-
-    sort() {
-        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
-        if (this.predicate !== 'id') {
-            result.push('id');
-        }
-        return result;
     }
 
     private paginateItems(data: IItem[], headers: HttpHeaders) {

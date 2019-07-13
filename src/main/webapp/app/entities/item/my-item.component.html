@@ -13,7 +13,7 @@
         <div class="col-sm-12">
             <form name="searchForm" class="form-inline">
                 <div class="input-group w-100 mt-3">
-                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'miniMarketApp.item.home.search' | translate }}">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch">
                     <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
                         <fa-icon [icon]="'search'"></fa-icon>
                     </button>
@@ -28,23 +28,29 @@
     <div class="table-responsive" *ngIf="items">
         <table class="table table-striped">
             <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="name"><span jhiTranslate="miniMarketApp.item.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="desc"><span jhiTranslate="miniMarketApp.item.desc">Desc</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="price"><span jhiTranslate="miniMarketApp.item.price">Price</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="status"><span jhiTranslate="miniMarketApp.item.status">Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="note"><span jhiTranslate="miniMarketApp.item.note">Note</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                <th><span>#</span></th>
+                <th><span>Tên mặt hàng</span></th>
+                <th><span>Mô tả</span></th>
+                <th><span>Giá</span></th>
+                <th><span>Trạng thái</span></th>
+                <th><span>Tình trạng</span></th>
+                <th><span>Mã mặt hàng</span></th>
+                <th><span>Ghi chú</span></th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let item of items ;trackBy: trackId">
-                <td><a [routerLink]="['/item', item.id, 'view' ]">{{item.id}}</a></td>
+            <tr *ngFor="let item of items; let idx = index; trackBy: trackId">
+                <td>{{(page - 1) * itemsPerPage + idx + 1}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.desc}}</td>
                 <td>{{item.price}}</td>
-                <td>{{item.status}}</td>
+                <td *ngIf="item.state">Mới 100%</td>
+                <td *ngIf="!item.state">Đã qua sử dụng</td>
+                <td *ngIf="item.isAvailable" style="color: #0fa91c">Còn hàng</td>
+                <td *ngIf="!item.isAvailable" style="color: #7d701b">Hết hàng</td>
+                <td>{{item.id}}</td>
                 <td>{{item.note}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
@@ -52,13 +58,13 @@
                                 [routerLink]="['/item', item.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            <span class="d-none d-md-inline">Chi tiết</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/item', item.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            <span class="d-none d-md-inline">Chỉnh sửa</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'item/'+ item.id + '/delete'} }]"
